@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "735732592356",
+    "project_id": "beenthere-26987",
+    "storage_bucket": "beenthere-26987.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735732592356:android:af01deaf2c3f52df11c6f1",
+        "android_client_info": {
+          "package_name": "com.example.beenthere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcZJxre_xELrsjuzxtNEX8z_DpudjpLKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
