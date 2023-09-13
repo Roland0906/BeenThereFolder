@@ -4,7 +4,7 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/icons_36px_home_normal"
-        android:title="Home" />
+        android:title="" />
 
 
 </menu>

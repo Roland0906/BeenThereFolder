@@ -2,6 +2,7 @@ package com.example.beenthere.util
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
+import com.example.beenthere.data.source.BeenThereRemoteDataSource
 
 import com.example.beenthere.data.source.BeenThereRepository
 
@@ -15,22 +16,15 @@ object ServiceLocator {
     var beenThereRepository: BeenThereRepository? = null
         @VisibleForTesting set
 
-//    fun provideTasksRepository(context: Context): BeenThereRepository {
-//        synchronized(this) {
-//            return beenThereRepository
-//                ?: beenThereRepository
-//                ?: createBeenThereRepository(context)
-//        }
-//    }
+    fun provideTasksRepository(context: Context): BeenThereRepository {
+        synchronized(this) {
+            return beenThereRepository
+                ?: createBeenThereRepository(context)
+        }
+    }
 
-//    private fun createBeenThereRepository(context: Context): StylishRepository {
-//        return DefaultStylishRepository(
-//            StylishRemoteDataSource,
-//            createLocalDataSource(context)
-//        )
-//    }
+    private fun createBeenThereRepository(context: Context): BeenThereRepository {
+        return BeenThereRemoteDataSource
+    }
 
-//    private fun createLocalDataSource(context: Context): StylishDataSource {
-//        return StylishLocalDataSource(StylishDatabase.getInstance(context).stylishDatabaseDao)
-//    }
 }

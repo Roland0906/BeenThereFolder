@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentHomeBinding
+import com.example.beenthere.ext.getVmFactory
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -18,9 +20,11 @@ class HomeFragment : Fragment() {
 
     val db = Firebase.firestore
 
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+//    private val viewModel: HomeViewModel by lazy {
+//        ViewModelProvider(this)[HomeViewModel::class.java]
+//    }
+
+    private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

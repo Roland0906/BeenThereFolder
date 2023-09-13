@@ -9,22 +9,22 @@ import com.example.beenthere.factory.ViewModelFactory
  *
  * Extension functions for Fragment.
  */
-//fun Fragment.getVmFactory(): ViewModelFactory {
-////    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
-////    return ViewModelFactory(repository)
-////}
-//
-////fun Fragment.getVmFactory(user: User?): ProfileViewModelFactory {
-////    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
-////    return ProfileViewModelFactory(repository, user)
-////}
-////
-////fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
-////    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
-////    return ProductViewModelFactory(repository, product)
-////}
-////
-////fun Fragment.getVmFactory(catalogType: CatalogTypeFilter): CatalogItemViewModelFactory {
-////    return CatalogItemViewModelFactory(catalogType)
-////}
+fun Fragment.getVmFactory(): ViewModelFactory {
+
+    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
+    return ViewModelFactory(repository)
+}
+
+//fun Fragment.getVmFactory(user: User?): ProfileViewModelFactory {
+//    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
+//    return ProfileViewModelFactory(repository, user)
 //}
+//
+//fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
+//    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
+//    return ProductViewModelFactory(repository, product)
+//}
+//
+//fun Fragment.getVmFactory(catalogType: CatalogTypeFilter): CatalogItemViewModelFactory {
+//    return CatalogItemViewModelFactory(catalogType)
+
