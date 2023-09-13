@@ -91,6 +91,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+
+    implementation("com.loopj.android:android-async-http:1.4.11")
+
 }
 
 kapt {

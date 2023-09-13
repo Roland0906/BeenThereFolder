@@ -9,16 +9,51 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".home.HomeFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{viewModel.text}" />
+            android:id="@+id/text_input_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/enter_book_name" />
 
-    </FrameLayout>
+        <EditText
+            android:id="@+id/edit_input_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:hint="@string/books_search_hint"/>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/search_book"
+            />
+        
+        <TextView
+            android:id="@+id/book_title_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Title"
+            />
+
+        <TextView
+            android:id="@+id/author_name_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Author"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            />
+
+
+    </LinearLayout>
 </layout>

@@ -13,6 +13,7 @@ fun Fragment.getVmFactory(): ViewModelFactory {
 
     val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
     return ViewModelFactory(repository)
+
 }
 
 //fun Fragment.getVmFactory(user: User?): ProfileViewModelFactory {
