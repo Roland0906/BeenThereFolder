@@ -1,5 +1,6 @@
 package com.example.beenthere.data.source
 
+import com.example.beenthere.data.Book
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
@@ -9,13 +10,13 @@ import androidx.room.RoomDatabase
 /**
  * Created by Wayne Chen in Jul. 2019. From Google's sample code.
  *
- * A database that stores Product information.
+ * A database that stores Book information.
  * And a global method to get access to the database.
  *
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-//@Database(entities = [Product::class], version = 1, exportSchema = false)
+@Database(entities = [Book::class], version = 1, exportSchema = false)
 abstract class BeenThereDatabase : RoomDatabase() {
 
     /**
@@ -72,7 +73,7 @@ abstract class BeenThereDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         BeenThereDatabase::class.java,
-                        "stylish_database"
+                        "beenthere_database"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.
                         // Migration is not part of this lesson. You can learn more about

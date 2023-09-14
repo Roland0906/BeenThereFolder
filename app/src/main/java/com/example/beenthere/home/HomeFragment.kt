@@ -91,15 +91,15 @@ class HomeFragment : Fragment() {
                         if (response.isSuccessful) {
 
 
-                            response.body()!!.items.forEach {
-                                id.add(it.id.toString())
-                                bookName.add(it.volumeInfo!!.title.toString())
-                                bookPublisher.add(it.volumeInfo!!.publisher.toString())
-                                bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
-                                bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
-                                bookDescription.add(it.volumeInfo!!.description.toString())
-                                previewLink.add(it.volumeInfo!!.previewLink.toString())
-                            }
+//                            response.body()!!.items.forEach {
+//                                id.add(it.id.toString())
+//                                bookName.add(it.volumeInfo!!.title.toString())
+//                                bookPublisher.add(it.volumeInfo!!.publisher.toString())
+//                                bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+//                                bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
+//                                bookDescription.add(it.volumeInfo!!.description.toString())
+//                                previewLink.add(it.volumeInfo!!.previewLink.toString())
+//                            }
 
 
 

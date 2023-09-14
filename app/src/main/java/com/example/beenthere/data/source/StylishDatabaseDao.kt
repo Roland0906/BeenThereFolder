@@ -1,36 +1,32 @@
 package com.example.beenthere.data.source
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
 
 /**
  * Created by Wayne Chen in Jul. 2019.
  *
- * Defines methods for using the [Product] class with Room.
+ * Defines methods for using the [Book] class with Room.
  */
 @Dao
 interface BeenThereDatabaseDao {
 
 //    @Insert
-//    fun insert(product: Product)
+//    fun insert(product: Book)
 //
 //    /**
 //     * When updating a row with a value already set in a column,
 //     * replaces the old value with the new one.
 //     *
-//     * @param product: [Product]
+//     * @param product: [Book]
 //     */
 //    @Update
-//    fun update(product: Product)
+//    fun update(product: Book)
 //
 //    /**
-//     * Deletes the [Product] with given id, colorCode and size
-//     * @param id: [Product.id]
-//     * @param colorCode: [Product.selectedVariant] [Variant.colorCode]
-//     * @param size: [Product.selectedVariant] [Variant.size]
+//     * Deletes the [Book] with given id, colorCode and size
+//     * @param id: [Book.id]
+//     * @param colorCode: [Book.selectedVariant] [Variant.colorCode]
+//     * @param size: [Book.selectedVariant] [Variant.size]
 //     */
 //    @Query("DELETE from products_in_cart_table WHERE product_id = :id AND product_selected_color_code = :colorCode AND product_selected_size = :size")
 //    fun delete(id: Long, colorCode: String, size: String)
@@ -50,14 +46,14 @@ interface BeenThereDatabaseDao {
 //     */
 //    @Query("SELECT * FROM products_in_cart_table ORDER BY product_id ASC")
 //    fun getAllProducts():
-//        LiveData<List<Product>>
+//        LiveData<List<Book>>
 //
 //    /**
-//     * Selects and return the [Product] with given id, colorCode and size
-//     * @param id: [Product.id]
-//     * @param colorCode: [Product.selectedVariant] [Variant.colorCode]
-//     * @param size: [Product.selectedVariant] [Variant.size]
+//     * Selects and return the [Book] with given id, colorCode and size
+//     * @param id: [Book.id]
+//     * @param colorCode: [Book.selectedVariant] [Variant.colorCode]
+//     * @param size: [Book.selectedVariant] [Variant.size]
 //     */
 //    @Query("SELECT * from products_in_cart_table WHERE product_id = :id AND product_selected_color_code = :colorCode AND product_selected_size = :size")
-//    fun get(id: Long, colorCode: String, size: String): Product?
+//    fun get(id: Long, colorCode: String, size: String): Book?
 }

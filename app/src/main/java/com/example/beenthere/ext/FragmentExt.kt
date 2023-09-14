@@ -21,7 +21,7 @@ fun Fragment.getVmFactory(): ViewModelFactory {
 //    return ProfileViewModelFactory(repository, user)
 //}
 //
-//fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
+//fun Fragment.getVmFactory(product: Book): ProductViewModelFactory {
 //    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
 //    return ProductViewModelFactory(repository, product)
 //}

@@ -30,13 +30,13 @@ interface BeenThereRepository {
 //
 //    suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 //
-//    fun getProductsInCart(): LiveData<List<Product>>
+//    fun getProductsInCart(): LiveData<List<Book>>
 //
 //    suspend fun isProductInCart(id: Long, colorCode: String, size: String): Boolean
 //
-//    suspend fun insertProductInCart(product: Product)
+//    suspend fun insertProductInCart(product: Book)
 //
-//    suspend fun updateProductInCart(product: Product)
+//    suspend fun updateProductInCart(product: Book)
 //
 //    suspend fun removeProductInCart(id: Long, colorCode: String, size: String)
 //
