@@ -11,7 +11,7 @@ import com.example.beenthere.factory.ViewModelFactory
  */
 fun Fragment.getVmFactory(): ViewModelFactory {
 
-    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository
+    val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository
     return ViewModelFactory(repository)
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -13,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".home.HomeFragment">
+        tools:context=".home.HomeFragment"
+        >
 
         <TextView
             android:id="@+id/text_input_book"
@@ -21,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:text="@string/enter_book_name" />
+            android:text="@string/enter_book_name"
+            />
 
         <EditText
             android:id="@+id/edit_input_book"
@@ -29,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
-            android:hint="@string/books_search_hint"/>
+            android:hint="@string/books_search_hint"
+            />
 
         <Button
             android:id="@+id/btn_search"
@@ -43,6 +47,7 @@
             android:id="@+id/book_title_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.bookTitle}"
             tools:text="Title"
             />
 
@@ -50,9 +55,28 @@
             android:id="@+id/author_name_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.bookAuthor}"
             tools:text="Author"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             />
+
+        <ImageView
+            android:id="@+id/book_image_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_default_book"
+
+            />
+
+<!--        app:imageUrl="@{viewModel.bookImage}"-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/book_search_result_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
 
 
     </LinearLayout>

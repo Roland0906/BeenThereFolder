@@ -1,5 +1,10 @@
 package com.example.beenthere.home
 
+import android.content.Context
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,17 +13,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.example.beenthere.MainActivity
 import com.example.beenthere.R
+import com.example.beenthere.adapter.BookSearchResultAdapter
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
+import com.example.beenthere.utils.Constants
+import com.gdsc.bbsbec.gbooks.model.BookSearchResultData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
+import java.util.Locale
 
 
 class HomeFragment : Fragment() {
@@ -32,6 +43,8 @@ class HomeFragment : Fragment() {
 //    }
 
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
+
+    private var pass: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,85 +59,157 @@ class HomeFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        val id = ArrayList<String>()
+        val bookName = ArrayList<String>()
+        val bookPublisher = ArrayList<String>()
+        val bookSmallThumbnail = ArrayList<String>()
+
+        val bookThumbnail = ArrayList<String>()
+        val bookDescription = ArrayList<String>()
+        val previewLink = ArrayList<String>()
+
+
         binding.btnSearch.setOnClickListener {
-            searchBook()
+
+//            viewModel.searchBook(binding.editInputBook.text.toString())
+//            searchBook()
+            if (checkInternet(requireContext())) {
+                val title = binding.editInputBook.text.toString()
+                if (title.isNotEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Searching books having \"${
+                            title.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                            }
+                        }\" in name.",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    viewModel.getBooks(title, Constants.API_KEY)
+                    viewModel.myResponse.observe(viewLifecycleOwner) { response ->
+                        if (response.isSuccessful) {
+
+
+                            response.body()!!.items.forEach {
+                                id.add(it.id.toString())
+                                bookName.add(it.volumeInfo!!.title.toString())
+                                bookPublisher.add(it.volumeInfo!!.publisher.toString())
+                                bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+                                bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
+                                bookDescription.add(it.volumeInfo!!.description.toString())
+                                previewLink.add(it.volumeInfo!!.previewLink.toString())
+                            }
+
+
+
+                            val item = response.body()!!.items[0]
+                            Log.i("Book test", response.body()!!.items.toString())
+                            binding.bookTitleResult.text = item.volumeInfo?.title
+                            binding.authorNameResult.text = item.volumeInfo?.authors?.get(0) ?: ""
+                            binding.bookImageResult.load(item.volumeInfo?.imageLinks?.thumbnail)
+//                            item.volumeInfo?.imageLinks?.thumbnail?.let { it1 ->
+//                                viewModel.getImage(
+//                                    it1
+//                                )
+//                            }
+                        } else {
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Title can not be empty", Toast.LENGTH_LONG)
+                        .show()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Please connect to internet", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
+        val data = arrayListOf<BookSearchResultData>()
+        repeat(bookName.size - 1) {
+            data.add(
+                BookSearchResultData(
+                    id[pass],
+                    bookSmallThumbnail[pass],
+                    bookName[pass],
+                    bookPublisher[pass],
+                    bookDescription[pass],
+                    previewLink[pass],
+                    bookThumbnail[pass],
+                )
+            )
+            pass += 1
+        }
+
+        val bookSearchResultAdapter = BookSearchResultAdapter(data)
+        binding.bookSearchResultRecyclerview.adapter = bookSearchResultAdapter
 
 
 
 
 
+        viewModel.toastMessageLiveData.observe(viewLifecycleOwner, Observer
+        { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.bookTitle.observe(viewLifecycleOwner, Observer
+        {
+            binding.bookTitleResult.text = it
+        })
+
+        viewModel.bookAuthor.observe(viewLifecycleOwner, Observer
+        {
+            binding.authorNameResult.text = it
+        })
+
+        viewModel.bookImage.observe(viewLifecycleOwner, Observer {
+            binding.bookImageResult.load(it)
+        })
 
 
         return binding.root
     }
 
-    private fun searchBook() {
-        val query = binding.editInputBook.text.toString()
-        val client = AsyncHttpClient()
-        val url = "https://www.googleapis.com/books/v1/volumes?q=${query}"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>,
-                responseBody: ByteArray
-            ) {
-                val result = String(responseBody)
-                Log.d(TAG, result)
 
-                try {
-                    val jsonObject = JSONObject(result)
-                    val itemsArray = jsonObject.getJSONArray("items")
+    private fun checkInternet(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // if the android version is equal to M
+        // or greater we need to use the
+        // NetworkCapabilities to check what type of
+        // network has the internet connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                    var i = 0
-                    var bookTitle = ""
-                    var bookAuthor = ""
+            // Returns a Network object corresponding to
+            // the currently active default data network.
+            val network = connectivityManager.activeNetwork ?: return false
 
-                    while (i < itemsArray.length()) {
-                        val book = itemsArray.getJSONObject(i)
-                        val volumeInfo = book.getJSONObject("volumeInfo")
-                        try {
-                            bookTitle = volumeInfo.getString("title")
-                            bookAuthor = volumeInfo.getString("authors")
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        i ++
-                    }
+            // Representation of the capabilities of an active network.
+            val activeNetwork =
+                connectivityManager.getNetworkCapabilities(network) ?: return false
 
-                    binding.apply {
-                        bookTitleResult.text = bookTitle
-                        authorNameResult.text = bookAuthor
-                    }
+            return when {
+                // Indicates this network uses a Wi-Fi transport,
+                // or WiFi has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
 
-                } catch (e: Exception) {
-                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-                }
+                // Indicates this network uses a Cellular transport. or
+                // Cellular has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
 
+                // else return false
+                else -> false
             }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-               val errorMessage = when (statusCode) {
-                   401 -> "Status code: Bad request"
-                   403 -> "Status code: Forbidden"
-                   404 -> "Status code: Not found"
-                   else -> "Status code: ${error?.message}"
-               }
-                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-            }
-
-        })
+        } else {
+            // if the android version is below M
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
     }
-
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
-    }
-
 
 }

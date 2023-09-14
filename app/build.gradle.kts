@@ -69,6 +69,9 @@ dependencies {
     implementation ("com.squareup.moshi:moshi-kotlin:1.13.0")
 
     implementation ("com.github.bumptech.glide:glide:4.15.0")
+
+    kapt ("com.github.bumptech.glide:compiler:4.15.0")
+
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.8.20")
@@ -93,6 +96,14 @@ dependencies {
 
 
     implementation("com.loopj.android:android-async-http:1.4.11")
+
+
+    // Gson
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Coil
+    implementation ("io.coil-kt:coil:1.1.1")
+
 
 }
 

@@ -1,5 +1,9 @@
 package com.example.beenthere.data.source
 
+import com.example.beenthere.api.RetrofitInstance
+import com.example.beenthere.model.Books
+import retrofit2.Response
+
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -7,6 +11,10 @@ package com.example.beenthere.data.source
  * Interface to the Stylish layers.
  */
 interface BeenThereRepository {
+
+    suspend fun getBooks(title: String, apiKey: String): Response<Books> {
+        return RetrofitInstance.api.getBooks(title, apiKey)
+    }
 
 //    suspend fun getMarketingHots(): Result<List<HomeItem>>
 //

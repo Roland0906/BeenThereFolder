@@ -2,7 +2,7 @@ package com.example.beenthere
 
 import android.app.Application
 import com.example.beenthere.data.source.BeenThereRepository
-import com.example.beenthere.util.ServiceLocator
+import com.example.beenthere.utils.ServiceLocator
 
 import kotlin.properties.Delegates
 
@@ -15,7 +15,7 @@ import kotlin.properties.Delegates
 class BeenThereApplication : Application() {
 
     // Depends on the flavor,
-    val stylishRepository: BeenThereRepository
+    val beenThereRepository: BeenThereRepository
         get() = ServiceLocator.provideTasksRepository(this)
 
     companion object {
