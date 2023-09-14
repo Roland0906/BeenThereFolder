@@ -41,6 +41,10 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
+    init {
+        _bookImage.value = "http://books.google.com/books/content?id=akkdEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    }
+
     fun getImage(image: String) {
         _bookImage.value = image
     }

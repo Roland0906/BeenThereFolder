@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -56,6 +57,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         binding.viewModel = viewModel
 
@@ -104,15 +106,17 @@ class HomeFragment : Fragment() {
 
 
                             val item = response.body()!!.items[0]
-                            Log.i("Book test", response.body()!!.items.toString())
+//                            Log.i("Book test", response.body()!!.items.toString())
                             binding.bookTitleResult.text = item.volumeInfo?.title
                             binding.authorNameResult.text = item.volumeInfo?.authors?.get(0) ?: ""
-                            binding.bookImageResult.load(item.volumeInfo?.imageLinks?.thumbnail)
-//                            item.volumeInfo?.imageLinks?.thumbnail?.let { it1 ->
-//                                viewModel.getImage(
-//                                    it1
-//                                )
-//                            }
+//                            binding.bookImageResult.load(item.volumeInfo?.imageLinks?.thumbnail)
+
+                            Log.i("Book test", item.volumeInfo?.imageLinks?.thumbnail.toString())
+                            item.volumeInfo?.imageLinks?.thumbnail?.let { it1 ->
+                                viewModel.getImage(
+                                    it1
+                                )
+                            }
                         } else {
 
                         }

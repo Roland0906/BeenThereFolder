@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 
 
 /**
@@ -16,7 +18,7 @@ import androidx.room.RoomDatabase
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Book::class], version = 1, exportSchema = false)
+@Database(entities = [Book::class, Experience::class, Situation::class], version = 1, exportSchema = false)
 abstract class BeenThereDatabase : RoomDatabase() {
 
     /**

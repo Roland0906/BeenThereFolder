@@ -39,6 +39,7 @@
             android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:text="@string/search_book"
             />
@@ -47,6 +48,8 @@
             android:id="@+id/book_title_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
             android:text="@{viewModel.bookTitle}"
             tools:text="Title"
             />
@@ -56,6 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.bookAuthor}"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
             tools:text="Author"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             />
@@ -64,7 +69,10 @@
             android:id="@+id/book_image_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_default_book"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            app:imageUrl="@{viewModel.bookImage}"
+
 
             />
 
@@ -74,6 +82,8 @@
             android:id="@+id/book_search_result_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 

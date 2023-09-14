@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Book(
     @PrimaryKey(autoGenerate = true)
-    var randomId: Long = 0L,
+    var bookId: Long = 0L,
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -23,7 +23,7 @@ data class Book(
     @ColumnInfo(name = "image")
     val image: String,
 
-) : Parcelable {
+    ) : Parcelable {
 //    val stocks: Int
 //        get() {
 //            var value = 0

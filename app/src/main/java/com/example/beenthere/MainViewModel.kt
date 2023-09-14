@@ -23,6 +23,7 @@ import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.Books
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class MainViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
@@ -34,4 +35,27 @@ class MainViewModel(private val repository: BeenThereRepository) : ViewModel() {
             myResponse.value = response
         }
     }
+
+
+//    init {
+//        refreshDataFromRepository()
+//    }
+//    private fun refreshDataFromRepository() {
+//        viewModelScope.launch {
+//            try {
+//                videosRepository.refreshVideos()
+//                _eventNetworkError.value = false
+//                _isNetworkErrorShown.value = false
+//
+//            } catch (networkError: IOException) {
+//                // Show a Toast error message and hide the progress bar.
+//                if(playlist.value.isNullOrEmpty())
+//                    _eventNetworkError.value = true
+//            }
+//        }
+//    }
+
+
+
+
 }
