@@ -1,10 +1,10 @@
-package app.appworks.school.stylish.data.source.local
+package com.example.beenthere.data.source
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import app.appworks.school.stylish.data.Product
+
 
 /**
  * Created by Wayne Chen in Jul. 2019. From Google's sample code.
@@ -15,13 +15,13 @@ import app.appworks.school.stylish.data.Product
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Product::class], version = 1, exportSchema = false)
-abstract class StylishDatabase : RoomDatabase() {
+//@Database(entities = [Product::class], version = 1, exportSchema = false)
+abstract class BeenThereDatabase : RoomDatabase() {
 
     /**
      * Connects the database to the DAO.
      */
-    abstract val stylishDatabaseDao: StylishDatabaseDao
+    abstract val beenThereDatabaseDao: BeenThereDatabaseDao
 
     /**
      * Define a companion object, this allows us to add functions on the StylishDatabase class.
@@ -40,7 +40,7 @@ abstract class StylishDatabase : RoomDatabase() {
          *  thread to shared data are visible to other threads.
          */
         @Volatile
-        private var INSTANCE: StylishDatabase? = null
+        private var INSTANCE: BeenThereDatabase? = null
 
         /**
          * Helper function to get the database.
@@ -59,7 +59,7 @@ abstract class StylishDatabase : RoomDatabase() {
          *
          * @param context The application context Singleton, used to get access to the filesystem.
          */
-        fun getInstance(context: Context): StylishDatabase {
+        fun getInstance(context: Context): BeenThereDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
@@ -71,7 +71,7 @@ abstract class StylishDatabase : RoomDatabase() {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        StylishDatabase::class.java,
+                        BeenThereDatabase::class.java,
                         "stylish_database"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.
