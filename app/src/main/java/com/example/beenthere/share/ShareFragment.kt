@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentHomeBinding
@@ -81,7 +82,39 @@ class ShareFragment : Fragment() {
             }
         }
 
+        var title: String = ""
+        var author: String = ""
+        var situation: String = ""
+        var phrases: String = ""
 
+        binding.bookTitleResult.doAfterTextChanged {
+            title = binding.bookTitleResult.text.toString()
+        }
+
+        binding.authorNameResult.doAfterTextChanged {
+            author = binding.authorNameResult.text.toString()
+        }
+
+        binding.editSituation.doAfterTextChanged {
+            situation = binding.editSituation.text.toString()
+        }
+
+        binding.editPhrases.doAfterTextChanged {
+            phrases = binding.editPhrases.text.toString()
+        }
+
+        binding.btnSend.setOnClickListener {
+            if (title == "" && author == "" && situation == "" && phrases == "") {
+                Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.addData(title, author, situation, phrases)
+            }
+        }
+
+
+        viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
 
 
 

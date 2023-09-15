@@ -10,4 +10,22 @@
     <string name="books_search_hint">book name</string>
     <string name="search_book">Search</string>
     <string name="share_description">Describe your situation and how this book helped you</string>
+    <string name="text_encounter">What did you encounter?</string>
+    <string name="text_phrase">What part or phrases helped you?</string>
+    <string name="btn_share">Share to help others</string>
+
+
+    <string name="error">Please input the info</string>
+
+
+<!--    FireStore-->
+    <string name="title">title</string>
+    <string name="author">author</string>
+    <string name="situation">situation</string>
+    <string name="phrases">phrases</string>
+
+
+    <string name="share_success">You\'ve shared your experience!</string>
+    <string name="share_fail">Something went wrong</string>
+
 </resources>
