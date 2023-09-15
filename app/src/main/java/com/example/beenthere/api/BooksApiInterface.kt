@@ -18,6 +18,7 @@ package com.gdsc.bbsbec.gbooks.api
 
 import com.example.beenthere.model.Books
 import retrofit2.Response
+import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -26,6 +27,13 @@ interface BooksApiInterface {
     @GET(" ")
     suspend fun getBooks(
         @Query("q") inTitle: String,
+
         @Query("key") apiKey: String
     ): Response<Books>
 }
+
+// can consider simplify returned result
+// to get result faster
+// not not sure if i need to change response data class
+
+// or add lottie

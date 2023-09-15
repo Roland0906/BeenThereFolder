@@ -9,8 +9,8 @@ import com.bumptech.glide.request.RequestOptions
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = it.toUri().buildUpon().build()
-        Glide.with(imgView.context) // GlideApp error
+        val imgUri = it.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
             .load(imgUri)
             .apply(
                 RequestOptions()
