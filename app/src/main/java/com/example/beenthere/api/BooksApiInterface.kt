@@ -21,13 +21,15 @@ import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
+
 
 interface BooksApiInterface {
 
     @GET(" ")
     suspend fun getBooks(
         @Query("q") inTitle: String,
-
+//        @QueryMap commonQueryParams: Map<String, String>,
         @Query("key") apiKey: String
     ): Response<Books>
 }

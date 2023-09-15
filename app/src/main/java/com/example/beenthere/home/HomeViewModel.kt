@@ -34,18 +34,23 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
-    fun getBooks(title: String, apiKey: String) {
+
+
+//    fun getBooks(title: String, commonQueryParams: Map<String, String>) {
+        fun getBooks(title: String, apiKey: String) {
         viewModelScope.launch {
+//            val response: Response<Books> = repository.getBooks(title, commonQueryParams)
             val response: Response<Books> = repository.getBooks(title, apiKey)
             myResponse.value = response
         }
     }
 
-    init {
-        _bookImage.value = "http://books.google.com/books/content?id=u8w_DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-    }
+//    init {
+//        _bookImage.value = "http://books.google.com/books/content?id=FmyBAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+//    }
 
     fun getImage(image: String) {
+        Log.i("BindingAdatper", image)
         _bookImage.value = image
     }
 

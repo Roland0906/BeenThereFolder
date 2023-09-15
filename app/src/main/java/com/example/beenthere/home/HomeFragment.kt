@@ -35,7 +35,7 @@ import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
     val db = Firebase.firestore
 
@@ -55,11 +55,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         val id = ArrayList<String>()
         val bookName = ArrayList<String>()
@@ -70,6 +71,11 @@ class HomeFragment : Fragment() {
         val bookDescription = ArrayList<String>()
         val previewLink = ArrayList<String>()
 
+
+        val commonQueryParams = mapOf(
+            "fields" to "items(volumeInfo/description,volumeInfo/title,volumeInfo/imageLinks/smallThumbnail)",
+            "key" to Constants.API_KEY
+        )
 
         binding.btnSearch.setOnClickListener {
 
@@ -88,9 +94,11 @@ class HomeFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
 
+//                    viewModel.getBooks(title, commonQueryParams)
                     viewModel.getBooks(title, Constants.API_KEY)
                     viewModel.myResponse.observe(viewLifecycleOwner) { response ->
                         if (response.isSuccessful) {
+
 
 
 //                            response.body()!!.items.forEach {
@@ -106,17 +114,25 @@ class HomeFragment : Fragment() {
 
 
                             val item = response.body()!!.items[0]
+//                            Log.i("HomeFrag", item.toString())
 //                            Log.i("Book test", response.body()!!.items.toString())
                             binding.bookTitleResult.text = item.volumeInfo?.title
                             binding.authorNameResult.text = item.volumeInfo?.authors?.get(0) ?: ""
 //                            binding.bookImageResult.load(item.volumeInfo?.imageLinks?.thumbnail)
 
-                            Log.i("Book test", item.volumeInfo?.imageLinks?.thumbnail.toString())
-                            item.volumeInfo?.imageLinks?.thumbnail?.let { it1 ->
-                                viewModel.getImage(
-                                    it1
-                                )
+                            Log.i("Book test", item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+//                            binding.bookImageResult.load(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+                            try {
+                                viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+                            } catch (e: Exception) {
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
                             }
+
+//                            item.volumeInfo?.imageLinks?.smallThumbnail?.let { it1 ->
+//                                viewModel.getImage(
+//                                    it1
+//                                )
+//                            }
                         } else {
 
                         }

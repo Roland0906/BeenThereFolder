@@ -29,12 +29,12 @@ class MainViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
-    fun getBooks(title: String, apiKey: String) {
-        viewModelScope.launch {
-            val response: Response<Books> = repository.getBooks(title, apiKey)
-            myResponse.value = response
-        }
-    }
+//    fun getBooks(title: String, apiKey: String) {
+//        viewModelScope.launch {
+//            val response: Response<Books> = repository.getBooks(title, apiKey)
+//            myResponse.value = response
+//        }
+//    }
 
 
 //    init {
