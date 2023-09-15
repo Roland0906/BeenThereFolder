@@ -7,6 +7,9 @@ plugins {
     id ("com.google.gms.google-services")
     id ("kotlin-android")
     id ("kotlin-kapt")
+
+    // newly add
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -104,6 +107,10 @@ dependencies {
     // Coil
     implementation ("io.coil-kt:coil:1.1.1")
 
+
+    // newly added
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
 }
 

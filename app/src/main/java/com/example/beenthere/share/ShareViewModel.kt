@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beenthere.MainActivity
 import com.example.beenthere.R
+import com.example.beenthere.data.Experience
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.Books
 import com.google.firebase.firestore.ktx.firestore
@@ -16,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
@@ -23,7 +25,7 @@ import java.util.Calendar
 
 class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
 
     private val _bookTitle = MutableLiveData<String>()
     val bookTitle: LiveData<String>
@@ -51,22 +53,29 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         _bookImage.value = image
     }
 
-    fun addData(title: String, author: String, situation: String, phrases: String) {
+    fun addData(userId: String, title: String, author: String, situation: String, phrases: String) {
+
+        val exp = Experience(userId, title, author, situation, phrases)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertExp(exp)
+        }
+
         val experiences = db.collection("experiences")
         val document = experiences.document()
 
         val data = hashMapOf(
-            R.string.title to title,
-            R.string.author to author,
-            R.string.situation to situation,
-            R.string.phrases to phrases
+            "${R.string.user_id}" to userId,
+            "${R.string.title}" to title,
+            "${R.string.author}" to author,
+            "${R.string.situation}" to situation,
+            "${R.string.phrases}" to phrases
         )
         document.set(data)
             .addOnSuccessListener {
-                showError(R.string.share_success.toString())
+                showError("You have shared your experience")
             }
             .addOnFailureListener {
-                showError(R.string.share_fail.toString())
+                showError("Something is wrong")
             }
     }
 

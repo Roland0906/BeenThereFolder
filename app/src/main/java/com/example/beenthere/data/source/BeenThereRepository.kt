@@ -1,6 +1,8 @@
 package com.example.beenthere.data.source
 
+import androidx.room.Insert
 import com.example.beenthere.api.RetrofitInstance
+import com.example.beenthere.data.Experience
 import com.example.beenthere.model.Books
 import retrofit2.Response
 
@@ -15,6 +17,10 @@ interface BeenThereRepository {
     suspend fun getBooks(title: String, apiKey: String): Response<Books> {
         return RetrofitInstance.api.getBooks(title, apiKey)
     }
+
+
+    // db
+    suspend fun insertExp(experience: Experience)
 
 //    suspend fun getBooks(title: String, apiKey: String): Response<Books> {
 //        return RetrofitInstance.api.getBooks(title, apiKey)

@@ -14,7 +14,7 @@ data class Situation(
     @PrimaryKey(autoGenerate = true)
     var sitId: Long = 0L,
 
-    @ColumnInfo(name = "userId")
+    @ColumnInfo(name = "user_id")
     val userId: Long = 0L,
 
     @ColumnInfo(name = "description")

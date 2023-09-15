@@ -2,8 +2,10 @@ package com.example.beenthere.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.example.beenthere.data.Book
+import com.example.beenthere.data.Experience
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -13,12 +15,11 @@ import com.example.beenthere.data.Book
 @Dao
 interface BeenThereDatabaseDao {
 
-
     @Query("SELECT * from books_table ORDER BY bookId DESC")
     fun getAllBooks(): LiveData<List<Book>>
 
-//    @Insert
-//    fun insert(product: Book)
+    @Insert
+    fun insert(experience: Experience)
 //
 //    /**
 //     * When updating a row with a value already set in a column,

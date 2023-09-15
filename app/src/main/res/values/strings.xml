@@ -19,13 +19,14 @@
 
 
 <!--    FireStore-->
+    <string name="user_id">user_id</string>
     <string name="title">title</string>
     <string name="author">author</string>
     <string name="situation">situation</string>
     <string name="phrases">phrases</string>
 
 
-    <string name="share_success">You\'ve shared your experience!</string>
+    <string name="share_success">You have shared your experience!</string>
     <string name="share_fail">Something went wrong</string>
 
 </resources>

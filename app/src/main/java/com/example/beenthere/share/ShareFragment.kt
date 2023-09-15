@@ -82,10 +82,16 @@ class ShareFragment : Fragment() {
             }
         }
 
+
+        // fake user id
+        val userList = listOf("Norman", "Fernandez", "Alicia")
+
+        var userId = ""
         var title: String = ""
         var author: String = ""
         var situation: String = ""
         var phrases: String = ""
+
 
         binding.bookTitleResult.doAfterTextChanged {
             title = binding.bookTitleResult.text.toString()
@@ -103,11 +109,13 @@ class ShareFragment : Fragment() {
             phrases = binding.editPhrases.text.toString()
         }
 
+
         binding.btnSend.setOnClickListener {
+            userId = userList.random()
             if (title == "" && author == "" && situation == "" && phrases == "") {
                 Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.addData(title, author, situation, phrases)
+                viewModel.addData(userId, title, author, situation, phrases)
             }
         }
 
