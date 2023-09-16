@@ -20,5 +20,6 @@ class Constants {
     companion object {
         const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
         const val API_KEY = "AIzaSyDrfi3kT0VWATXU50FhWs7g0LBBgq-aFhw"
+        const val OPEN_AI_API_KEY = "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"
     }
 }

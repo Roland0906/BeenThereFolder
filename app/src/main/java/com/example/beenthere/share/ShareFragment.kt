@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -41,6 +42,7 @@ class ShareFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         binding = FragmentShareBinding.inflate(inflater, container, false)
 
         binding.viewModel = viewModel

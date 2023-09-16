@@ -8,127 +8,98 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beenthere.MainActivity
+import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.Books
+import com.example.beenthere.model.openai.CompletionRequest
+import com.example.beenthere.model.openai.CompletionResponse
+import com.example.beenthere.model.openai.Message
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.SocketTimeoutException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
 
-    private val _bookTitle = MutableLiveData<String>()
-    val bookTitle: LiveData<String>
-        get() = _bookTitle
+    private val _messageList = MutableLiveData<MutableList<Message>>()
+    val messageList: LiveData<MutableList<Message>>
+        get() = _messageList
 
-    private val _bookAuthor = MutableLiveData<String>()
-    val bookAuthor: LiveData<String>
-        get() = _bookAuthor
-
-    private val _bookImage = MutableLiveData<String>()
-    val bookImage: LiveData<String>
-        get() = _bookImage
-
-    val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
+    init {
+        _messageList.value = mutableListOf()
+    }
 
 
+    val allExps = repository.getExpsFromRoom()
 
-//    fun getBooks(title: String, commonQueryParams: Map<String, String>) {
-        fun getBooks(title: String, apiKey: String) {
-        viewModelScope.launch {
-//            val response: Response<Books> = repository.getBooks(title, commonQueryParams)
-            val response: Response<Books> = repository.getBooks(title, apiKey)
-            myResponse.value = response
+    fun categorizer() {
+        allExps.value?.forEach {
+            callApi(it.situation)
         }
     }
 
-//    init {
-//        _bookImage.value = "http://books.google.com/books/content?id=FmyBAwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-//    }
 
-    fun getImage(image: String) {
-        Log.i("BindingAdatper", image)
-        _bookImage.value = image
+    fun addToChat(message: String, sentBy: String, timestamp: String) {
+        val currentList = _messageList.value ?: mutableListOf()
+        currentList.add(Message(message, sentBy, timestamp))
+        _messageList.postValue(currentList)
     }
 
-    fun searchBook(inputQuery: String) {
-        val author = ""
-        val key = "AIzaSyDrfi3kT0VWATXU50FhWs7g0LBBgq-aFhw"
-        val client = AsyncHttpClient()
-        val url = "https://www.googleapis.com/books/v1/volumes?q=${inputQuery}:&key=${key}" // &key=${key}
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>,
-                responseBody: ByteArray
-            ) {
-                val result = String(responseBody)
-                Log.d(TAG, result)
+    fun addResponse(response: String) {
+        _messageList.value?.removeAt(_messageList.value?.size?.minus(1) ?: 0)
+        addToChat(response, Message.SENT_BY_BOT, getCurrentTimestamp())
+    }
 
-                try {
-                    val jsonObject = JSONObject(result)
-                    val itemsArray = jsonObject.getJSONArray("items")
+    fun callApi(question: String) {
+        addToChat("Typing...", Message.SENT_BY_BOT, getCurrentTimestamp())
 
-                    var i = 0
+        val completionRequest = CompletionRequest(
+            model = "text-davinci-003",
+            prompt = question,
+            max_tokens = 4000
+        )
 
-                    while (i < itemsArray.length()) {
+        viewModelScope.launch {
+            try {
+                val response = ApiClient.apiService.getCompletions(completionRequest)
+                handleApiResponse(response)
+            } catch (e: SocketTimeoutException) {
+                addResponse("Timeout: $e")
+            }
+        }
+    }
 
-                        val book = itemsArray.getJSONObject(i)
-                        val volumeInfo = book.getJSONObject("volumeInfo")
-
-                        try {
-
-                            _bookTitle.value = volumeInfo.getString("title")
-                            _bookAuthor.value = volumeInfo.getString("authors")
-                            var thumbnailUrl = ""
-                            val thumbNailObject = volumeInfo.optJSONObject("imageLinks")
-                            if (thumbNailObject != null && thumbNailObject.has("smallThumbnail")) {
-                                thumbnailUrl = thumbNailObject.getString("smallThumbnail")
-                            }
-                            _bookImage.value = thumbnailUrl
-
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        i ++
+    private suspend fun handleApiResponse(response: Response<CompletionResponse>) {
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                response.body()?.let { completionResponse ->
+                    val result = completionResponse.choices.firstOrNull()?.text
+                    if (result != null) {
+                        addResponse(result.trim())
+                    } else {
+                        addResponse("No choices found")
                     }
-
-
-                } catch (e: Exception) {
-                    showError(e.message)
                 }
-
+            } else {
+                addResponse("Failed to get response ${response.errorBody()}")
             }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-                val errorMessage = when (statusCode) {
-                    401 -> "Status code: Bad request"
-                    403 -> "Status code: Forbidden"
-                    404 -> "Status code: Not found"
-                    else -> "Status code: ${error?.message}"
-                }
-                showError(errorMessage)
-            }
-
-        })
+        }
     }
 
-    val toastMessageLiveData = MutableLiveData<String?>()
 
-    private fun showError(message: String?) {
-        toastMessageLiveData.value = message
+    fun getCurrentTimestamp(): String {
+        return SimpleDateFormat("hh mm a", Locale.getDefault()).format(Date())
     }
 
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
-    }
+
 
 }

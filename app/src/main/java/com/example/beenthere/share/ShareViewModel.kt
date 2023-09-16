@@ -55,11 +55,14 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
 
     fun addData(userId: String, title: String, author: String, situation: String, phrases: String) {
 
+        // to Room
         val exp = Experience(userId, title, author, situation, phrases)
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertExp(exp)
         }
 
+
+        // to FireStore
         val experiences = db.collection("experiences")
         val document = experiences.document()
 

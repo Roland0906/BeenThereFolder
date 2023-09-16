@@ -53,11 +53,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_search"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="@id/edit_input_book"
                 app:layout_constraintStart_toEndOf="@id/edit_input_book"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -169,12 +171,13 @@
             app:layout_constraintTop_toBottomOf="@id/text_phrases"/>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_send"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:paddingHorizontal="5dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/edit_phrases"

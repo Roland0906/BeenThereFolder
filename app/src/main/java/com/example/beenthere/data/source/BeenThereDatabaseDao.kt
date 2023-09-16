@@ -15,11 +15,13 @@ import com.example.beenthere.data.Experience
 @Dao
 interface BeenThereDatabaseDao {
 
-    @Query("SELECT * from books_table ORDER BY bookId DESC")
-    fun getAllBooks(): LiveData<List<Book>>
+    @Query("SELECT * from experience_table")
+    fun getAllExps(): LiveData<List<Experience>>
 
     @Insert
     fun insert(experience: Experience)
+
+
 //
 //    /**
 //     * When updating a row with a value already set in a column,

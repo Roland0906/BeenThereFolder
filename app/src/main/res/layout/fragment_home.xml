@@ -50,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:text="@{viewModel.bookTitle}"
             tools:text="Title"
             />
 
@@ -58,7 +57,7 @@
             android:id="@+id/author_name_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.bookAuthor}"
+
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             tools:text="Author"
@@ -73,7 +72,7 @@
             android:scaleType="center"
             android:cropToPadding="true"
             android:layout_marginStart="16dp"
-            app:imageUrl="@{viewModel.bookImage}"
+
 
 
             />
