@@ -29,7 +29,11 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         return dao.getAllExps()
     }
 
-
+    override suspend fun clearRoom() {
+        withContext(Dispatchers.IO) {
+            dao.clear()
+        }
+    }
 
 
 }

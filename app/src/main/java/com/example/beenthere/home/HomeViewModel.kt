@@ -1,27 +1,19 @@
 package com.example.beenthere.home
 
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.beenthere.MainActivity
 import com.example.beenthere.data.Experience
 import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
-import com.example.beenthere.model.Books
 import com.example.beenthere.model.openai.CompletionRequest
 import com.example.beenthere.model.openai.CompletionResponse
 import com.example.beenthere.model.openai.Message
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
@@ -40,13 +32,35 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     }
 
 
-    val allExps = repository.getExpsFromRoom()
+    val allExp = repository.getExpsFromRoom()
+
+    var workList = mutableListOf<Experience>()
+    var meaningList = mutableListOf<Experience>()
+    var communicationList = mutableListOf<Experience>()
+    var disciplineList = mutableListOf<Experience>()
+    var learningList = mutableListOf<Experience>()
+    var relationshipList = mutableListOf<Experience>()
 
     fun analyzer() {
 
-        Log.i("Response1 allExps", allExps.value.toString())
-        allExps.value?.forEach {
-            callApi(it.situation)
+        Log.i("Response1 allExp", allExp.value.toString())
+        allExp.value?.forEach { experience ->
+            callApi(experience.situation) { result ->
+                when (result.toUpperCase()) {
+                    "WORK" -> workList.add(experience)
+                    "MEANING" -> meaningList.add(experience)
+                    "COMMUNICATION" -> communicationList.add(experience)
+                    "DISCIPLINE" -> disciplineList.add(experience)
+                    "LEARNING" -> learningList.add(experience)
+                    "RELATIONSHIP" -> relationshipList.add(experience)
+                }
+                Log.i("Response5-1", workList.toString())
+                Log.i("Response5-2", meaningList.toString())
+                Log.i("Response5-3", communicationList.toString())
+                Log.i("Response5-4", disciplineList.toString())
+                Log.i("Response5-5", learningList.toString())
+                Log.i("Response5-6", relationshipList.toString())
+            }
         }
     }
 
@@ -77,7 +91,7 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private val checkCategoryString =
         "Which one of the 6 types $categories does the following description belong to:"
 
-    fun callApi(question: String) {
+    fun callApi(question: String, callback: (String) -> Unit) {
         addToChat("Typing...", Message.SENT_BY_BOT, getCurrentTimestamp())
 
         Log.i("Response2", "callApi")
@@ -91,19 +105,20 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
             try {
                 val response = ApiClient.apiService.getCompletions(completionRequest)
                 Log.i("Response3 response", response.toString())
-                handleApiResponse(response)
+                handleApiResponse(response, callback)
             } catch (e: SocketTimeoutException) {
                 addResponse("Timeout: $e")
             }
         }
     }
 
-    private suspend fun handleApiResponse(response: Response<CompletionResponse>) {
+    private suspend fun handleApiResponse(response: Response<CompletionResponse>, callback: (String) -> Unit) {
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 response.body()?.let { completionResponse ->
                     val result = completionResponse.choices.firstOrNull()?.text
                     if (result != null) {
+                        callback(result.trim())
 //                        categorize(result.trim())
                         Log.i("Response4 result", result.trim())
 //                        addResponse(result.trim())
@@ -120,6 +135,13 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private fun categorize(result: String) {
 
     }
+
+    fun clearDB() {
+        viewModelScope.launch {
+            repository.clearRoom()
+        }
+    }
+
 
 
     fun getCurrentTimestamp(): String {

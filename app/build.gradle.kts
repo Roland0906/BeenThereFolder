@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.gradle.initialization.Environment.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -24,10 +27,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+
+//        buildConfigField("String", "OPEN_AI_KEY", gradleLocalProperties(rootDir).getProperty("OPEN_AI_KEY"))
+
+
     }
 
     buildFeatures {
         dataBinding = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -37,7 +47,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+//            buildConfigField("String", "API_KEY", "\"${property("OPEN_AI_KEY")}\"")
         }
+
+        debug {
+//            buildConfigField("String", "API_KEY", "\"${property("OPEN_AI_KEY")}\"")
+//            buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir).getProperty("OPEN_AI_KEY"))
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

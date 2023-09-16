@@ -66,9 +66,13 @@ class HomeFragment : Fragment() {
 //        }
 
 
-        viewModel.allExps.observe(viewLifecycleOwner) {
+        viewModel.allExp.observe(viewLifecycleOwner) {
             viewModel.analyzer()
         }
+
+//        binding.btnSearch.setOnClickListener {
+//            viewModel.clearDB()
+//        }
 
         Log.i("HomeFragment", viewModel.categories.toString())
 

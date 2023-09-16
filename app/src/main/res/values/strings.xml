@@ -29,4 +29,9 @@
     <string name="share_success">You have shared your experience!</string>
     <string name="share_fail">Something went wrong</string>
 
+
+<!--    for open ai question-->
+    <string name="check_category_string">Which one of the 6 types %1$s does the following description belong to:</string>
+
+
 </resources>

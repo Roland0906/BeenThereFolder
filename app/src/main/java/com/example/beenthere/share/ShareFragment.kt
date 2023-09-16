@@ -53,7 +53,7 @@ class ShareFragment : Fragment() {
                 val title = binding.editInputBook.text.toString()
                 if (title.isNotEmpty()) {
 
-                    viewModel.getBooks(title, Constants.API_KEY)
+                    viewModel.getBooks(title, Constants.BOOK_API_KEY)
                     viewModel.myResponse.observe(viewLifecycleOwner) { response ->
                         if (response.isSuccessful) {
 

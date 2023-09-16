@@ -25,6 +25,8 @@ interface BeenThereRepository {
 
     fun getExpsFromRoom(): LiveData<List<Experience>>
 
+    suspend fun clearRoom()
+
 //    suspend fun getBooks(title: String, apiKey: String): Response<Books> {
 //        return RetrofitInstance.api.getBooks(title, apiKey)
 //    }
