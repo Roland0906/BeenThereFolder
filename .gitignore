@@ -13,6 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+gradle.properties
+
+
 
 # Local configuration file (sdk path, etc)
 local.properties
