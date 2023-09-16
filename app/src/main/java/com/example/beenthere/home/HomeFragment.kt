@@ -58,13 +58,19 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-//        binding.sendBtn.setOnClickListener {
+//        binding.btnSearch.setOnClickListener {
 //            val question = binding.messageEditText.text.toString()
 //            chatGptViewModel.addToChat(question, Message.SENT_BY_ME, chatGptViewModel.getCurrentTimestamp())
 //            binding.messageEditText.setText("")
 //            viewModel.callApi(question)
 //        }
 
+
+        viewModel.allExps.observe(viewLifecycleOwner) {
+            viewModel.analyzer()
+        }
+
+        Log.i("HomeFragment", viewModel.categories.toString())
 
 
         return binding.root

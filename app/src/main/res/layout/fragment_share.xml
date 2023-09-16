@@ -15,7 +15,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".share.ShareFragment">
+        tools:context=".share.ShareFragment"
+        android:fitsSystemWindows="true"
+        >
 
         <TextView
             android:id="@+id/header_title"
@@ -94,6 +96,7 @@
             android:layout_marginTop="16dp"
             android:text="@{viewModel.bookTitle}"
             tools:text="Title"
+            android:maxLines="2"
             android:textStyle="bold"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/book_image_result"
@@ -145,6 +148,7 @@
             android:id="@+id/edit_situation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="@id/text_situation"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="24dp"
@@ -168,6 +172,7 @@
             app:layout_constraintStart_toStartOf="@id/text_situation"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="24dp"
+            android:inputType="textMultiLine"
             app:layout_constraintTop_toBottomOf="@id/text_phrases"/>
 
 

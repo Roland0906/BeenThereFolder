@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beenthere.MainActivity
+import com.example.beenthere.data.Experience
 import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.Books
@@ -41,7 +42,9 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val allExps = repository.getExpsFromRoom()
 
-    fun categorizer() {
+    fun analyzer() {
+
+        Log.i("Response1 allExps", allExps.value.toString())
         allExps.value?.forEach {
             callApi(it.situation)
         }
@@ -59,18 +62,35 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         addToChat(response, Message.SENT_BY_BOT, getCurrentTimestamp())
     }
 
+    enum class CATEGORY {
+        MEANING,
+        COMMUNICATION,
+        DISCIPLINE,
+        LEARNING,
+        WORK,
+        RELATIONSHIP
+    }
+
+    val categories =
+        CATEGORY.entries // Log(toString()) : [MEANING, COMMUNICATION, DISCIPLINE, LEARNING, WORK, RELATIONSHIP]
+
+    private val checkCategoryString =
+        "Which one of the 6 types $categories does the following description belong to:"
+
     fun callApi(question: String) {
         addToChat("Typing...", Message.SENT_BY_BOT, getCurrentTimestamp())
 
+        Log.i("Response2", "callApi")
         val completionRequest = CompletionRequest(
             model = "text-davinci-003",
-            prompt = question,
+            prompt = checkCategoryString + question,
             max_tokens = 4000
         )
 
         viewModelScope.launch {
             try {
                 val response = ApiClient.apiService.getCompletions(completionRequest)
+                Log.i("Response3 response", response.toString())
                 handleApiResponse(response)
             } catch (e: SocketTimeoutException) {
                 addResponse("Timeout: $e")
@@ -84,7 +104,9 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                 response.body()?.let { completionResponse ->
                     val result = completionResponse.choices.firstOrNull()?.text
                     if (result != null) {
-                        addResponse(result.trim())
+//                        categorize(result.trim())
+                        Log.i("Response4 result", result.trim())
+//                        addResponse(result.trim())
                     } else {
                         addResponse("No choices found")
                     }
@@ -95,11 +117,14 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
+    private fun categorize(result: String) {
+
+    }
+
 
     fun getCurrentTimestamp(): String {
         return SimpleDateFormat("hh mm a", Locale.getDefault()).format(Date())
     }
-
 
 
 }

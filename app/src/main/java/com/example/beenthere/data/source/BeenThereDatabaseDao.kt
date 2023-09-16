@@ -15,7 +15,7 @@ import com.example.beenthere.data.Experience
 @Dao
 interface BeenThereDatabaseDao {
 
-    @Query("SELECT * from experience_table")
+    @Query("SELECT * FROM experience_table")
     fun getAllExps(): LiveData<List<Experience>>
 
     @Insert
