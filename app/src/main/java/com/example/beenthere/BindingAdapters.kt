@@ -16,8 +16,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.icons_36px_home_normal)
-                    .error(R.drawable.icons_36px_home_normal)
+                    .placeholder(R.drawable.ic_default_book)
+                    .error(R.drawable.ic_default_book)
             )
             .into(imgView)
     }

@@ -87,7 +87,7 @@ class ShareFragment : Fragment() {
 
 
         // fake user id
-        val userList = listOf("Norman", "Fernandez", "Alicia")
+        val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson")
 
         var userId = ""
         var title: String = ""
