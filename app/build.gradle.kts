@@ -1,5 +1,7 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import org.gradle.initialization.Environment.Properties
+
+import java.util.Properties
+import kotlin.collections.mapOf
 
 plugins {
     id("com.android.application")
@@ -20,6 +22,15 @@ android {
     compileSdk = 33
 
     defaultConfig {
+
+        val properties = Properties()
+        properties.load(rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "OPEN_AI_KEY", "\"${properties.getProperty("OPEN_AI_KEY")}\"")
+        buildConfigField("String", "BOOK_API_KEY", "\"${properties.getProperty("BOOK_API_KEY")}\"")
+
+        //        buildConfigField("String", "OPEN_AI_KEY", gradleLocalProperties(rootDir).getProperty("OPEN_AI_KEY"))
+
         applicationId = "com.example.beenthere"
         minSdk = 24
         targetSdk = 33
@@ -27,10 +38,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-
-
-//        buildConfigField("String", "OPEN_AI_KEY", gradleLocalProperties(rootDir).getProperty("OPEN_AI_KEY"))
 
 
     }

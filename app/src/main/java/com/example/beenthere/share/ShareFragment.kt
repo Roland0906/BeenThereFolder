@@ -14,6 +14,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import com.example.beenthere.BuildConfig
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.databinding.FragmentShareBinding
@@ -53,7 +54,7 @@ class ShareFragment : Fragment() {
                 val title = binding.editInputBook.text.toString()
                 if (title.isNotEmpty()) {
 
-                    viewModel.getBooks(title, Constants.BOOK_API_KEY)
+                    viewModel.getBooks(title, BuildConfig.BOOK_API_KEY)
                     viewModel.myResponse.observe(viewLifecycleOwner) { response ->
                         if (response.isSuccessful) {
 

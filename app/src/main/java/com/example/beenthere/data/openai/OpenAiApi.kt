@@ -15,12 +15,12 @@ import com.example.beenthere.BuildConfig
 import com.example.beenthere.utils.Constants
 
 interface OpenAiApi {
-    @Headers("Authorization: Bearer ${Constants.OPEN_AI_KEY}")
+    @Headers("Authorization: Bearer ${BuildConfig.OPEN_AI_KEY}")
     @POST("v1/completions")
     suspend fun getCompletions(@Body completionRequest: CompletionRequest) : Response<CompletionResponse>
 
 
-    @Headers("Authorization: Bearer ${Constants.OPEN_AI_KEY}")
+    @Headers("Authorization: Bearer ${BuildConfig.OPEN_AI_KEY}")
     @POST("v1/embeddings")
     suspend fun getEmbeddings(@Body embeddingRequest: EmbeddingRequest) : Response<EmbeddingResponse>
 

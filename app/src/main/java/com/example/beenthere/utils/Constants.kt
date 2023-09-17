@@ -19,7 +19,5 @@ package com.example.beenthere.utils
 class Constants {
     companion object {
         const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
-        const val OPEN_AI_KEY = "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"
-        const val BOOK_API_KEY = "AIzaSyDrfi3kT0VWATXU50FhWs7g0LBBgq-aFhw"
     }
 }
