@@ -14,11 +14,11 @@
 .cxx
 local.properties
 gradle.properties
-
+/build/generated/source/buildConfig
 
 
 # Local configuration file (sdk path, etc)
-local.properties
+
 
 # Log/OS Files
 *.log
