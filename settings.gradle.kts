@@ -1,8 +1,10 @@
 pluginManagement {
     repositories {
         google()
-        mavenCentral()
+
         gradlePluginPortal()
+        mavenCentral()
+//        google()
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+//        google()
         mavenLocal()
     }
 }

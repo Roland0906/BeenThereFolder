@@ -19,9 +19,14 @@ import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.databinding.FragmentShareBinding
 import com.example.beenthere.ext.getVmFactory
+import com.example.beenthere.mlkit.VisionImageProcessor
 import com.example.beenthere.utils.Constants
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.util.Locale
 
 
@@ -32,6 +37,8 @@ class ShareFragment : Fragment() {
     val db = Firebase.firestore
 
     private val viewModel by viewModels<ShareViewModel> { getVmFactory() }
+
+    private var imageProcessor: VisionImageProcessor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +55,8 @@ class ShareFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        createImageProcessor()
 
         binding.btnSearch.setOnClickListener {
             if (checkInternet(requireContext())) {
@@ -139,6 +148,15 @@ class ShareFragment : Fragment() {
 
         return binding.root
     }
+
+
+    // text recognition
+    private fun createImageProcessor() {
+        imageProcessor = TextRecognitionProcessor(requireContext(), TextRecognizerOptions.Builder().build())
+    }
+
+
+
 
     private fun checkInternet(context: Context): Boolean {
         val connectivityManager =
