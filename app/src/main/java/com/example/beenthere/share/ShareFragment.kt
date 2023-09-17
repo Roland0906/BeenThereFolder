@@ -119,6 +119,12 @@ class ShareFragment : Fragment() {
                 Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.addData(userId, title, author, situation, phrases)
+                binding.editInputBook.setText("")
+                viewModel.getImage("")
+                binding.bookTitleResult.text = ""
+                binding.authorNameResult.text = ""
+                binding.editSituation.setText("")
+                binding.editPhrases.setText("")
             }
         }
 

@@ -25,7 +25,7 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         }
     }
 
-    override fun getExpsFromRoom(): LiveData<List<Experience>> {
+    override fun getExp(): LiveData<List<Experience>> {
         return dao.getAllExps()
     }
 

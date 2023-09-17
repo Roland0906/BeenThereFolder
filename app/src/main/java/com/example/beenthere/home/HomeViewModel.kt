@@ -12,7 +12,10 @@ import com.example.beenthere.model.openai.CompletionRequest
 import com.example.beenthere.model.openai.CompletionResponse
 import com.example.beenthere.model.openai.Message
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.net.SocketTimeoutException
@@ -32,7 +35,9 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     }
 
 
-    val allExp = repository.getExpsFromRoom()
+    val allExp = repository.getExp()
+
+    private val processedExp: MutableList<Experience> = mutableListOf()
 
     var workList = mutableListOf<Experience>()
     var meaningList = mutableListOf<Experience>()
@@ -42,26 +47,38 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     var relationshipList = mutableListOf<Experience>()
 
     fun analyzer() {
-
+        val newExp = mutableListOf<Experience>()
         Log.i("Response1 allExp", allExp.value.toString())
         allExp.value?.forEach { experience ->
-            callApi(experience.situation) { result ->
-                when (result.toUpperCase()) {
-                    "WORK" -> workList.add(experience)
-                    "MEANING" -> meaningList.add(experience)
-                    "COMMUNICATION" -> communicationList.add(experience)
-                    "DISCIPLINE" -> disciplineList.add(experience)
-                    "LEARNING" -> learningList.add(experience)
-                    "RELATIONSHIP" -> relationshipList.add(experience)
-                }
-                Log.i("Response5-1", workList.toString())
-                Log.i("Response5-2", meaningList.toString())
-                Log.i("Response5-3", communicationList.toString())
-                Log.i("Response5-4", disciplineList.toString())
-                Log.i("Response5-5", learningList.toString())
-                Log.i("Response5-6", relationshipList.toString())
+            if (!processedExp.contains(experience)) {
+                newExp.add(experience)
+                processedExp.add(experience)
             }
         }
+
+        GlobalScope.launch {
+            newExp.forEach { experience1 ->
+                launch {
+                    callApi(experience1.situation) { result ->
+                        when (result.toUpperCase()) {
+                            "WORK" -> workList.add(experience1)
+                            "MEANING" -> meaningList.add(experience1)
+                            "COMMUNICATION" -> communicationList.add(experience1)
+                            "DISCIPLINE" -> disciplineList.add(experience1)
+                            "LEARNING" -> learningList.add(experience1)
+                            "RELATIONSHIP" -> relationshipList.add(experience1)
+                        }
+                    }
+                    delay(2000)
+                }
+            }
+        }
+        Log.i("Response5-1", workList.toString())
+        Log.i("Response5-2", meaningList.toString())
+        Log.i("Response5-3", communicationList.toString())
+        Log.i("Response5-4", disciplineList.toString())
+        Log.i("Response5-5", learningList.toString())
+        Log.i("Response5-6", relationshipList.toString())
     }
 
 
@@ -112,7 +129,10 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
-    private suspend fun handleApiResponse(response: Response<CompletionResponse>, callback: (String) -> Unit) {
+    private suspend fun handleApiResponse(
+        response: Response<CompletionResponse>,
+        callback: (String) -> Unit
+    ) {
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 response.body()?.let { completionResponse ->
@@ -141,7 +161,6 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
             repository.clearRoom()
         }
     }
-
 
 
     fun getCurrentTimestamp(): String {

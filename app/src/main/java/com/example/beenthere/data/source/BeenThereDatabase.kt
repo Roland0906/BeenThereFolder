@@ -18,7 +18,7 @@ import com.example.beenthere.data.Situation
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Book::class, Experience::class, Situation::class], version = 1, exportSchema = false)
+@Database(entities = [Book::class, Experience::class, Situation::class], version = 2, exportSchema = false)
 abstract class BeenThereDatabase : RoomDatabase() {
 
     /**

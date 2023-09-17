@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 
 @Entity(tableName = "experience_table",
-    primaryKeys = ["user_id", "book_title"],
+    primaryKeys = ["user_id", "book_title", "situation"],
 //    foreignKeys = [ForeignKey(
 //        entity = Book::class,
 //        parentColumns = arrayOf("title"),
