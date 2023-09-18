@@ -1,9 +1,11 @@
 package com.example.beenthere.share
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.ConnectivityManager
@@ -25,6 +27,8 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.example.beenthere.BuildConfig
@@ -126,6 +130,11 @@ class ShareFragment : Fragment() {
         }
 
 
+        val cameraPermission = Manifest.permission.CAMERA
+        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        val cameraPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), cameraPermission) == PackageManager.PERMISSION_GRANTED
+        val storagePermissionGranted = ContextCompat.checkSelfPermission(requireContext(), storagePermission) == PackageManager.PERMISSION_GRANTED
 
         binding.selectImageButton.setOnClickListener { view: View ->
             // Menu for selecting either: a) take new photo b) select from existing
@@ -136,8 +145,24 @@ class ShareFragment : Fragment() {
                     startChooseImageIntentForResult()
                     return@setOnMenuItemClickListener true
                 } else if (itemId == R.id.take_photo_using_camera) {
-                    startCameraIntentForResult()
-                    return@setOnMenuItemClickListener true
+
+                    if (!cameraPermissionGranted || !storagePermissionGranted) {
+                        val permissionsToRequest = mutableListOf<String>()
+                        if (!cameraPermissionGranted) {
+                            permissionsToRequest.add(cameraPermission)
+                        }
+                        if (!storagePermissionGranted) {
+                            permissionsToRequest.add(storagePermission)
+                        }
+                        ActivityCompat.requestPermissions(
+                            requireActivity(),
+                            permissionsToRequest.toTypedArray(),
+                            3
+                        )
+                    } else {
+                        startCameraIntentForResult()
+                        return@setOnMenuItemClickListener true
+                    }
                 }
                 false
             }
