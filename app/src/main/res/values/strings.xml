@@ -57,4 +57,6 @@
     <string name="menu_item_settings" translatable="false">Settings</string>
     <string name="close_recognizer">select text</string>
 
+    <string name="no_book_found">The book may not have been written</string>
+
 </resources>

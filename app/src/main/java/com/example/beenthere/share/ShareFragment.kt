@@ -102,17 +102,23 @@ class ShareFragment : Fragment() {
                     viewModel.myResponse.observe(viewLifecycleOwner) { response ->
                         if (response.isSuccessful) {
 
-                            val item = response.body()!!.items[0]
-
-                            binding.bookTitleResult.text = item.volumeInfo?.title
-                            binding.authorNameResult.text = item.volumeInfo?.authors?.get(0) ?: ""
-
-                            Log.i("Book test", item.volumeInfo?.imageLinks?.smallThumbnail.toString())
-
                             try {
-                                viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+                                val item = response.body()!!.items[0]
+
+                                binding.bookTitleResult.text = item.volumeInfo?.title
+                                binding.authorNameResult.text =
+                                    item.volumeInfo?.authors?.get(0) ?: ""
+
+                                Log.i("Book test", item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+
+                                try {
+                                    viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+                                } catch (e: Exception) {
+                                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                                }
+
                             } catch (e: Exception) {
-                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this.context, R.string.no_book_found, Toast.LENGTH_SHORT).show()
                             }
 
                         } else {
