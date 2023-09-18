@@ -35,6 +35,7 @@ class TextRecognitionProcessor (
     override fun onSuccess(text: Text, graphicOverlay: GraphicOverlay) {
         Log.d(TAG, "On-device Text detection successful")
         logExtrasForTesting(text)
+        Log.i("Recognized text", text.toString())
         graphicOverlay.add(
             TextGraphic(
                 graphicOverlay,

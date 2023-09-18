@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.net.SocketTimeoutException
@@ -152,13 +151,10 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
-    private fun categorize(result: String) {
-
-    }
 
     fun clearDB() {
         viewModelScope.launch {
-            repository.clearRoom()
+            repository.clearExpInRoom()
         }
     }
 

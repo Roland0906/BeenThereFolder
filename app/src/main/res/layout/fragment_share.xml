@@ -19,6 +19,27 @@
         android:fitsSystemWindows="true"
         >
 
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.beenthere.mlkit.GraphicOverlay
+            android:id="@+id/graphic_overlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/preview"
+            app:layout_constraintRight_toRightOf="@id/preview"
+            app:layout_constraintTop_toTopOf="@id/preview"
+            app:layout_constraintBottom_toBottomOf="@id/preview"/>
+
         <TextView
             android:id="@+id/header_title"
             android:layout_width="match_parent"
@@ -81,6 +102,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="60dp"
             android:scaleType="center"
+            android:visibility="gone"
             android:cropToPadding="true"
             app:imageUrl="@{viewModel.bookImage}"
             app:layout_constraintTop_toBottomOf="@id/search_block"
@@ -97,6 +119,7 @@
             android:text="@{viewModel.bookTitle}"
             tools:text="Title"
             android:maxLines="3"
+            android:visibility="gone"
             android:textStyle="bold"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/book_image_result"
@@ -112,6 +135,7 @@
             android:text="@{viewModel.bookAuthor}"
             android:layout_marginTop="16dp"
             tools:text="Author"
+            android:visibility="gone"
             android:textStyle="bold"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/book_title_result"
@@ -146,12 +170,12 @@
 
         <EditText
             android:id="@+id/edit_situation"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             app:layout_constraintStart_toStartOf="@id/text_situation"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="24dp"
+            app:layout_constraintEnd_toEndOf="@id/edit_phrases"
+
             app:layout_constraintTop_toBottomOf="@id/text_situation"/>
 
         <TextView
@@ -167,13 +191,53 @@
 
         <EditText
             android:id="@+id/edit_phrases"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/text_situation"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="24dp"
+            app:layout_constraintEnd_toStartOf="@id/select_image_button"
+            android:layout_marginEnd="8dp"
             android:inputType="textMultiLine"
             app:layout_constraintTop_toBottomOf="@id/text_phrases"/>
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/take_img_button"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginStart="12dp"-->
+<!--            android:foreground="@android:drawable/ic_menu_camera"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/edit_phrases"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/edit_phrases"-->
+<!--            app:layout_constraintTop_toTopOf="@id/edit_phrases" />-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/select_image_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:foreground="@android:drawable/ic_menu_camera"
+            app:layout_constraintBottom_toBottomOf="@id/edit_phrases"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edit_phrases"
+            app:layout_constraintTop_toTopOf="@id/edit_phrases"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_close_recognizer"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="12sp"
+            android:text="@string/close_recognizer"
+            android:background="@drawable/coupon_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -192,6 +256,13 @@
             android:text="@string/btn_share"
             />
 
+<!--        <include-->
+<!--            layout="@layout/settings_style"-->
+<!--            android:id="@+id/settings_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

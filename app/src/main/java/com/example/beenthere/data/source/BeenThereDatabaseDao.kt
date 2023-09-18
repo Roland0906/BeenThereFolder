@@ -22,7 +22,7 @@ interface BeenThereDatabaseDao {
     fun insert(experience: Experience)
 
     @Query("DELETE from experience_table")
-    fun clear() // removed suspend 'cause it's quick
+    fun clearExp() // removed suspend 'cause it's quick
 //
 //    /**
 //     * When updating a row with a value already set in a column,

@@ -28,6 +28,7 @@ android {
     defaultConfig {
 
         val properties = Properties()
+//        properties.load(rootProject.file("gradle.properties").inputStream())
         properties.load(rootProject.file("local.properties").inputStream())
 
         buildConfigField("String", "OPEN_AI_KEY", "\"${properties.getProperty("OPEN_AI_KEY")}\"")
@@ -67,13 +68,13 @@ android {
     }
 
     // newly add
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-            excludes += "META-INF/INDEX.LIST"
-            excludes += "META-INF/DEPENDENCIES"
-        }
-    }
+//    packagingOptions {
+//        resources {
+//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "META-INF/INDEX.LIST"
+//            excludes += "META-INF/DEPENDENCIES"
+//        }
+//    }
     //
 
     kotlinOptions {
@@ -90,9 +91,9 @@ dependencies {
 
 //    implementation ("com.google.mlkit:text-recognition-chinese:16.0.0")
 
-    implementation ("androidx.camera:camera-camera2:1.2.1-SNAPSHOT")
-    implementation ("androidx.camera:camera-lifecycle:1.2.1-SNAPSHOT")
-    implementation ("androidx.camera:camera-view:1.2.1-SNAPSHOT")
+//    implementation ("androidx.camera:camera-camera2:1.2.1-SNAPSHOT")
+//    implementation ("androidx.camera:camera-lifecycle:1.2.1-SNAPSHOT")
+//    implementation ("androidx.camera:camera-view:1.2.1-SNAPSHOT")
 
 
 

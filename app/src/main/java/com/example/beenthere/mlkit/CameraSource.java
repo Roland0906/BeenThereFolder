@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package com.example.beenthere.mlkit;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,10 +29,14 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
+
 import com.google.android.gms.common.images.Size;
-import com.google.mlkit.vision.demo.preference.PreferenceUtils;
+import com.example.beenthere.mlkit.preference.PreferenceUtils;
+import com.example.beenthere.mlkit.CameraSource;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -273,7 +277,7 @@ public class CameraSource {
    * @param zoomRatio The target zoom ratio.
    * @return The maximum zoom value that will not exceed the target {@code zoomRatio}.
    */
-  private static int getZoomValue(Camera.Parameters params, float zoomRatio) {
+  private static int getZoomValue(Parameters params, float zoomRatio) {
     int zoom = (int) (Math.max(zoomRatio, 1) * 100);
     List<Integer> zoomRatios = params.getZoomRatios();
     int maxZoom = params.getMaxZoom();
@@ -319,7 +323,7 @@ public class CameraSource {
       throw new IOException("Could not find suitable preview frames per second range.");
     }
 
-    Camera.Parameters parameters = camera.getParameters();
+    Parameters parameters = camera.getParameters();
 
     Size pictureSize = sizePair.picture;
     if (pictureSize != null) {
@@ -328,8 +332,8 @@ public class CameraSource {
     }
     parameters.setPreviewSize(previewSize.getWidth(), previewSize.getHeight());
     parameters.setPreviewFpsRange(
-        previewFpsRange[Camera.Parameters.PREVIEW_FPS_MIN_INDEX],
-        previewFpsRange[Camera.Parameters.PREVIEW_FPS_MAX_INDEX]);
+        previewFpsRange[Parameters.PREVIEW_FPS_MIN_INDEX],
+        previewFpsRange[Parameters.PREVIEW_FPS_MAX_INDEX]);
     // Use YV12 so that we can exercise YV12->NV21 auto-conversion logic for OCR detection
     parameters.setPreviewFormat(IMAGE_FORMAT);
 
@@ -338,8 +342,8 @@ public class CameraSource {
     if (REQUESTED_AUTO_FOCUS) {
       if (parameters
           .getSupportedFocusModes()
-          .contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+          .contains(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+        parameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
       } else {
         Log.i(TAG, "Camera auto focus is not supported on this device.");
       }
@@ -450,7 +454,7 @@ public class CameraSource {
    * preview images may be distorted on some devices.
    */
   public static List<SizePair> generateValidPreviewSizeList(Camera camera) {
-    Camera.Parameters parameters = camera.getParameters();
+    Parameters parameters = camera.getParameters();
     List<Camera.Size> supportedPreviewSizes = parameters.getSupportedPreviewSizes();
     List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
     List<SizePair> validPreviewSizes = new ArrayList<>();
@@ -506,8 +510,8 @@ public class CameraSource {
     List<int[]> previewFpsRangeList = camera.getParameters().getSupportedPreviewFpsRange();
     for (int[] range : previewFpsRangeList) {
       int upperBoundDiff =
-          Math.abs(desiredPreviewFpsScaled - range[Camera.Parameters.PREVIEW_FPS_MAX_INDEX]);
-      int lowerBound = range[Camera.Parameters.PREVIEW_FPS_MIN_INDEX];
+          Math.abs(desiredPreviewFpsScaled - range[Parameters.PREVIEW_FPS_MAX_INDEX]);
+      int lowerBound = range[Parameters.PREVIEW_FPS_MIN_INDEX];
       if (upperBoundDiff <= minUpperBoundDiff && lowerBound <= minLowerBound) {
         selectedFpsRange = range;
         minUpperBoundDiff = upperBoundDiff;
@@ -524,7 +528,7 @@ public class CameraSource {
    * @param parameters the camera parameters for which to set the rotation
    * @param cameraId the camera id to set rotation based on
    */
-  private void setRotation(Camera camera, Camera.Parameters parameters, int cameraId) {
+  private void setRotation(Camera camera, Parameters parameters, int cameraId) {
     WindowManager windowManager = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
     int degrees = 0;
     int rotation = windowManager.getDefaultDisplay().getRotation();
