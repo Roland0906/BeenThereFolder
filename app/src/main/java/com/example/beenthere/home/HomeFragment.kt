@@ -17,8 +17,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.beenthere.MainActivity
+import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.adapter.BookSearchResultAdapter
 import com.example.beenthere.databinding.FragmentHomeBinding
@@ -76,9 +78,9 @@ class HomeFragment : Fragment() {
             }
         }
 
-//        binding.btnSearch.setOnClickListener {
-//            viewModel.clearDB()
-//        }
+        binding.btnSearch.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToMeaningFragment())
+        }
 
         Log.i("HomeFragment", viewModel.categories.toString())
 

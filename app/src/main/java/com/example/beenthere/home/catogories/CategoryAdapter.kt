@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beenthere.data.Experience
+import com.example.beenthere.databinding.CategoryListItemBinding
 import com.example.beenthere.databinding.ItemViewCategoryExpBinding
 
 class CategoryAdapter(private val onclickListener: OnClickListener) :
@@ -31,7 +32,10 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
         }
     }
 
-    class ExpViewHolder (private var binding: ItemViewCategoryExpBinding):
+    class ExpViewHolder (private var binding:
+                         CategoryListItemBinding
+//                         ItemViewCategoryExpBinding
+    ):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(exp: Experience) {
             binding.exp = exp
@@ -40,7 +44,9 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpViewHolder {
-        return ExpViewHolder(ItemViewCategoryExpBinding.inflate(LayoutInflater.from(parent.context)))
+        return ExpViewHolder(CategoryListItemBinding
+//        return ExpViewHolder(ItemViewCategoryExpBinding
+            .inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: ExpViewHolder, position: Int) {
