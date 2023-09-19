@@ -12,6 +12,7 @@ import com.example.beenthere.model.openai.CompletionRequest
 import com.example.beenthere.model.openai.CompletionResponse
 import com.example.beenthere.model.openai.Message
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -29,6 +30,15 @@ import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+enum class CATEGORY {
+    LIFE_MEANING,
+    COMMUNICATION,
+    DISCIPLINE,
+    LEARNING,
+    WORK,
+    RELATIONSHIP
+}
 
 class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
@@ -74,9 +84,12 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     }
 
+    private var snapshotListener: ListenerRegistration? = null
     private fun setFirebaseListener() {
 
-        collection.addSnapshotListener { snapShot, e ->
+//        collection.addSnapshotListener { snapShot, e ->
+
+        snapshotListener = collection.addSnapshotListener { snapShot, e ->
             if (e != null) {
 
                 return@addSnapshotListener
@@ -113,6 +126,10 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
+    fun removeFirebaseListener() {
+        snapshotListener?.remove()
+    }
+
 
     private fun addToChat(message: String, sentBy: String, timestamp: String) {
         val currentList = _messageList.value ?: mutableListOf()
@@ -127,14 +144,6 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         addToChat(response, Message.SENT_BY_BOT, getCurrentTimestamp())
     }
 
-    enum class CATEGORY {
-        LIFE_MEANING,
-        COMMUNICATION,
-        DISCIPLINE,
-        LEARNING,
-        WORK,
-        RELATIONSHIP
-    }
 
     val categories =
         CATEGORY.entries // Log(toString()) : [MEANING, COMMUNICATION, DISCIPLINE, LEARNING, WORK, RELATIONSHIP]

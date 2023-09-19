@@ -40,9 +40,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    val db = Firebase.firestore
-
-
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,5 +84,10 @@ class HomeFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.removeFirebaseListener()
     }
 }
