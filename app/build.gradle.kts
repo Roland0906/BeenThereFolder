@@ -28,7 +28,7 @@ android {
     defaultConfig {
 
         val properties = Properties()
-//        properties.load(rootProject.file("gradle.properties").inputStream())
+        properties.load(rootProject.file("gradle.properties").inputStream())
         properties.load(rootProject.file("local.properties").inputStream())
 
         buildConfigField("String", "OPEN_AI_KEY", "\"${properties.getProperty("OPEN_AI_KEY")}\"")

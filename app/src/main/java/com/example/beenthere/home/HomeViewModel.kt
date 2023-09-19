@@ -11,9 +11,17 @@ import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.openai.CompletionRequest
 import com.example.beenthere.model.openai.CompletionResponse
 import com.example.beenthere.model.openai.Message
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -25,75 +33,102 @@ import java.util.Locale
 class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
 
+    private val db = Firebase.firestore
+    private val collection = db.collection("experiences")
+
     private val _messageList = MutableLiveData<MutableList<Message>>()
     val messageList: LiveData<MutableList<Message>>
         get() = _messageList
 
     init {
         _messageList.value = mutableListOf()
+        setFirebaseListener()
     }
 
+    fun allExp(): Flow<List<Experience>> = repository.getExp()
 
-    val allExp = repository.getExp()
+    suspend fun analyzer(expList: List<Experience>) {
 
-    private val processedExp: MutableList<Experience> = mutableListOf()
+        Log.i("Response1 allExp", expList.toString())
 
-    var workList = mutableListOf<Experience>()
-    var meaningList = mutableListOf<Experience>()
-    var communicationList = mutableListOf<Experience>()
-    var disciplineList = mutableListOf<Experience>()
-    var learningList = mutableListOf<Experience>()
-    var relationshipList = mutableListOf<Experience>()
+        expList.forEach { it ->
+            if (!it.isProcessed) {
+                callApi(it.situation) { result ->
+                    viewModelScope.launch {
+                        when (result.toUpperCase()) {
 
-    fun analyzer() {
-        val newExp = mutableListOf<Experience>()
-        Log.i("Response1 allExp", allExp.value.toString())
-        allExp.value?.forEach { experience ->
-            if (!processedExp.contains(experience)) {
-                newExp.add(experience)
-                processedExp.add(experience)
+                            CATEGORY.WORK.toString() -> repository.updateExp(it.copy(category = CATEGORY.WORK.toString()))
+                            CATEGORY.LIFE_MEANING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LIFE_MEANING.toString()))
+                            CATEGORY.COMMUNICATION.toString() -> repository.updateExp(it.copy(category = CATEGORY.COMMUNICATION.toString()))
+                            CATEGORY.DISCIPLINE.toString() -> repository.updateExp(it.copy(category = CATEGORY.DISCIPLINE.toString()))
+                            CATEGORY.LEARNING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LEARNING.toString()))
+                            CATEGORY.RELATIONSHIP.toString() -> repository.updateExp(it.copy(category = CATEGORY.RELATIONSHIP.toString()))
+                        }
+                    }
+                }
+                val newExp = it.copy(isProcessed = true)
+                repository.updateExp(newExp)
+                delay(3000)
             }
         }
 
-        GlobalScope.launch {
-            newExp.forEach { experience1 ->
-                launch {
-                    callApi(experience1.situation) { result ->
-                        when (result.toUpperCase()) {
-                            "WORK" -> workList.add(experience1)
-                            "MEANING" -> meaningList.add(experience1)
-                            "COMMUNICATION" -> communicationList.add(experience1)
-                            "DISCIPLINE" -> disciplineList.add(experience1)
-                            "LEARNING" -> learningList.add(experience1)
-                            "RELATIONSHIP" -> relationshipList.add(experience1)
+    }
+
+    private fun setFirebaseListener() {
+
+        collection.addSnapshotListener { snapShot, e ->
+            if (e != null) {
+
+                return@addSnapshotListener
+
+            } else {
+                if (snapShot != null && snapShot.size() != 0) {
+                    if (snapShot.first().get("situation") != null && snapShot.first()
+                            .get("situation") != ""
+                    ) {
+                        for (document in snapShot) {
+                            val experience = document.toObject<Experience>()
+                            Log.i("Experience", experience.toString())
+                            viewModelScope.launch {
+                                // change to groovy to use python
+                                // use open ai to convert python response to kotlin class
+                                // check if already in Room before insert?
+
+                                try {
+                                    allExp().collect {
+                                        if (!it.contains(experience)) {
+                                            repository.insertExp(experience)
+                                        }
+                                    }
+
+                                } catch (e: Exception) {
+                                    Log.i("Insert FB data", e.message.toString())
+                                }
+
+                            }
                         }
                     }
-                    delay(2000)
                 }
             }
         }
-        Log.i("Response5-1", workList.toString())
-        Log.i("Response5-2", meaningList.toString())
-        Log.i("Response5-3", communicationList.toString())
-        Log.i("Response5-4", disciplineList.toString())
-        Log.i("Response5-5", learningList.toString())
-        Log.i("Response5-6", relationshipList.toString())
     }
 
 
-    fun addToChat(message: String, sentBy: String, timestamp: String) {
+    private fun addToChat(message: String, sentBy: String, timestamp: String) {
         val currentList = _messageList.value ?: mutableListOf()
         currentList.add(Message(message, sentBy, timestamp))
         _messageList.postValue(currentList)
     }
 
-    fun addResponse(response: String) {
-        _messageList.value?.removeAt(_messageList.value?.size?.minus(1) ?: 0)
+    private fun addResponse(response: String) {
+        _messageList.value?.removeAt(
+            _messageList.value?.size?.minus(1) ?: 0
+        )
         addToChat(response, Message.SENT_BY_BOT, getCurrentTimestamp())
     }
 
     enum class CATEGORY {
-        MEANING,
+        LIFE_MEANING,
         COMMUNICATION,
         DISCIPLINE,
         LEARNING,
@@ -107,19 +142,20 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private val checkCategoryString =
         "Which one of the 6 types $categories does the following description belong to:"
 
-    fun callApi(question: String, callback: (String) -> Unit) {
+    private fun callApi(question: String, callback: (String) -> Unit) {
         addToChat("Typing...", Message.SENT_BY_BOT, getCurrentTimestamp())
 
         Log.i("Response2", "callApi")
         val completionRequest = CompletionRequest(
             model = "text-davinci-003",
             prompt = checkCategoryString + question,
-            max_tokens = 4000
+            max_tokens = 1000
         )
 
         viewModelScope.launch {
             try {
-                val response = ApiClient.apiService.getCompletions(completionRequest)
+                val response =
+                    ApiClient.apiService.getCompletions(completionRequest)
                 Log.i("Response3 response", response.toString())
                 handleApiResponse(response, callback)
             } catch (e: SocketTimeoutException) {
@@ -135,7 +171,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 response.body()?.let { completionResponse ->
-                    val result = completionResponse.choices.firstOrNull()?.text
+                    val result =
+                        completionResponse.choices.firstOrNull()?.text
                     if (result != null) {
                         callback(result.trim())
 //                        categorize(result.trim())
@@ -159,8 +196,11 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     }
 
 
-    fun getCurrentTimestamp(): String {
-        return SimpleDateFormat("hh mm a", Locale.getDefault()).format(Date())
+    private fun getCurrentTimestamp(): String {
+        return SimpleDateFormat(
+            "hh mm a",
+            Locale.getDefault()
+        ).format(Date())
     }
 
 

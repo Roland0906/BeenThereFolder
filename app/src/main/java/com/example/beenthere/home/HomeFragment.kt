@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.beenthere.MainActivity
 import com.example.beenthere.R
@@ -29,6 +30,8 @@ import com.google.firebase.ktx.Firebase
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.util.Locale
 
@@ -66,8 +69,14 @@ class HomeFragment : Fragment() {
 //        }
 
 
-        viewModel.allExp.observe(viewLifecycleOwner) {
-            viewModel.analyzer()
+//        viewModel.allExp.observe(viewLifecycleOwner) {
+//            viewModel.analyzer()
+//        }
+
+        lifecycleScope.launch {
+            viewModel.allExp().collect {
+                viewModel.analyzer(it)
+            }
         }
 
 //        binding.btnSearch.setOnClickListener {

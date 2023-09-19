@@ -89,6 +89,8 @@ class ShareFragment : Fragment() {
 //        createImageProcessor()
 //        tryReloadAndDetectInImage()
 
+        var image = ""
+
         binding.btnSearch.setOnClickListener {
             if (checkInternet(requireContext())) {
                 val title = binding.editInputBook.text.toString()
@@ -112,6 +114,7 @@ class ShareFragment : Fragment() {
                                 Log.i("Book test", item.volumeInfo?.imageLinks?.smallThumbnail.toString())
 
                                 try {
+                                    image = item.volumeInfo?.imageLinks?.smallThumbnail.toString()
                                     viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
                                 } catch (e: Exception) {
                                     Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
@@ -202,6 +205,7 @@ class ShareFragment : Fragment() {
         var phrases = ""
 
 
+
         binding.bookTitleResult.doAfterTextChanged {
             title = binding.bookTitleResult.text.toString()
         }
@@ -224,7 +228,7 @@ class ShareFragment : Fragment() {
             if (title == "" && author == "" && situation == "" && phrases == "") {
                 Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.addData(userId, title, author, situation, phrases)
+                viewModel.addData(userId, title, author, situation, phrases, image, false)
 
                 binding.bookImageResult.visibility = View.GONE
                 binding.bookTitleResult.visibility = View.GONE

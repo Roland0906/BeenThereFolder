@@ -1,9 +1,16 @@
 package com.example.beenthere.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.beenthere.api.RetrofitInstance
 import com.example.beenthere.data.Experience
 import com.example.beenthere.model.Books
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import retrofit2.Response
 
 
@@ -22,10 +29,37 @@ interface BeenThereRepository {
     // db
     suspend fun insertExp(experience: Experience)
 
-    fun getExp(): LiveData<List<Experience>>
+    suspend fun updateExp(experience: Experience)
+
+    suspend fun insertManyExp(experiences: List<Experience>)
+
+//    fun getExp(): LiveData<List<Experience>>
+
+    fun getExp(): Flow<List<Experience>>
 
     suspend fun clearExpInRoom()
 
+
+
+//    fun setFirebaseListener(db: FirebaseFirestore, collection: String): Flow<List<Experience>> = callbackFlow {
+//        val listenerRegistration = db.collection(collection).addSnapshotListener { snapshot, e ->
+//            if (e != null) {
+//                Log.i("Set listener", "fail: $e")
+//                close(e)
+//                return@addSnapshotListener
+//            }
+//
+//            val shares = snapshot?.documents?.mapNotNull { document ->
+//                document.toObject<Experience>()
+//            } ?: emptyList()
+//
+//
+//            trySend(shares)
+//        }
+//
+//        awaitClose { listenerRegistration.remove() }
+//
+//    }
 
 //    suspend fun getBooks(title: String, apiKey: String): Response<Books> {
 //        return RetrofitInstance.api.getBooks(title, apiKey)

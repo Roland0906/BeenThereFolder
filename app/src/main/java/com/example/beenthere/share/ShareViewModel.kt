@@ -53,29 +53,22 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         _bookImage.value = image
     }
 
-    fun addData(userId: String, title: String, author: String, situation: String, phrases: String) {
+    fun addData(userId: String, title: String, author: String, situation: String, phrases: String, image: String, isProcessed: Boolean) {
 
         // to Room
-        val exp = Experience(userId, title, author, situation, phrases)
+        val exp = Experience(userId, title, author, situation, phrases, image, isProcessed)
         viewModelScope.launch(Dispatchers.IO) {
+            Log.i("Insert to ROom", "success")
             repository.insertExp(exp)
         }
 
-
         // to FireStore
-        val experiences = db.collection("experiences")
-        val document = experiences.document()
+        val document = db.collection("experiences").document()
 
-        val data = hashMapOf(
-            "${R.string.user_id}" to userId,
-            "${R.string.title}" to title,
-            "${R.string.author}" to author,
-            "${R.string.situation}" to situation,
-            "${R.string.phrases}" to phrases
-        )
-        document.set(data)
+        document.set(exp)
             .addOnSuccessListener {
                 showError("You have shared your experience")
+                Log.i("Insert to Firestore", "success")
             }
             .addOnFailureListener {
                 showError("Something is wrong")

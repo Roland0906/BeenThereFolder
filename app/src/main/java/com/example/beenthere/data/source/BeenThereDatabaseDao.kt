@@ -1,11 +1,12 @@
 package com.example.beenthere.data.source
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.beenthere.data.Book
 import com.example.beenthere.data.Experience
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -15,11 +16,23 @@ import com.example.beenthere.data.Experience
 @Dao
 interface BeenThereDatabaseDao {
 
+//    @Query("SELECT * FROM experience_table")
+//    fun getAllExps(): LiveData<List<Experience>>
+
+
     @Query("SELECT * FROM experience_table")
-    fun getAllExps(): LiveData<List<Experience>>
+    fun getAllExp(): Flow<List<Experience>>
 
     @Insert
     fun insert(experience: Experience)
+
+    @Update
+    fun update(experience: Experience)
+
+    @Insert
+    fun insert(experiences: List<Experience>)
+
+
 
     @Query("DELETE from experience_table")
     fun clearExp() // removed suspend 'cause it's quick
