@@ -88,7 +88,6 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private fun setFirebaseListener() {
 
 //        collection.addSnapshotListener { snapShot, e ->
-
         snapshotListener = collection.addSnapshotListener { snapShot, e ->
             if (e != null) {
 

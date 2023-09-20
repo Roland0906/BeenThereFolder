@@ -233,6 +233,11 @@ class ShareFragment : Fragment() {
                 binding.bookImageResult.visibility = View.GONE
                 binding.bookTitleResult.visibility = View.GONE
                 binding.authorNameResult.visibility = View.GONE
+//                preview = null
+//                graphicOverlay!!.clear()
+//                preview!!.visibility = View.GONE
+//                graphicOverlay!!.visibility = View.GONE
+                imageUri = null
                 binding.editInputBook.setText("")
                 viewModel.getImage("")
                 binding.bookTitleResult.text = ""
@@ -268,8 +273,11 @@ class ShareFragment : Fragment() {
 //        }
 
         binding.btnCloseRecognizer.setOnClickListener {
-            binding.preview.visibility = View.GONE
-            binding.graphicOverlay.visibility = View.GONE
+            preview!!.visibility = View.GONE
+            graphicOverlay!!.visibility = View.GONE
+            preview = null
+            graphicOverlay!!.clear()
+            imageUri = null
         }
 
 
@@ -494,11 +502,13 @@ class ShareFragment : Fragment() {
     public override fun onPause() {
         super.onPause()
         imageProcessor?.run { this.stop() }
+        imageUri = null
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         imageProcessor?.run { this.stop() }
+        imageUri = null
     }
 
 }
