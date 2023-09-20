@@ -56,11 +56,11 @@ class MeaningFragment : Fragment() {
         val adapter = this.context?.let { ImageAdapter(it, arrayList) }
         binding.recyclerCarouse.adapter = adapter
 
-        adapter?.setOnItemClickListener(object : OnItemClickListener {
-            override fun onClick(imageView: ImageView, path: String) {
-//                viewModel.navigateToDetail(it)
-            }
-        })
+//        adapter?.setOnItemClickListener(object : OnItemClickListener {
+//            override fun onClick(imageView: ImageView, path: String) {
+////                viewModel.navigateToDetail(it)
+//            }
+//        })
 
         binding.recyclerCarouse.adapter = adapter
 
