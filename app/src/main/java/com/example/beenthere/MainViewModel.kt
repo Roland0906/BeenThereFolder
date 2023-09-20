@@ -23,15 +23,39 @@ import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.Books
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class MainViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
-    fun getBooks(title: String, apiKey: String) {
-        viewModelScope.launch {
-            val response: Response<Books> = repository.getBooks(title, apiKey)
-            myResponse.value = response
-        }
-    }
+//    fun getBooks(title: String, apiKey: String) {
+//        viewModelScope.launch {
+//            val response: Response<Books> = repository.getBooks(title, apiKey)
+//            myResponse.value = response
+//        }
+//    }
+
+
+//    init {
+//        refreshDataFromRepository()
+//    }
+//    private fun refreshDataFromRepository() {
+//        viewModelScope.launch {
+//            try {
+//                videosRepository.refreshVideos()
+//                _eventNetworkError.value = false
+//                _isNetworkErrorShown.value = false
+//
+//            } catch (networkError: IOException) {
+//                // Show a Toast error message and hide the progress bar.
+//                if(playlist.value.isNullOrEmpty())
+//                    _eventNetworkError.value = true
+//            }
+//        }
+//    }
+
+
+
+
 }

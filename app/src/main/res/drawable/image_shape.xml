@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Oval Shape -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="1.5dp"
+                android:color="@drawable/gradient_border" />
+        </shape>
+    </item>
+    <!-- Border Gradient -->
+    <item android:right="1.5dp" android:left="1.5dp" android:top="1.5dp" android:bottom="1.5dp">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="2dp"
+                android:color="@drawable/gradient_border" />
+        </shape>
+    </item>
+</layer-list>

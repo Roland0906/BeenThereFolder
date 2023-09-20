@@ -10,5 +10,48 @@
         android:name="com.example.beenthere.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/notAloneFragment"
+        android:name="com.example.beenthere.notalone.NotAloneFragment"
+        android:label="fragment_not_alone"
+        tools:layout="@layout/fragment_not_alone" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.example.beenthere.share.ShareFragment"
+        android:label="fragment_share"
+        tools:layout="@layout/fragment_share" />
+    <fragment
+        android:id="@+id/beenThereFragment"
+        android:name="com.example.beenthere.beenthere.BeenThereFragment"
+        android:label="fragment_been_there"
+        tools:layout="@layout/fragment_been_there" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.beenthere.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/meaningFragment"
+        android:name="com.example.beenthere.home.catogories.MeaningFragment"
+        android:label="MeaningFragment" />
+
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.beenthere.home.catogories.detail.DetailFragment"
+        android:label="DetailFragment">
+
+    <argument
+        android:name="experience"
+        app:argType="com.example.beenthere.data.Experience"
+        app:nullable="false" />
+
+    </fragment>
+
+
+    <action android:id="@+id/navigate_to_meaning_fragment" app:destination="@id/meaningFragment"/>
+
+
+    <action android:id="@+id/navigate_to_detail_fragment" app:destination="@id/detailFragment"/>
 
 </navigation>

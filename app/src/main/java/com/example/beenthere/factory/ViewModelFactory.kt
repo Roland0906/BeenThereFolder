@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.home.HomeViewModel
+import com.example.beenthere.home.catogories.CategoryVM
+import com.example.beenthere.share.ShareViewModel
 
 
 /**
@@ -26,14 +28,12 @@ class ViewModelFactory constructor(
                 isAssignableFrom(HomeViewModel::class.java) ->
                     HomeViewModel(beenThereRepository)
 
-//                isAssignableFrom(CartViewModel::class.java) ->
-//                    CartViewModel(beenThereRepository)
-//
-//                isAssignableFrom(PaymentViewModel::class.java) ->
-//                    PaymentViewModel(beenThereRepository)
-//
-//                isAssignableFrom(LoginViewModel::class.java) ->
-//                    LoginViewModel(beenThereRepository)
+                isAssignableFrom(ShareViewModel::class.java) ->
+                    ShareViewModel(beenThereRepository)
+
+                isAssignableFrom(CategoryVM::class.java) ->
+                    CategoryVM(beenThereRepository)
+
 //
 //                isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
 //                    CheckoutSuccessViewModel(beenThereRepository)

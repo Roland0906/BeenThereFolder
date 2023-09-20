@@ -2,7 +2,8 @@ package com.example.beenthere.utils
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
-import com.example.beenthere.data.source.BeenThereRemoteDataSource
+import com.example.beenthere.data.source.BeenThereDatabase
+import com.example.beenthere.data.source.BeenThereDataSource
 
 import com.example.beenthere.data.source.BeenThereRepository
 
@@ -24,7 +25,7 @@ object ServiceLocator {
     }
 
     private fun createBeenThereRepository(context: Context): BeenThereRepository {
-        return BeenThereRemoteDataSource
+        return BeenThereDataSource(BeenThereDatabase.getInstance(context).beenThereDatabaseDao)
     }
 
 }

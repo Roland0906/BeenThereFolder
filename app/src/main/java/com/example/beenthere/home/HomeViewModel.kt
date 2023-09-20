@@ -1,125 +1,215 @@
 package com.example.beenthere.home
 
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.beenthere.MainActivity
+import com.example.beenthere.data.Experience
+import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
-import com.example.beenthere.model.Books
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
+import com.example.beenthere.model.openai.CompletionRequest
+import com.example.beenthere.model.openai.CompletionResponse
+import com.example.beenthere.model.openai.Message
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.json.JSONObject
+import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.net.SocketTimeoutException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+enum class CATEGORY {
+    LIFE_MEANING,
+    COMMUNICATION,
+    DISCIPLINE,
+    LEARNING,
+    WORK,
+    RELATIONSHIP
+}
 
 class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
 
-    private val _bookTitle = MutableLiveData<String>()
-    val bookTitle: LiveData<String>
-        get() = _bookTitle
+    private val db = Firebase.firestore
+    private val collection = db.collection("experiences")
 
-    private val _bookAuthor = MutableLiveData<String>()
-    val bookAuthor: LiveData<String>
-        get() = _bookAuthor
+    private val _messageList = MutableLiveData<MutableList<Message>>()
+    val messageList: LiveData<MutableList<Message>>
+        get() = _messageList
 
-    private val _bookImage = MutableLiveData<String>()
-    val bookImage: LiveData<String>
-        get() = _bookImage
+    init {
+        _messageList.value = mutableListOf()
+        setFirebaseListener()
+    }
 
-    val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
+    fun allExp(): Flow<List<Experience>> = repository.getExp()
 
-    fun getBooks(title: String, apiKey: String) {
-        viewModelScope.launch {
-            val response: Response<Books> = repository.getBooks(title, apiKey)
-            myResponse.value = response
+    suspend fun analyzer(expList: List<Experience>) {
+
+        Log.i("Response1 allExp", expList.toString())
+
+        expList.forEach { it ->
+            if (!it.isProcessed) {
+                callApi(it.situation) { result ->
+                    viewModelScope.launch {
+                        when (result.toUpperCase()) {
+
+                            CATEGORY.WORK.toString() -> repository.updateExp(it.copy(category = CATEGORY.WORK.toString()))
+                            CATEGORY.LIFE_MEANING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LIFE_MEANING.toString()))
+                            CATEGORY.COMMUNICATION.toString() -> repository.updateExp(it.copy(category = CATEGORY.COMMUNICATION.toString()))
+                            CATEGORY.DISCIPLINE.toString() -> repository.updateExp(it.copy(category = CATEGORY.DISCIPLINE.toString()))
+                            CATEGORY.LEARNING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LEARNING.toString()))
+                            CATEGORY.RELATIONSHIP.toString() -> repository.updateExp(it.copy(category = CATEGORY.RELATIONSHIP.toString()))
+                        }
+                    }
+                }
+                val newExp = it.copy(isProcessed = true)
+                repository.updateExp(newExp)
+                delay(3000)
+            }
+        }
+
+    }
+
+    private var snapshotListener: ListenerRegistration? = null
+    private fun setFirebaseListener() {
+
+//        collection.addSnapshotListener { snapShot, e ->
+        snapshotListener = collection.addSnapshotListener { snapShot, e ->
+            if (e != null) {
+
+                return@addSnapshotListener
+
+            } else {
+                if (snapShot != null && snapShot.size() != 0) {
+                    if (snapShot.first().get("situation") != null && snapShot.first()
+                            .get("situation") != ""
+                    ) {
+                        for (document in snapShot) {
+                            val experience = document.toObject<Experience>()
+                            Log.i("Experience", experience.toString())
+                            viewModelScope.launch {
+                                // change to groovy to use python
+                                // use open ai to convert python response to kotlin class
+                                // check if already in Room before insert?
+
+                                try {
+                                    allExp().collect {
+                                        if (!it.contains(experience)) {
+                                            repository.insertExp(experience)
+                                        }
+                                    }
+
+                                } catch (e: Exception) {
+                                    Log.i("Insert FB data", e.message.toString())
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
-    fun getImage(image: String) {
-        _bookImage.value = image
+    fun removeFirebaseListener() {
+        snapshotListener?.remove()
     }
 
-    fun searchBook(inputQuery: String) {
-        val author = ""
-        val key = "AIzaSyDrfi3kT0VWATXU50FhWs7g0LBBgq-aFhw"
-        val client = AsyncHttpClient()
-        val url = "https://www.googleapis.com/books/v1/volumes?q=${inputQuery}:&key=${key}" // &key=${key}
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>,
-                responseBody: ByteArray
-            ) {
-                val result = String(responseBody)
-                Log.d(TAG, result)
 
-                try {
-                    val jsonObject = JSONObject(result)
-                    val itemsArray = jsonObject.getJSONArray("items")
+    private fun addToChat(message: String, sentBy: String, timestamp: String) {
+        val currentList = _messageList.value ?: mutableListOf()
+        currentList.add(Message(message, sentBy, timestamp))
+        _messageList.postValue(currentList)
+    }
 
-                    var i = 0
+    private fun addResponse(response: String) {
+        _messageList.value?.removeAt(
+            _messageList.value?.size?.minus(1) ?: 0
+        )
+        addToChat(response, Message.SENT_BY_BOT, getCurrentTimestamp())
+    }
 
-                    while (i < itemsArray.length()) {
 
-                        val book = itemsArray.getJSONObject(i)
-                        val volumeInfo = book.getJSONObject("volumeInfo")
+    val categories =
+        CATEGORY.entries // Log(toString()) : [MEANING, COMMUNICATION, DISCIPLINE, LEARNING, WORK, RELATIONSHIP]
 
-                        try {
+    private val checkCategoryString =
+        "Which one of the 6 types $categories does the following description belong to:"
 
-                            _bookTitle.value = volumeInfo.getString("title")
-                            _bookAuthor.value = volumeInfo.getString("authors")
-                            var thumbnailUrl = ""
-                            val thumbNailObject = volumeInfo.optJSONObject("imageLinks")
-                            if (thumbNailObject != null && thumbNailObject.has("smallThumbnail")) {
-                                thumbnailUrl = thumbNailObject.getString("smallThumbnail")
-                            }
-                            _bookImage.value = thumbnailUrl
+    private fun callApi(question: String, callback: (String) -> Unit) {
+        addToChat("Typing...", Message.SENT_BY_BOT, getCurrentTimestamp())
 
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                        i ++
+        Log.i("Response2", "callApi")
+        val completionRequest = CompletionRequest(
+            model = "text-davinci-003",
+            prompt = checkCategoryString + question,
+            max_tokens = 1000
+        )
+
+        viewModelScope.launch {
+            try {
+                val response =
+                    ApiClient.apiService.getCompletions(completionRequest)
+                Log.i("Response3 response", response.toString())
+                handleApiResponse(response, callback)
+            } catch (e: SocketTimeoutException) {
+                addResponse("Timeout: $e")
+            }
+        }
+    }
+
+    private suspend fun handleApiResponse(
+        response: Response<CompletionResponse>,
+        callback: (String) -> Unit
+    ) {
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                response.body()?.let { completionResponse ->
+                    val result =
+                        completionResponse.choices.firstOrNull()?.text
+                    if (result != null) {
+                        callback(result.trim())
+//                        categorize(result.trim())
+                        Log.i("Response4 result", result.trim())
+//                        addResponse(result.trim())
+                    } else {
+                        addResponse("No choices found")
                     }
-
-
-                } catch (e: Exception) {
-                    showError(e.message)
                 }
-
+            } else {
+                addResponse("Failed to get response ${response.errorBody()}")
             }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-                val errorMessage = when (statusCode) {
-                    401 -> "Status code: Bad request"
-                    403 -> "Status code: Forbidden"
-                    404 -> "Status code: Not found"
-                    else -> "Status code: ${error?.message}"
-                }
-                showError(errorMessage)
-            }
-
-        })
+        }
     }
 
-    val toastMessageLiveData = MutableLiveData<String?>()
 
-    private fun showError(message: String?) {
-        toastMessageLiveData.value = message
+    fun clearDB() {
+        viewModelScope.launch {
+            repository.clearExpInRoom()
+        }
     }
 
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
+
+    private fun getCurrentTimestamp(): String {
+        return SimpleDateFormat(
+            "hh mm a",
+            Locale.getDefault()
+        ).format(Date())
     }
+
 
 }
