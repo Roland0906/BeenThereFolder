@@ -13,6 +13,7 @@
 
     <data>
 
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.example.beenthere.MainViewModel" />
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:background="#E0806C"
-
+            android:visibility="@{viewModel.isHome ? View.VISIBLE : View.GONE}"
             android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
+
             app:layout_constraintBottom_toTopOf="@id/bottom_nav"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

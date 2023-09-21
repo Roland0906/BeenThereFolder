@@ -60,7 +60,7 @@
     <string name="no_book_found">The book may not have been written</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_category">You\'re not alone,\n \'cause we have been there</string>
+    <string name="title_category">You\'re not alone\n\'cause we have\n been there</string>
     <string name="life_meaning">Existential Crisis</string>
     <string name="explore_by_problem">EXPLORE BY PROBLEM</string>
     <string name="explore_explain">Explore these general issues to find books recommended by people who\'ve been there</string>

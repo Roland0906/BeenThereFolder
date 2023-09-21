@@ -2,6 +2,7 @@ package com.example.beenthere.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.beenthere.MainViewModel
 
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.home.HomeViewModel
@@ -22,8 +23,8 @@ class ViewModelFactory constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-//                isAssignableFrom(MainViewModel::class.java) ->
-//                    MainViewModel(beenThereRepository)
+                isAssignableFrom(MainViewModel::class.java) ->
+                    MainViewModel(beenThereRepository)
 
                 isAssignableFrom(HomeViewModel::class.java) ->
                     HomeViewModel(beenThereRepository)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentDetailBinding
 
@@ -42,6 +43,9 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.btnGoBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
 
 
