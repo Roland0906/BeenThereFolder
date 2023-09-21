@@ -40,11 +40,11 @@
                 android:id="@+id/text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{exp.title}"
+
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                tools:text="12 rules of life"
+
                 android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/text_user"
@@ -55,11 +55,11 @@
                 android:id="@+id/text_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{exp.userId}"
+
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                tools:text="Roland"
+
                 android:layout_gravity="end|bottom"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"

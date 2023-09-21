@@ -15,9 +15,21 @@
         android:layout_height="match_parent"
         tools:context=".home.catogories.CategoryFragment">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_go_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/icon_library"
+            app:layout_constraintTop_toTopOf="@id/header_title"
+            app:layout_constraintBottom_toBottomOf="@id/header_title"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
         <TextView
             android:id="@+id/header_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="80dp"
             android:gravity="center"
             android:layout_marginTop="8dp"
@@ -25,6 +37,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView

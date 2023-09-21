@@ -119,6 +119,10 @@ class CategoryFragment : Fragment() {
             }
         )
 
+        binding.btnGoBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
 
 
