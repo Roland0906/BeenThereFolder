@@ -1,5 +1,6 @@
 package com.example.beenthere
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -43,12 +44,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setUpToolbar() {
-        val toolbar = binding.toolbar
+
+        val color = Color.parseColor("#AE5745")
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             when (navController.currentDestination?.id) {
 
                 R.id.homeFragment -> viewModel.isHome.value = true // toolbar.visibility = View.VISIBLE
+                R.id.shareFragment -> {
+                    binding.bottomNav.setBackgroundColor(color)
+                    viewModel.isHome.value = false
+                }
                 else -> viewModel.isHome.value = false
+
             }
         }
     }

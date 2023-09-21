@@ -147,11 +147,13 @@ class ShareFragment : Fragment() {
 
         binding.selectImageButton.setOnClickListener { view: View ->
             // Menu for selecting either: a) take new photo b) select from existing
+
             val popup = PopupMenu(requireContext(), view, Gravity.END)
             popup.setOnMenuItemClickListener { menuItem: MenuItem ->
                 val itemId = menuItem.itemId
                 if (itemId == R.id.select_images_from_local) {
                     startChooseImageIntentForResult()
+                    binding.btnCloseRecognizer.visibility = View.VISIBLE
                     return@setOnMenuItemClickListener true
                 } else if (itemId == R.id.take_photo_using_camera) {
 
@@ -170,6 +172,7 @@ class ShareFragment : Fragment() {
                         )
                     } else {
                         startCameraIntentForResult()
+                        binding.btnCloseRecognizer.visibility = View.VISIBLE
                         return@setOnMenuItemClickListener true
                     }
                 }

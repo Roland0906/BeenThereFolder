@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="exp"
+            type="com.example.beenthere.data.Experience" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/book_image_result"
+            android:layout_width="180dp"
+            android:layout_height="270dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="16dp"
+            android:cropToPadding="true"
+            android:scaleType="center"
+            app:imageUrl="@{exp.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/background_bookshelf" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frame_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#070B01"
+            android:paddingBottom="4dp"
+            app:layout_constraintEnd_toEndOf="@id/book_image_result"
+            app:layout_constraintStart_toStartOf="@id/book_image_result"
+            app:layout_constraintTop_toBottomOf="@id/book_image_result">
+
+            <View
+                android:id="@+id/title_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_book"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/book_title_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:maxLines="3"
+                android:text="@{exp.title}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/title_icon"
+                app:layout_constraintStart_toEndOf="@id/title_icon"
+                app:layout_constraintTop_toTopOf="@id/title_icon"
+                tools:text="Title" />
+
+            <View
+                android:id="@+id/author_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_icon" />
+
+
+            <TextView
+                android:id="@+id/author_name_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:text="@{exp.author}"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/author_icon"
+                app:layout_constraintStart_toEndOf="@id/author_icon"
+                app:layout_constraintTop_toTopOf="@id/author_icon"
+                tools:text="Author"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

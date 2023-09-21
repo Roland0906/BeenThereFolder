@@ -55,7 +55,7 @@
     <string name="select_image" translatable="false">Select image</string>
 
     <string name="menu_item_settings" translatable="false">Settings</string>
-    <string name="close_recognizer">select text</string>
+    <string name="close_recognizer">select\ntext</string>
 
     <string name="no_book_found">The book may not have been written</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -72,5 +72,6 @@
     <string name="i_ve_been_there">I\'ve been there</string>
     <string name="tell_us_what_happened">Tell us what happened</string>
     <string name="share_your_experience">Share your experience</string>
+    <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
 
 </resources>
