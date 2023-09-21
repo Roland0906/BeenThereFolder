@@ -9,9 +9,9 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentDetailBinding
-import com.example.beenthere.databinding.FragmentMeaningBinding
+
 import com.example.beenthere.ext.getVmFactory
-import com.example.beenthere.home.catogories.CategoryVM
+
 
 
 class DetailFragment : Fragment() {

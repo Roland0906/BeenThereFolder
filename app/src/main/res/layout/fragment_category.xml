@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.catogories.MeaningFragment">
+        tools:context=".home.catogories.CategoryFragment">
 
         <TextView
             android:id="@+id/header_title"
@@ -30,7 +30,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_carouse"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="260dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"

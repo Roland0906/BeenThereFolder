@@ -18,10 +18,22 @@ fun Fragment.getVmFactory(): ViewModelFactory {
 
 }
 
+fun Fragment.getVmFactory(category: String): ViewModelFactory {
+
+    val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository
+    return ViewModelFactory(repository)
+
+}
+
+
 fun Fragment.getVmFactory(exp: Experience): DetailViewModelFactory {
     val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository
     return DetailViewModelFactory(repository, exp)
 }
+
+
+
+
 
 //fun Fragment.getVmFactory(user: User?): ProfileViewModelFactory {
 //    val repository = (requireContext().applicationContext as BeenThereApplication).stylishRepository

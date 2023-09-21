@@ -147,6 +147,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     val categories =
         CATEGORY.entries // Log(toString()) : [MEANING, COMMUNICATION, DISCIPLINE, LEARNING, WORK, RELATIONSHIP]
 
+
+
     private val checkCategoryString =
         "Which one of the 6 types $categories does the following description belong to:"
 

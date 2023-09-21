@@ -4,26 +4,31 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/icon_home"
+        android:iconTint="@color/white"
         android:title="" />
 
     <item
         android:id="@+id/shareFragment"
         android:icon="@drawable/icon_been_there"
+        android:iconTint="@color/white"
         android:title=""/>
 
     <item
         android:id="@+id/beenThereFragment"
         android:icon="@drawable/icon_island"
+        android:iconTint="@color/white"
         android:title=""/>
 
     <item
         android:id="@+id/notAloneFragment"
         android:icon="@drawable/icon_help"
+        android:iconTint="@color/white"
         android:title=""/>
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/icon_profile"
+        android:iconTint="@color/white"
         android:title=""/>
 
 

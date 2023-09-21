@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:imageUrl="@{exp.image}"
-            tools:src="@drawable/img"
+            tools:src="@drawable/logo_blue_with_padding"
             />
 
         <TextView

@@ -78,9 +78,31 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.btnSearch.setOnClickListener {
-            findNavController().navigate(NavigationDirections.navigateToMeaningFragment())
+        binding.btnToMeaning.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LIFE_MEANING.name))
         }
+
+        binding.btnToCommunication.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.COMMUNICATION.name))
+        }
+
+        binding.btnToDiscipline.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.DISCIPLINE.name))
+        }
+
+        binding.btnToLearning.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LEARNING.name))
+        }
+
+        binding.btnToWork.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.WORK.name))
+        }
+
+        binding.btnToRelationship.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.RELATIONSHIP.name))
+        }
+
+
 
         Log.i("HomeFragment", viewModel.categories.toString())
 

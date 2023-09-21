@@ -31,9 +31,16 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/meaningFragment"
-        android:name="com.example.beenthere.home.catogories.MeaningFragment"
-        android:label="MeaningFragment" />
+        android:id="@+id/categoryFragment"
+        android:name="com.example.beenthere.home.catogories.CategoryFragment"
+        android:label="CategoryFragment">
+
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
 
 
     <fragment
@@ -41,17 +48,21 @@
         android:name="com.example.beenthere.home.catogories.detail.DetailFragment"
         android:label="DetailFragment">
 
-    <argument
-        android:name="experience"
-        app:argType="com.example.beenthere.data.Experience"
-        app:nullable="false" />
+        <argument
+            android:name="experience"
+            app:argType="com.example.beenthere.data.Experience"
+            app:nullable="false" />
 
     </fragment>
 
 
-    <action android:id="@+id/navigate_to_meaning_fragment" app:destination="@id/meaningFragment"/>
+    <action
+        android:id="@+id/navigate_to_category_fragment"
+        app:destination="@id/categoryFragment" />
 
 
-    <action android:id="@+id/navigate_to_detail_fragment" app:destination="@id/detailFragment"/>
+    <action
+        android:id="@+id/navigate_to_detail_fragment"
+        app:destination="@id/detailFragment" />
 
 </navigation>
