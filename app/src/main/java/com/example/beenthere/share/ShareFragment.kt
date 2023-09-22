@@ -153,7 +153,6 @@ class ShareFragment : Fragment() {
                 val itemId = menuItem.itemId
                 if (itemId == R.id.select_images_from_local) {
                     startChooseImageIntentForResult()
-                    binding.btnCloseRecognizer.visibility = View.VISIBLE
                     return@setOnMenuItemClickListener true
                 } else if (itemId == R.id.take_photo_using_camera) {
 
@@ -172,7 +171,6 @@ class ShareFragment : Fragment() {
                         )
                     } else {
                         startCameraIntentForResult()
-                        binding.btnCloseRecognizer.visibility = View.VISIBLE
                         return@setOnMenuItemClickListener true
                     }
                 }
@@ -275,13 +273,13 @@ class ShareFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-        binding.btnCloseRecognizer.setOnClickListener {
-            preview!!.visibility = View.GONE
-            graphicOverlay!!.visibility = View.GONE
-            preview = null
-            graphicOverlay!!.clear()
-            imageUri = null
-        }
+//        binding.btnCloseRecognizer.setOnClickListener {
+//            preview!!.visibility = View.GONE
+//            graphicOverlay!!.visibility = View.GONE
+//            preview = null
+//            graphicOverlay!!.clear()
+//            imageUri = null
+//        }
 
 
         return binding.root
@@ -382,7 +380,12 @@ class ShareFragment : Fragment() {
                     )
                 }
 
-            preview!!.setImageBitmap(resizedBitmap)
+            try {
+                preview!!.setImageBitmap(resizedBitmap)
+            } catch (e: Exception) {
+                Log.i("preview", e.message.toString())
+            }
+
             if (imageProcessor != null) {
                 graphicOverlay!!.setImageSourceInfo(
                     resizedBitmap.width,
@@ -506,12 +509,14 @@ class ShareFragment : Fragment() {
         super.onPause()
         imageProcessor?.run { this.stop() }
         imageUri = null
+        binding.editPhrases.setText("")
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         imageProcessor?.run { this.stop() }
         imageUri = null
+        binding.editPhrases.setText("")
     }
 
 }

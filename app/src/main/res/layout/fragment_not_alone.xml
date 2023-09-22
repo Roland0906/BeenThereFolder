@@ -1,13 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".notalone.NotAloneFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_not_alone_fragment" />
+        tools:context=".notalone.NotAloneFragment">
 
-</FrameLayout>
+
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/main_theme_color"
+            android:gravity="center"
+            android:text="@string/someone_might_have_been_there"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_frame"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            app:layout_constraintTop_toBottomOf="@id/header_title">
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_an_environment"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/environ_white"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:background="@drawable/environ_white"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/environ_gray"
+            />
+
+        <ImageView
+            android:id="@+id/environ_gray"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/envrion_gray"
+            app:layout_constraintTop_toTopOf="@id/environ_white"
+            app:layout_constraintStart_toEndOf="@id/environ_white"
+            app:layout_constraintEnd_toStartOf="@id/environ_dark"
+            />
+
+        <ImageView
+            android:id="@+id/environ_dark"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/envrion_dark"
+            app:layout_constraintTop_toTopOf="@id/environ_white"
+            app:layout_constraintStart_toEndOf="@id/environ_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/top_frame"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_border"
+                android:hint="@string/tell_us_what_happened"
+                android:gravity="top" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

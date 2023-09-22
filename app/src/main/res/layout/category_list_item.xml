@@ -14,8 +14,8 @@
         android:id="@+id/carousel_item_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
         android:background="@drawable/fancy_border"
         app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
 
@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/list_item_image"
-                android:layout_width="160dp"
-                android:layout_height="260dp"
+                android:layout_width="120dp"
+                android:layout_height="195dp"
                 android:transitionName="image"
                 tools:src="@color/black"
                 android:scaleType="centerCrop"

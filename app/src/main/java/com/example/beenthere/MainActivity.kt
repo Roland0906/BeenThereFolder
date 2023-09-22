@@ -45,16 +45,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpToolbar() {
 
+        val bottomNav = binding.bottomNav
         val color = Color.parseColor("#AE5745")
+        val homeColor = Color.parseColor("#E0806C")
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             when (navController.currentDestination?.id) {
 
-                R.id.homeFragment -> viewModel.isHome.value = true // toolbar.visibility = View.VISIBLE
+                R.id.homeFragment -> {
+//                    bottomNav.setBackgroundColor(homeColor)
+                    viewModel.isHome.value = true
+                }
                 R.id.shareFragment -> {
-                    binding.bottomNav.setBackgroundColor(color)
+//                    bottomNav.setBackgroundColor(color)
                     viewModel.isHome.value = false
                 }
-                else -> viewModel.isHome.value = false
+                else -> {
+//                    bottomNav.setBackgroundColor(homeColor)
+                    viewModel.isHome.value = false
+                }
 
             }
         }
