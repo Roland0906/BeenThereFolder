@@ -215,12 +215,12 @@ class ShareFragment : Fragment() {
             author = binding.authorNameResult.text.toString()
         }
 
-        binding.editSituation.doAfterTextChanged {
-            situation = binding.editSituation.text.toString()
+        binding.inputSituation.doAfterTextChanged {
+            situation = binding.inputSituation.text.toString()
         }
 
-        binding.editPhrases.doAfterTextChanged {
-            phrases = binding.editPhrases.text.toString()
+        binding.inputPhrases.doAfterTextChanged {
+            phrases = binding.inputPhrases.text.toString()
         }
 
 
@@ -243,8 +243,8 @@ class ShareFragment : Fragment() {
                 viewModel.getImage("")
                 binding.bookTitleResult.text = ""
                 binding.authorNameResult.text = ""
-                binding.editSituation.setText("")
-                binding.editPhrases.setText("")
+                binding.inputSituation.setText("")
+                binding.inputPhrases.setText("")
             }
         }
 
@@ -412,7 +412,7 @@ class ShareFragment : Fragment() {
                         }
                     }
                     recognizedText = strBuilder.toString()
-                    binding.editPhrases.setText(recognizedText)
+                    binding.inputPhrases.setText(recognizedText)
                 }
 
                 imageProcessor!!.processBitmap(resizedBitmap, graphicOverlay)
@@ -509,14 +509,14 @@ class ShareFragment : Fragment() {
         super.onPause()
         imageProcessor?.run { this.stop() }
         imageUri = null
-        binding.editPhrases.setText("")
+        binding.inputPhrases.setText("")
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         imageProcessor?.run { this.stop() }
         imageUri = null
-        binding.editPhrases.setText("")
+        binding.inputPhrases.setText("")
     }
 
 }

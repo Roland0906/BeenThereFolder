@@ -75,5 +75,14 @@
     <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
     <string name="someone_might_have_been_there">Someone might have been there</string>
     <string name="pick_an_environment">Pick an environment</string>
+    <string name="profile_text1">You\'ve shared \n30 experiences</string>
+    <string name="name">Roland</string>
+    <string name="profile_text_2">You\'ve read \n24 experiences</string>
+    <string name="profile_text3">50 people\nare helped\nby your share</string>
+    <string name="profile_text_liker">People who like your share</string>
+    <string name="profile_text_liker_description">Invite them to exchange your experiences</string>
+    <string name="profile_text_to_talk">Have a chat?</string>
+    <string name="tell_us_your_situation">Tell us your situation</string>
+    <string name="text_not_alone_1">Look for suggestion</string>
 
 </resources>

@@ -51,17 +51,19 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             when (navController.currentDestination?.id) {
 
+
+
                 R.id.homeFragment -> {
-//                    bottomNav.setBackgroundColor(homeColor)
                     viewModel.isHome.value = true
+                    bottomNav.setBackgroundResource(R.drawable.main_theme_color)
                 }
-                R.id.shareFragment -> {
-//                    bottomNav.setBackgroundColor(color)
+                R.id.profileFragment -> {
                     viewModel.isHome.value = false
+                    bottomNav.setBackgroundResource(R.drawable.gradient_border_2)
                 }
                 else -> {
-//                    bottomNav.setBackgroundColor(homeColor)
                     viewModel.isHome.value = false
+                    bottomNav.setBackgroundResource(R.drawable.main_theme_color)
                 }
 
             }

@@ -187,15 +187,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_describe" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_situation"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
-                    android:inputType="textMultiLine"
                     app:layout_constraintEnd_toEndOf="@id/edit_phrases"
                     app:layout_constraintStart_toStartOf="@id/text_situation"
+                    app:layout_constraintTop_toBottomOf="@id/text_situation"
+                    >
 
-                    app:layout_constraintTop_toBottomOf="@id/text_situation" />
+                    <EditText
+                        android:id="@+id/input_situation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_border"
+                        android:inputType="textMultiLine"
+                        android:gravity="top" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <TextView
                     android:id="@+id/text_phrases"
@@ -208,28 +219,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_situation" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_phrases"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="8dp"
-                    android:inputType="textMultiLine"
                     app:layout_constraintEnd_toStartOf="@id/select_image_button"
                     app:layout_constraintStart_toStartOf="@id/text_situation"
-                    app:layout_constraintTop_toBottomOf="@id/text_phrases" />
+                    app:layout_constraintTop_toBottomOf="@id/text_phrases"
+                    >
 
-                <!--        <androidx.appcompat.widget.AppCompatButton-->
-                <!--            android:id="@+id/take_img_button"-->
-                <!--            android:layout_width="30dp"-->
-                <!--            android:layout_height="30dp"-->
-                <!--            android:layout_gravity="center"-->
-                <!--            android:layout_marginEnd="20dp"-->
-                <!--            android:layout_marginStart="12dp"-->
-                <!--            android:foreground="@android:drawable/ic_menu_camera"-->
-                <!--            app:layout_constraintBottom_toBottomOf="@id/edit_phrases"-->
-                <!--            app:layout_constraintEnd_toEndOf="parent"-->
-                <!--            app:layout_constraintStart_toEndOf="@id/edit_phrases"-->
-                <!--            app:layout_constraintTop_toTopOf="@id/edit_phrases" />-->
+                    <EditText
+                        android:id="@+id/input_phrases"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edit_border"
+                        android:inputType="textMultiLine"
+                        android:gravity="top" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/select_image_button"
