@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
 import com.example.beenthere.R
+import com.example.beenthere.data.Situation
 import com.example.beenthere.databinding.FragmentNotAloneBinding
 import com.example.beenthere.databinding.FragmentShareBinding
+import com.example.beenthere.ext.getVmFactory
 
 
 class NotAloneFragment : Fragment() {
 
     private lateinit var binding: FragmentNotAloneBinding
+
+    private val viewModel by viewModels<NotAloneViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,11 +71,30 @@ class NotAloneFragment : Fragment() {
         val userList = listOf("DongGert", "Elyes", "JsonString", "TimDer")
 
         var userId = ""
-        var situation = ""
+        var description = ""
 
         binding.inputSituation.doAfterTextChanged {
-            situation = binding.inputSituation.text.toString()
+            description = binding.inputSituation.text.toString()
         }
+
+
+
+        binding.btnSearch.setOnClickListener {
+
+            if (description == "") {
+                Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
+            } else {
+                userId = userList.random()
+                val situation = Situation(userId = userId, description = description)
+                viewModel.addData(situation)
+            }
+        }
+
+        viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+
+
 
 
 

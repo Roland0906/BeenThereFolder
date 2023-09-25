@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import com.example.beenthere.data.Book
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -28,6 +30,10 @@ interface BeenThereDatabaseDao {
 
     @Update
     fun update(experience: Experience)
+
+    @Upsert
+    fun upsert(situation: Situation)
+
 
     @Insert
     fun insert(experiences: List<Experience>)

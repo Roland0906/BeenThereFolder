@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.beenthere.api.RetrofitInstance
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import com.example.beenthere.model.Books
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -28,6 +29,8 @@ interface BeenThereRepository {
 
     // db
     suspend fun insertExp(experience: Experience)
+
+    suspend fun upsertSituation(situation: Situation)
 
     suspend fun updateExp(experience: Experience)
 

@@ -1,6 +1,7 @@
 package com.example.beenthere.data.source
 
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import com.example.beenthere.model.Books
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +30,12 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
     override suspend fun insertExp(experience: Experience) {
         withContext(Dispatchers.IO) {
             dao.insert(experience)
+        }
+    }
+
+    override suspend fun upsertSituation(situation: Situation) {
+        withContext(Dispatchers.IO) {
+            dao.upsert(situation)
         }
     }
 

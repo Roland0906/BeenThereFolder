@@ -7,6 +7,7 @@ import com.example.beenthere.MainViewModel
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.home.HomeViewModel
 import com.example.beenthere.home.catogories.CategoryVM
+import com.example.beenthere.notalone.NotAloneViewModel
 import com.example.beenthere.share.ShareViewModel
 
 
@@ -35,6 +36,8 @@ class ViewModelFactory constructor(
                 isAssignableFrom(CategoryVM::class.java) ->
                     CategoryVM(beenThereRepository)
 
+                isAssignableFrom(NotAloneViewModel::class.java) ->
+                    NotAloneViewModel(beenThereRepository)
 //
 //                isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
 //                    CheckoutSuccessViewModel(beenThereRepository)

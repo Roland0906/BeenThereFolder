@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.homeFragment -> {
                     viewModel.isHome.value = true
                     bottomNav.setBackgroundResource(R.drawable.main_theme_color)
+//                    window.statusBarColor = Color.parseColor()
                 }
                 R.id.profileFragment -> {
                     viewModel.isHome.value = false

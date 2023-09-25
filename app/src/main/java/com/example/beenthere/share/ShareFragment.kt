@@ -52,8 +52,6 @@ class ShareFragment : Fragment() {
 
     private lateinit var binding: FragmentShareBinding
 
-    val db = Firebase.firestore
-
     private val viewModel by viewModels<ShareViewModel> { getVmFactory() }
 
     private var preview: ImageView? = null
@@ -82,6 +80,8 @@ class ShareFragment : Fragment() {
 
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         binding = FragmentShareBinding.inflate(inflater, container, false)
+
+
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

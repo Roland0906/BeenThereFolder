@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
 
@@ -12,13 +13,16 @@ import kotlinx.parcelize.Parcelize
 data class Situation(
 
     @PrimaryKey(autoGenerate = true)
-    var sitId: Long = 0L,
+    @Json(name = "situation_id") var situationId: Long = 0L,
 
     @ColumnInfo(name = "user_id")
-    val userId: Long = 0L,
+    @Json(name = "user_id") var userId: String = "",
 
     @ColumnInfo(name = "description")
-    val description: String
+    val description: String,
+
+    @ColumnInfo(name = "is_processed")
+    @Json(name = "is_processed") var isProcessed: Boolean = false
 
     ) : Parcelable
 
