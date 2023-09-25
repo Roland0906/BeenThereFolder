@@ -73,7 +73,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#FFFFFF"
+                    android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,10 +91,10 @@
 
                 <ImageView
                     android:id="@+id/icon_help"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="24dp"
-                    android:background="@drawable/icon_island"
+                    android:background="@drawable/icon_been_there"
                     android:backgroundTint="#D17B65"
                     android:elevation="8dp"
                     app:layout_constraintBottom_toTopOf="@id/icon_read"
@@ -114,7 +114,7 @@
 
                 <ImageView
                     android:id="@+id/icon_read"
-                    android:layout_width="50dp"
+                    android:layout_width="45dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/icon_read"
@@ -137,7 +137,7 @@
 
                 <ImageView
                     android:id="@+id/icon_like"
-                    android:layout_width="50dp"
+                    android:layout_width="45dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/icon_like"
