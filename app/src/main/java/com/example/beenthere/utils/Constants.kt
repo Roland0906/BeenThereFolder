@@ -21,3 +21,6 @@ class Constants {
         const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
     }
 }
+
+val APP_ID = "a93d424dea9b44ad8723c6a39bc6ae94"
+val token = "007eJxTYNh4jbHoPeOLZS11vu4rXk+YMN9u2vkbGionrSt/8CfereFWYEi0NE4xMTJJSU20TDIxSUyxMDcyTjZLNLZMApKplibdF4VSGwIZGRY/C2BiZIBAEJ+ZoSg/h4EBAJHpIHw="

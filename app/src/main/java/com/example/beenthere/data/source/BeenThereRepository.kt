@@ -40,6 +40,8 @@ interface BeenThereRepository {
 
     fun getExp(): Flow<List<Experience>>
 
+    fun getSituations(): Flow<List<Situation>>
+
     suspend fun clearExpInRoom()
 
 

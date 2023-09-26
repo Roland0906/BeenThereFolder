@@ -25,6 +25,9 @@ interface BeenThereDatabaseDao {
     @Query("SELECT * FROM experience_table")
     fun getAllExp(): Flow<List<Experience>>
 
+    @Query("SELECT * FROM situation_table")
+    fun getSituations(): Flow<List<Situation>>
+
     @Insert
     fun insert(experience: Experience)
 

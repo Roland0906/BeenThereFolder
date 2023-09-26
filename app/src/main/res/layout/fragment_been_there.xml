@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".beenthere.BeenThereFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.beenthere.beenthere.BeenThereViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_been_there_fragment" />
+        android:background="#F9F6EE"
+        tools:context=".beenthere.BeenThereFragment">
 
-</FrameLayout>
+
+        <TextView
+            android:id="@+id/header_title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="70dp"
+            android:elevation="4dp"
+            android:lines="2"
+            android:text="@string/text_been_there_1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:text="@string/experience"
+            android:textColor="#AE563F"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/header_title_1"
+            app:layout_constraintTop_toBottomOf="@id/header_title_1" />
+
+        <TextView
+            android:id="@+id/last_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:text="@string/text_been_there_2"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/header_title_1"
+            app:layout_constraintTop_toBottomOf="@id/text_exp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pic_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/header_title_1"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/pic"
+                android:layout_width="150dp"
+                android:layout_height="244dp"
+                android:background="@drawable/lonely_standing"
+
+                />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_situation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="50dp"
+            android:layout_marginHorizontal="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pic_frame" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

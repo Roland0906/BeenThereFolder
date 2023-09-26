@@ -273,13 +273,13 @@ class ShareFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-//        binding.btnCloseRecognizer.setOnClickListener {
-//            preview!!.visibility = View.GONE
-//            graphicOverlay!!.visibility = View.GONE
-//            preview = null
-//            graphicOverlay!!.clear()
-//            imageUri = null
-//        }
+        binding.btnCloseRecognizer.setOnClickListener {
+            preview!!.visibility = View.GONE
+            graphicOverlay!!.visibility = View.GONE
+            preview = null
+            graphicOverlay!!.clear()
+            imageUri = null
+        }
 
 
         return binding.root
@@ -380,11 +380,11 @@ class ShareFragment : Fragment() {
                     )
                 }
 
-            try {
+//            try {
                 preview!!.setImageBitmap(resizedBitmap)
-            } catch (e: Exception) {
-                Log.i("preview", e.message.toString())
-            }
+//            } catch (e: Exception) {
+//                Log.i("preview", e.message.toString())
+//            }
 
             if (imageProcessor != null) {
                 graphicOverlay!!.setImageSourceInfo(

@@ -3,11 +3,13 @@ package com.example.beenthere.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.beenthere.MainViewModel
+import com.example.beenthere.beenthere.BeenThereViewModel
 
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.home.HomeViewModel
 import com.example.beenthere.home.catogories.CategoryVM
 import com.example.beenthere.notalone.NotAloneViewModel
+import com.example.beenthere.notalone.SuggestionViewModel
 import com.example.beenthere.share.ShareViewModel
 
 
@@ -38,6 +40,12 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(NotAloneViewModel::class.java) ->
                     NotAloneViewModel(beenThereRepository)
+
+                isAssignableFrom(BeenThereViewModel::class.java) ->
+                    BeenThereViewModel(beenThereRepository)
+
+                isAssignableFrom(SuggestionViewModel::class.java) ->
+                    SuggestionViewModel(beenThereRepository)
 //
 //                isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
 //                    CheckoutSuccessViewModel(beenThereRepository)

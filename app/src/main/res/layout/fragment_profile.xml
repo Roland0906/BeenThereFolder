@@ -5,6 +5,8 @@
 
     <data>
 
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,22 +14,43 @@
         android:layout_height="match_parent"
         tools:context=".profile.ProfileFragment">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/gradient_border_2"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="30dp"
+            android:elevation="8dp"
+            android:layout_height="250dp"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:background="@drawable/gradient_border_2"
-            app:layout_constraintTop_toTopOf="parent" />
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="8dp"
+                android:background="@drawable/gradient_border_2" />
+
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="30dp"
             app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@drawable/gradient_border_2" />
 
         </androidx.cardview.widget.CardView>
 
@@ -57,10 +80,13 @@
             app:layout_constraintTop_toBottomOf="@id/avatar" />
 
 
+
+
         <androidx.cardview.widget.CardView
             android:id="@+id/middle_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="10dp"
             android:layout_marginHorizontal="45dp"
             android:layout_marginTop="200dp"
             app:cardCornerRadius="30dp"
@@ -76,8 +102,10 @@
                     android:background="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/profile_text_1"
@@ -157,23 +185,23 @@
             android:id="@+id/liker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/profile_text_liker"
             android:textColor="#3F3A3A"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@id/middle_frame" />
 
-        <TextView
-            android:id="@+id/liker_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#7f7f7f"
-            android:textSize="15sp"
-            android:text="@string/profile_text_liker_description"
-            app:layout_constraintTop_toBottomOf="@id/liker"
-            android:gravity="center"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/liker_description"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#7f7f7f"-->
+<!--            android:textSize="15sp"-->
+<!--            android:text="@string/profile_text_liker_description"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/liker"-->
+<!--            android:gravity="center"-->
+<!--            />-->
 
 
         <androidx.cardview.widget.CardView
@@ -181,12 +209,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/gradient_border_2"
             app:cardCornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/liker_description">
+            app:layout_constraintTop_toBottomOf="@id/liker">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,12 +240,12 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/avatar_male_3" />
+                    android:background="@drawable/avatar_5" />
 
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:background="@drawable/avatar_female_2" />
+                    android:background="@drawable/avatar_4_female" />
 
 
             </LinearLayout>
@@ -225,28 +253,102 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/text_to_talk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/liker_frame"
-            android:text="@string/profile_text_to_talk"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp"
-            />
+<!--        <EditText-->
+<!--            android:id="@+id/channel"-->
+<!--            android:layout_width="370dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:hint="Enter Channel Name"-->
+<!--            android:textSize="20sp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
 
-        <ImageView
-            android:id="@+id/btn_to_talk"
+<!--        <TextView-->
+<!--            android:id="@+id/text_to_talk"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="30dp"-->
+<!--            app:layout_constraintTop_toTopOf="@id/avatar"-->
+<!--            android:text="@string/launch_a_live_talk"-->
+<!--            android:lines="5"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:elevation="4dp"-->
+<!--            android:gravity="center"-->
+<!--            app:layout_constraintStart_toEndOf="@id/avatar"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:textSize="18sp"-->
+<!--            />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/btn_launch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/text_to_talk"-->
+<!--            android:background="@drawable/icon_streaming"-->
+<!--            android:backgroundTint="#FFFFFF"-->
+<!--            android:elevation="4dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/text_to_talk"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/text_to_talk"-->
+<!--            />-->
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@id/liker_frame"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_join_channel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <RadioButton
+                android:id="@+id/radio_audience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Audience"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Broadcaster"
+                tools:ignore="HardcodedText" />
+
+
+        </RadioGroup>
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/text_to_join"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/profile_text_to_talk"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/liker_frame"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            />-->
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_join_channel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_to_talk"
-            android:background="@drawable/icon_streaming"
-            android:backgroundTint="#D17B65"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/gradient_border_2"
+            app:layout_constraintTop_toTopOf="@id/radio_group"
+            app:layout_constraintStart_toEndOf="@id/radio_group"
+            app:layout_constraintBottom_toBottomOf="@id/radio_group"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            android:paddingHorizontal="4dp"
+            android:layout_marginStart="8dp"
+            android:text="JOIN CHANNEL"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:onClick="onSubmit"
+            tools:ignore="HardcodedText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

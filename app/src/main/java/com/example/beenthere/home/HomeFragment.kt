@@ -12,30 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
-import com.example.beenthere.MainActivity
 import com.example.beenthere.NavigationDirections
-import com.example.beenthere.R
-import com.example.beenthere.adapter.BookSearchResultAdapter
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
-import com.example.beenthere.utils.Constants
-import com.gdsc.bbsbec.gbooks.model.BookSearchResultData
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.util.Locale
 
 
 class HomeFragment : Fragment() {

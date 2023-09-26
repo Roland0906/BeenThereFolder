@@ -60,9 +60,19 @@
         android:id="@+id/navigate_to_category_fragment"
         app:destination="@id/categoryFragment" />
 
-
     <action
         android:id="@+id/navigate_to_detail_fragment"
         app:destination="@id/detailFragment" />
+
+    <dialog
+        android:id="@+id/suggestionDialog"
+        android:name="com.example.beenthere.notalone.SuggestionDialog"
+        android:label="fragment_suggestion_dialog"
+        tools:layout="@layout/fragment_suggestion_dialog" />
+
+    <action
+        android:id="@+id/navigate_to_suggestion_dialog"
+        app:destination="@id/suggestionDialog" />
+
 
 </navigation>

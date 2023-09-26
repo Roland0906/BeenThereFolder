@@ -160,6 +160,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
+    implementation("com.github.agorabuilder:native-full-sdk:3.5.0.3")
+
 }
 
 kapt {

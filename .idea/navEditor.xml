@@ -20,6 +20,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="categoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="23" />
+                            <option name="y" value="-226" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="detailFragment">
                     <value>
                       <LayoutPositions>
@@ -44,24 +56,12 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="meaningFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="25" />
-                            <option name="y" value="-619" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="navigate_to_detail_fragment">
+                  <entry key="navigate_to_category_fragment">
                     <value>
                       <LayoutPositions />
                     </value>
                   </entry>
-                  <entry key="navigate_to_meaning_fragment">
+                  <entry key="navigate_to_detail_fragment">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -97,6 +97,18 @@
                           <Point>
                             <option name="x" value="-20" />
                             <option name="y" value="180" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="suggestionDialog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-50" />
+                            <option name="y" value="-815" />
                           </Point>
                         </option>
                       </LayoutPositions>

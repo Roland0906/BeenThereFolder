@@ -9,6 +9,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.Situation
 import com.example.beenthere.databinding.FragmentNotAloneBinding
@@ -31,9 +33,6 @@ class NotAloneFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        // Inflate the layout for this fragment
-
 
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         binding = FragmentNotAloneBinding.inflate(inflater, container, false)
@@ -87,6 +86,8 @@ class NotAloneFragment : Fragment() {
                 userId = userList.random()
                 val situation = Situation(userId = userId, description = description)
                 viewModel.addData(situation)
+                binding.inputSituation.setText("")
+                it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
             }
         }
 

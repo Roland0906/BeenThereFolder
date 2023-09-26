@@ -55,8 +55,12 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         return dao.getAllExp()
     }
 
+    override fun getSituations(): Flow<List<Situation>> {
+        return dao.getSituations()
+    }
+
 //    override fun getExp(): LiveData<List<Experience>> {
-//        return dao.getAllExps()
+//        return dao.getAllExp()
 //    }
 
 
