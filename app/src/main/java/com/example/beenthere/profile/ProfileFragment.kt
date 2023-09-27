@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_CONNECT), 22)
     }
 
-    fun onSubmit(
+    private fun onSubmit(
 //        view: View
     ) {
         val channelName = "rol"

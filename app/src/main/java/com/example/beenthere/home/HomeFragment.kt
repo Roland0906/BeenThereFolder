@@ -12,17 +12,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.beenthere.NavigationDirections
+import com.example.beenthere.VideoActivity
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
 
+    private var userRole = 0
+
+    private var theme = ""
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
@@ -89,6 +97,20 @@ class HomeFragment : Fragment() {
 
         Log.i("HomeFragment", viewModel.categories.toString())
 
+        binding.inputTalkTheme.doAfterTextChanged {
+            theme = it.toString()
+            binding.btnLaunch.visibility = View.VISIBLE
+        }
+
+        binding.btnLaunch.isEnabled = theme != ""
+
+        binding.btnLaunch.setOnClickListener {
+            onSubmit(theme)
+        }
+
+        viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
 
         return binding.root
     }
@@ -96,5 +118,15 @@ class HomeFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         viewModel.removeFirebaseListener()
+    }
+
+    private fun onSubmit(theme: String) {
+        val channelName = "rol"
+        userRole = 1
+        val intent = Intent(requireActivity(), VideoActivity::class.java)
+        intent.putExtra("ChannelName", channelName)
+        intent.putExtra("UserRole", userRole)
+        startActivity(intent)
+        viewModel.launchLiveTalk(theme)
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.openai.CompletionRequest
@@ -211,6 +212,28 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
             "hh mm a",
             Locale.getDefault()
         ).format(Date())
+    }
+
+    val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson")
+    fun launchLiveTalk(theme: String) {
+        val docLive = db.collection("live_talks").document()
+
+        val event = LiveTalkEvent(userId = userList.random(), theme = theme)
+
+        docLive.set(event)
+            .addOnSuccessListener {
+                Log.i("HomeVM live talk", "Success")
+                showMessage("You're giving a live talk!")
+            }
+            .addOnFailureListener {
+                showMessage("Launch live talk fail")
+            }
+    }
+
+    val toastMessageLiveData = MutableLiveData<String?>()
+
+    private fun showMessage(message: String?) {
+        toastMessageLiveData.value = message
     }
 
 
