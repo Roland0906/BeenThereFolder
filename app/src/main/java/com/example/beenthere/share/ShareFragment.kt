@@ -415,6 +415,7 @@ class ShareFragment : Fragment() {
                     binding.inputPhrases.setText(recognizedText)
                 }
 
+
                 imageProcessor!!.processBitmap(resizedBitmap, graphicOverlay)
             } else {
                 Log.e(TAG, "Null imageProcessor, please check adb logs for imageProcessor creation error")
@@ -508,15 +509,15 @@ class ShareFragment : Fragment() {
     public override fun onPause() {
         super.onPause()
         imageProcessor?.run { this.stop() }
-        imageUri = null
-        binding.inputPhrases.setText("")
+//        imageUri = null
+//        binding.inputPhrases.setText("")
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         imageProcessor?.run { this.stop() }
-        imageUri = null
-        binding.inputPhrases.setText("")
+//        `imageUri = null
+//        binding.inputPhrases.setText("")`
     }
 
 }
