@@ -66,13 +66,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_carouse"
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="210dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
-            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description" />
+            app:layout_constraintTop_toBottomOf="@id/description"
+            />
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycler_carouse"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="195dp"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/description" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
