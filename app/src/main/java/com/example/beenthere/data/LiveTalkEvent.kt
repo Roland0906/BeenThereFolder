@@ -9,13 +9,15 @@ import kotlinx.parcelize.Parcelize
 data class LiveTalkEvent(
 
     @PrimaryKey(autoGenerate = true)
-    @Json(name = "event_id") var eventId: Long = 0L,
+    @Json(name = "event_id") var eventId: Long = 0,
 
     @Json(name = "user_id") var userId: String = "",
 
-    var theme: String = "",
+    var topic: String = "",
 
+    @Json(name = "is_going_on") var isGoingOn: Boolean = false,
 
+    var avatar: String? = ""
 
 
 ) : Parcelable

@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
         tools:context=".home.HomeFragment"
         >
 
@@ -26,7 +27,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/explore_by_problem"
             />
 
@@ -34,7 +35,7 @@
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:background="#000000"
             app:layout_constraintEnd_toEndOf="@id/text_explore_by_problem"
             app:layout_constraintStart_toStartOf="@id/text_explore_by_problem"
@@ -48,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:layout_marginHorizontal="32dp"
             android:textSize="14sp"
             android:text="@string/explore_explain"
@@ -58,7 +59,9 @@
         <ImageView
             android:id="@+id/btn_to_meaning"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="8dp"
             android:src="@drawable/pic_meaning"
             app:layout_constraintTop_toBottomOf="@id/text_explore_explain"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +77,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_meaning"
             app:layout_constraintStart_toStartOf="@id/btn_to_meaning"
             app:layout_constraintEnd_toEndOf="@id/btn_to_meaning"
@@ -84,7 +87,8 @@
         <ImageView
             android:id="@+id/btn_to_communication"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/pic_communication"
             app:layout_constraintTop_toTopOf="@id/btn_to_meaning"
             app:layout_constraintStart_toEndOf="@id/btn_to_meaning"
@@ -99,7 +103,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_communication"
             app:layout_constraintStart_toStartOf="@id/btn_to_communication"
             app:layout_constraintEnd_toEndOf="@id/btn_to_communication"
@@ -108,8 +112,9 @@
         <ImageView
             android:id="@+id/btn_to_discipline"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="12dp"
             android:src="@drawable/pic_discipline"
             app:layout_constraintTop_toBottomOf="@id/btn_to_meaning"
             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +130,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_discipline"
             app:layout_constraintStart_toStartOf="@id/btn_to_discipline"
             app:layout_constraintEnd_toEndOf="@id/btn_to_discipline"
@@ -134,8 +139,9 @@
         <ImageView
             android:id="@+id/btn_to_learning"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:src="@drawable/pic_learning"
+            android:scaleType="fitCenter"
             app:layout_constraintTop_toTopOf="@id/btn_to_discipline"
             app:layout_constraintStart_toEndOf="@id/btn_to_meaning"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +155,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_learning"
             app:layout_constraintStart_toStartOf="@id/btn_to_learning"
             app:layout_constraintEnd_toEndOf="@id/btn_to_learning"
@@ -158,9 +164,10 @@
         <ImageView
             android:id="@+id/btn_to_work"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/pic_work"
+            android:layout_marginTop="12dp"
             app:layout_constraintTop_toBottomOf="@id/btn_to_discipline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_to_communication"
@@ -175,7 +182,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_work"
             app:layout_constraintStart_toStartOf="@id/btn_to_work"
             app:layout_constraintEnd_toEndOf="@id/btn_to_work"
@@ -184,7 +191,8 @@
         <ImageView
             android:id="@+id/btn_to_relationship"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/pic_relationship"
             app:layout_constraintTop_toTopOf="@id/btn_to_work"
             app:layout_constraintStart_toEndOf="@id/btn_to_meaning"
@@ -199,60 +207,74 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:elevation="4dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/btn_to_relationship"
             app:layout_constraintStart_toStartOf="@id/btn_to_relationship"
             app:layout_constraintEnd_toEndOf="@id/btn_to_relationship"
             />
 
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/btn_launch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:background="@drawable/icon_streaming"-->
+<!--            android:backgroundTint="#c0c0c0"-->
+<!--            android:elevation="4dp"-->
+<!--            app:layout_constraintStart_toEndOf="@id/edit_frame"-->
+<!--            app:layout_constraintTop_toTopOf="@id/edit_frame"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/edit_frame"-->
+<!--            />-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/edit_frame"-->
+<!--            android:layout_width="160dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/text_to_talk"-->
+<!--            >-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/input_talk_theme"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/edit_border"-->
+<!--                android:inputType="textMultiLine"-->
+<!--                android:gravity="top" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
         <TextView
-            android:id="@+id/text_to_talk"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:lines="5"
-            android:text="@string/launch_a_live_talk"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/text_to_join"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/btn_to_relationship"
+            android:text="@string/join_the_ongoing_live_talks"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/btn_to_work"
+            app:layout_constraintEnd_toEndOf="@id/btn_to_relationship"
             />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_frame"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_to_talk"
-            >
-
-            <EditText
-                android:id="@+id/input_talk_theme"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/edit_border"
-                android:inputType="textMultiLine"
-                android:gravity="top" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/btn_launch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_event"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:background="@drawable/icon_streaming"
-            android:backgroundTint="#c0c0c0"
-            android:elevation="4dp"
-            app:layout_constraintEnd_toEndOf="@id/text_to_talk"
-            app:layout_constraintStart_toStartOf="@id/text_to_talk"
-            app:layout_constraintTop_toBottomOf="@id/edit_frame" />
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/text_to_join"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
 
 
 

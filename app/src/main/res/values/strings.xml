@@ -60,7 +60,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_category">You\'re not alone\n\'cause we have\n been there</string>
-    <string name="life_meaning">Existential Crisis</string>
+    <string name="life_meaning">Life Meaning</string>
     <string name="explore_by_problem">EXPLORE BY PROBLEM</string>
     <string name="explore_explain">Explore these general issues to find books recommended by people who\'ve been there</string>
     <string name="communication">Communication</string>
@@ -87,8 +87,10 @@
     <string name="text_been_there_2">with them</string>
     <string name="experience">Experience</string>
     <string name="text_dialog_1">Check these suggestions\nthat might suit your situation</string>
-    <string name="launch_a_live_talk">Launch a live talk about:</string>
+    <string name="launch_a_live_talk">Launch a live talk about</string>
     <string name="send">Send</string>
     <string name="put_your_name">your name</string>
+    <string name="someone_is_giving_a_live_talk">Someone is giving a live talk</string>
+    <string name="join_the_ongoing_live_talks">Join the ongoing live talks!</string>
 
 </resources>

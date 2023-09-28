@@ -1,9 +1,7 @@
 package com.example.beenthere.home
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,16 +20,13 @@ import com.example.beenthere.NavigationDirections
 import com.example.beenthere.VideoActivity
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
 
-    private var userRole = 0
 
-    private var theme = ""
+    private var userRole = 0
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
@@ -40,6 +36,7 @@ class HomeFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,40 +90,48 @@ class HomeFragment : Fragment() {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.RELATIONSHIP.name))
         }
 
+        val eventAdapter = EventAdapter(EventAdapter.OnClickListener {
+//            onSubmit()
+        })
 
+        binding.recyclerEvent.adapter = eventAdapter
+
+        lifecycleScope.launch {
+            viewModel.liveTalkEvents.collect { liveTalkEvents ->
+                eventAdapter.submitList(liveTalkEvents)
+            }
+        }
 
         Log.i("HomeFragment", viewModel.categories.toString())
-
-        binding.inputTalkTheme.doAfterTextChanged {
-            theme = it.toString()
-            binding.btnLaunch.visibility = View.VISIBLE
-        }
-
-        binding.btnLaunch.isEnabled = theme != ""
-
-        binding.btnLaunch.setOnClickListener {
-            onSubmit(theme)
-        }
 
         viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+
+        requestPermission()
 
         return binding.root
     }
 
     override fun onStop() {
         super.onStop()
-        viewModel.removeFirebaseListener()
+        viewModel.removeFirebaseListeners()
     }
 
-    private fun onSubmit(theme: String) {
+    private fun onSubmit() {
         val channelName = "rol"
-        userRole = 1
+        userRole = 0
         val intent = Intent(requireActivity(), VideoActivity::class.java)
         intent.putExtra("ChannelName", channelName)
         intent.putExtra("UserRole", userRole)
         startActivity(intent)
-        viewModel.launchLiveTalk(theme)
+
     }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_CONNECT), 22)
+    }
+
+
 }

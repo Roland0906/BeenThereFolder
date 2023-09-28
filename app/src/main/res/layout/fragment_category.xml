@@ -76,6 +76,52 @@
             app:layout_constraintTop_toBottomOf="@id/description"
             />
 
+        <TextView
+            android:id="@+id/text_to_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:lines="5"
+            android:text="@string/launch_a_live_talk"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@id/topic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_carouse"
+            />
+
+        <TextView
+            android:id="@+id/topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/text_to_talk"
+            app:layout_constraintEnd_toStartOf="@id/btn_launch"
+            app:layout_constraintTop_toTopOf="@id/text_to_talk"
+            app:layout_constraintBottom_toBottomOf="@id/text_to_talk"
+            tools:text="Life Meaning"
+            />
+
+        <ImageView
+            android:id="@+id/btn_launch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_streaming"
+            android:backgroundTint="#3F3A3A"
+            android:elevation="4dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/topic"
+            app:layout_constraintTop_toTopOf="@id/topic"
+            app:layout_constraintBottom_toBottomOf="@id/topic"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
 <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:id="@+id/recycler_carouse"-->
 <!--            android:layout_width="match_parent"-->

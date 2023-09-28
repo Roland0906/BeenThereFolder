@@ -293,32 +293,32 @@
 <!--            app:layout_constraintEnd_toEndOf="@id/text_to_talk"-->
 <!--            />-->
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toBottomOf="@id/liker_frame"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_join_channel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
+<!--        <RadioGroup-->
+<!--            android:id="@+id/radio_group"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/liker_frame"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/btn_join_channel"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            >-->
 
-            <RadioButton
-                android:id="@+id/radio_audience"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Audience"
-                tools:ignore="HardcodedText" />
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_audience"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Audience"-->
+<!--                tools:ignore="HardcodedText" />-->
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Broadcaster"
-                tools:ignore="HardcodedText" />
+<!--            <RadioButton-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Broadcaster"-->
+<!--                tools:ignore="HardcodedText" />-->
 
 
-        </RadioGroup>
+<!--        </RadioGroup>-->
 
 
 <!--        <TextView-->
@@ -333,22 +333,22 @@
 <!--            />-->
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_join_channel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_border_2"
-            app:layout_constraintTop_toTopOf="@id/radio_group"
-            app:layout_constraintStart_toEndOf="@id/radio_group"
-            app:layout_constraintBottom_toBottomOf="@id/radio_group"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingHorizontal="4dp"
-            android:layout_marginStart="8dp"
-            android:text="JOIN CHANNEL"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:onClick="onSubmit"
-            tools:ignore="HardcodedText" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btn_join_channel"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/gradient_border_2"-->
+<!--            app:layout_constraintTop_toTopOf="@id/radio_group"-->
+<!--            app:layout_constraintStart_toEndOf="@id/radio_group"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/radio_group"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:paddingHorizontal="4dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:text="JOIN CHANNEL"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:onClick="onSubmit"-->
+<!--            tools:ignore="HardcodedText" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

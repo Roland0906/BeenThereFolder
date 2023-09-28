@@ -43,41 +43,41 @@ class ProfileFragment : Fragment() {
 //        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        requestPermission()
-
-        binding.btnJoinChannel.setOnClickListener {
-            onSubmit()
-        }
+//        requestPermission()
+//
+//        binding.btnJoinChannel.setOnClickListener {
+//            onSubmit()
+//        }
 
 
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_CONNECT), 22)
-    }
+//    @RequiresApi(Build.VERSION_CODES.S)
+//    private fun requestPermission() {
+//        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_CONNECT), 22)
+//    }
 
-    private fun onSubmit(
-//        view: View
-    ) {
-        val channelName = "rol"
-        val userRadioButton = binding.radioGroup
-
-        val checked = userRadioButton.checkedRadioButtonId
-        val audienceButtonId = binding.radioAudience
-
-        userRole = if (checked == audienceButtonId.id) {
-            0
-        } else {
-            1
-        }
-
-        val intent = Intent(requireActivity(), VideoActivity::class.java)
-        intent.putExtra("ChannelName", channelName)
-        intent.putExtra("UserRole", userRole)
-        startActivity(intent)
-    }
+//    private fun onSubmit(
+////        view: View
+//    ) {
+//        val channelName = "rol"
+//        val userRadioButton = binding.radioGroup
+//
+//        val checked = userRadioButton.checkedRadioButtonId
+//        val audienceButtonId = binding.radioAudience
+//
+//        userRole = if (checked == audienceButtonId.id) {
+//            0
+//        } else {
+//            1
+//        }
+//
+//        val intent = Intent(requireActivity(), VideoActivity::class.java)
+//        intent.putExtra("ChannelName", channelName)
+//        intent.putExtra("UserRole", userRole)
+//        startActivity(intent)
+//    }
 
 
 

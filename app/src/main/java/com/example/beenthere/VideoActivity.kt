@@ -93,7 +93,7 @@ class VideoActivity : AppCompatActivity() {
     }
 
 
-    fun initAgoraEngineAndJoinChannel() {
+    private fun initAgoraEngineAndJoinChannel() {
         initializeAgoraEngine()
 
         mRtcEngine!!.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING)
