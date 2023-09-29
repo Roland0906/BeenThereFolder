@@ -92,5 +92,7 @@
     <string name="put_your_name">your name</string>
     <string name="someone_is_giving_a_live_talk">Someone is giving a live talk</string>
     <string name="join_the_ongoing_live_talks">Join the ongoing live talks!</string>
+    <string name="text_forum">Thank you for sharing! I\'ve never thought that way!</string>
+    <string name="leave_a_comment">Leave a comment</string>
 
 </resources>

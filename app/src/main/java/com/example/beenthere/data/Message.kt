@@ -7,9 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class Message(
     var id : String = "",
     var message : String = "",
-    var sentBy : String = "",
+    var sentBy : String? = "",
     var timestamp : String = "",
-    var isProcessed : Boolean = false
+    var isProcessed : Boolean = false,
+    var avatar: String? = ""
 ): Parcelable {
     companion object{
         const val SENT_BY_ME = "sent_me"

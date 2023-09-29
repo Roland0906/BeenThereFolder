@@ -1,5 +1,6 @@
 package com.example.beenthere.home.catogories
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -83,6 +84,7 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpViewHolder {
 //        return ExpViewHolder(CategoryListItemBinding
+
         return ExpViewHolder(ItemViewCategoryExpBinding
             .inflate(LayoutInflater.from(parent.context)))
     }

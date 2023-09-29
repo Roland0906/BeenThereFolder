@@ -90,6 +90,7 @@ class VideoActivity : AppCompatActivity() {
         mRtcEngine!!.leaveChannel()
         RtcEngine.destroy()
         mRtcEngine = null
+        chatViewModel.removeFirebaseListener()
     }
 
 
@@ -184,6 +185,8 @@ class VideoActivity : AppCompatActivity() {
     fun onEndCallClicked(view: View) {
         finish()
     }
+
+
 
 
 }
