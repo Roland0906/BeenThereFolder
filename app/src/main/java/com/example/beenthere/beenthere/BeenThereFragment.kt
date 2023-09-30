@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.beenthere.R
+import androidx.navigation.fragment.findNavController
+import com.example.beenthere.NavigationDirections
 import com.example.beenthere.databinding.FragmentBeenThereBinding
-import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
-import com.example.beenthere.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -50,6 +50,16 @@ class BeenThereFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+        viewModel.navigateToAdvise.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToAdviseFragment(it))
+                    viewModel.onAdviseNavigated()
+                }
+            }
+        )
 
 
 

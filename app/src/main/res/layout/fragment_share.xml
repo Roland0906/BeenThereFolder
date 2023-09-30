@@ -57,9 +57,11 @@
 <!--        android:background="#AE5745"-->
 
         <ScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_title">
 

@@ -2,29 +2,24 @@ package com.example.beenthere.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.beenthere.beenthere.AdviseViewModel
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import com.example.beenthere.data.source.BeenThereRepository
-import com.example.beenthere.home.catogories.CategoryVM
 import com.example.beenthere.home.catogories.detail.DetailVM
 
-
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Factory for all ViewModels which need [Product].
- */
 @Suppress("UNCHECKED_CAST")
-class DetailViewModelFactory(
+class AdviseViewModelFactory(
     private val beenThereRepository: BeenThereRepository,
-    private val experience: Experience
+    private val situation: Situation
 
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-                isAssignableFrom(DetailVM::class.java) ->
-                    DetailVM(beenThereRepository, experience)
+                isAssignableFrom(AdviseViewModel::class.java) ->
+                    AdviseViewModel(beenThereRepository, situation)
 
 
                 else ->

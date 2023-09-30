@@ -10,7 +10,8 @@ data class Message(
     var sentBy : String? = "",
     var timestamp : String = "",
     var isProcessed : Boolean = false,
-    var avatar: String? = ""
+    var avatar: String? = "",
+    var expId: String? = ""
 ): Parcelable {
     companion object{
         const val SENT_BY_ME = "sent_me"

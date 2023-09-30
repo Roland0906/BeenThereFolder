@@ -77,7 +77,13 @@ class DetailFragment : Fragment() {
                 id = userList.random(),
                 message = comment,
             )
+            binding.inputComment.setText("")
         }
+
+        binding.scroll.isVerticalFadingEdgeEnabled = true
+        binding.recyclerForum.isVerticalFadingEdgeEnabled = true
+
+
 
 
         return binding.root

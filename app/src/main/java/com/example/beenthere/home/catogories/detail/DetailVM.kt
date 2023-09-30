@@ -9,6 +9,7 @@ import com.example.beenthere.data.Message
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.utils.UserManager
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -49,7 +50,7 @@ class DetailVM(
     private var snapshotListener: ListenerRegistration? = null
     fun setFireStoreListener() {
 
-        snapshotListener = collection.addSnapshotListener { snapShot, e ->
+        snapshotListener = collection.orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener { snapShot, e ->
             if (e != null) {
 
                 return@addSnapshotListener
@@ -59,15 +60,17 @@ class DetailVM(
                     if (snapShot.first().get("message") != null && snapShot.first()
                             .get("message") != ""
                     ) {
+                        val currentMessages = emptyList<Message>().toMutableList()
                         for (document in snapShot) {
                             val message = document.toObject<Message>()
 //                            if (!message.isProcessed) {
+                            if (message.expId == args.userId + args.title + args.situation) {
                             Log.i("DetailVM comment listened", message.toString())
-                            addCommentToList(
+                            currentMessages.add(Message(
                                 id = message.id,
                                 message = message.message,
-                                timestamp = getCurrentTimestamp()
-                            )
+                                timestamp = message.timestamp
+                            ))
 //                                val docRef = collection.document(document.id)
 //                                val updatedData = message.copy(isProcessed = true)
 //
@@ -80,7 +83,8 @@ class DetailVM(
 //                                    }
 //                            }
 
-                        }
+                        }}
+                        _messageList.value = currentMessages
                     }
                 }
             }
@@ -96,8 +100,10 @@ class DetailVM(
             id = id,
             message = message,
             timestamp = getCurrentTimestamp(),
-            isProcessed = false
+            isProcessed = false,
+            expId = args.userId + args.title + args.situation
         )
+        Log.i("DetailVM", mensaje.toString())
 
         // to FireStore
 
@@ -119,7 +125,7 @@ class DetailVM(
 
 
     private fun getCurrentTimestamp(): String {
-        return SimpleDateFormat("hh mm a", Locale.getDefault()).format(Date())
+        return SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
     }
 
 

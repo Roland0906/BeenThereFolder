@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.allExp().collect {
-                viewModel.analyzer(it)
+//                viewModel.analyzer(it)
             }
         }
 

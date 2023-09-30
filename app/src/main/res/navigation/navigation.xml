@@ -73,6 +73,22 @@
     <action
         android:id="@+id/navigate_to_suggestion_dialog"
         app:destination="@id/suggestionDialog" />
+    <fragment
+        android:id="@+id/adviseFragment"
+        android:name="com.example.beenthere.beenthere.AdviseFragment"
+        android:label="fragment_advise"
+        tools:layout="@layout/fragment_advise">
+
+        <argument
+            android:name="situation"
+            app:argType="com.example.beenthere.data.Situation"
+            app:nullable="false" />
+
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_to_advise_fragment"
+        app:destination="@id/adviseFragment" />
 
 
 </navigation>

@@ -2,7 +2,10 @@ package com.example.beenthere.ext
 
 import androidx.fragment.app.Fragment
 import com.example.beenthere.BeenThereApplication
+import com.example.beenthere.beenthere.AdviseViewModel
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
+import com.example.beenthere.factory.AdviseViewModelFactory
 import com.example.beenthere.factory.DetailViewModelFactory
 import com.example.beenthere.factory.ViewModelFactory
 
@@ -29,6 +32,11 @@ fun Fragment.getVmFactory(): ViewModelFactory {
 fun Fragment.getVmFactory(exp: Experience): DetailViewModelFactory {
     val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository
     return DetailViewModelFactory(repository, exp)
+}
+
+fun Fragment.getVmFactory(situation: Situation): AdviseViewModelFactory {
+    val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository
+    return AdviseViewModelFactory(repository, situation)
 }
 
 
