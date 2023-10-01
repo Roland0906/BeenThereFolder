@@ -40,12 +40,12 @@ class DetailVM(
         _messageList.value = mutableListOf()
     }
 
-    private fun addCommentToList(id: String, message: String, timestamp: String) {
-        val currentList = _messageList.value ?: mutableListOf()
-        currentList.add(Message(id = id, message = message, timestamp = timestamp))
-        Log.i("DetailVM comment list", currentList.toString())
-        _messageList.postValue(currentList)
-    }
+//    private fun addCommentToList(id: String, message: String, timestamp: String) {
+//        val currentList = _messageList.value ?: mutableListOf()
+//        currentList.add(Message(id = id, message = message, timestamp = timestamp))
+//        Log.i("DetailVM comment list", currentList.toString())
+//        _messageList.postValue(currentList)
+//    }
 
     private var snapshotListener: ListenerRegistration? = null
     fun setFireStoreListener() {

@@ -40,7 +40,7 @@ class BeenThereFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = BeenThereAdapter(BeenThereAdapter.OnClickListener {
-
+            viewModel.navigateToAdvise(it)
         })
 
         binding.recyclerSituation.adapter = adapter

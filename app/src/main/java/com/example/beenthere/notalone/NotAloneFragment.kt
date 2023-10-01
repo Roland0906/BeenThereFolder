@@ -87,7 +87,7 @@ class NotAloneFragment : Fragment() {
                 val situation = Situation(userId = userId, description = description)
                 viewModel.addData(situation)
                 binding.inputSituation.setText("")
-                it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
+//                it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
             }
         }
 
