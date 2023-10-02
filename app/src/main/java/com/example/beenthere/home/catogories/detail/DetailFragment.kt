@@ -83,8 +83,13 @@ class DetailFragment : Fragment() {
         binding.scroll.isVerticalFadingEdgeEnabled = true
         binding.recyclerForum.isVerticalFadingEdgeEnabled = true
 
-
-
+        binding.inputComment.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                binding.inputComment.hint = ""
+            } else {
+                binding.inputComment.hint = "Leave a comment"
+            }
+        }
 
         return binding.root
     }

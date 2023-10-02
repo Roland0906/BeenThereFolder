@@ -3,6 +3,7 @@ package com.example.beenthere
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -85,22 +86,53 @@ class MainActivity : AppCompatActivity() {
 
 
                 R.id.homeFragment -> {
+                    binding.imageToolbarLogo.visibility = View.VISIBLE
                     viewModel.isHome.value = true
+                    binding.textToolbarTitle.text = ""
+                    binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
                     bottomNav.setBackgroundResource(R.drawable.main_theme_color)
 //                    window.statusBarColor = Color.parseColor()
                 }
+
+                R.id.shareFragment -> {
+                    viewModel.isHome.value = true
+                    binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
+                    binding.imageToolbarLogo.visibility = View.GONE
+                    binding.textToolbarTitle.visibility = View.VISIBLE
+                    binding.textToolbarTitle.text = getText(R.string.hello_share_fragment)
+                    binding.bottomNav.setBackgroundResource(R.drawable.main_theme_color)
+                }
+
                 R.id.profileFragment -> {
                     viewModel.isHome.value = false
+                    binding.toolbar.visibility = View.GONE
+
                     bottomNav.setBackgroundResource(R.drawable.gradient_border_2)
                 }
 
+                R.id.notAloneFragment -> {
+                    viewModel.isHome.value = true
+                    binding.imageToolbarLogo.visibility = View.GONE
+                    binding.textToolbarTitle.visibility = View.VISIBLE
+                    binding.textToolbarTitle.text = getText(R.string.someone_might_have_been_there)
+                    binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
+                    bottomNav.setBackgroundResource(R.drawable.main_theme_color)
+
+                }
+
                 R.id.beenThereFragment -> {
-                    viewModel.isHome.value = false
+                    binding.imageToolbarLogo.visibility = View.VISIBLE
+                    viewModel.isHome.value = true
+                    binding.textToolbarTitle.text = ""
+                    binding.toolbar.setBackgroundResource(R.drawable.gradient_border)
+
                     bottomNav.setBackgroundResource(R.drawable.gradient_border)
                 }
 
                 else -> {
+                    binding.imageToolbarLogo.visibility = View.GONE
                     viewModel.isHome.value = false
+                    binding.textToolbarTitle.text = ""
                     bottomNav.setBackgroundResource(R.drawable.main_theme_color)
                 }
 

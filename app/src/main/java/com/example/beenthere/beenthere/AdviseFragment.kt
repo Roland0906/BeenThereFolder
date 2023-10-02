@@ -87,6 +87,7 @@ class AdviseFragment : Fragment() {
             binding.inputComment.setText("")
         }
 
+        binding.recyclerAdvise.isVerticalFadingEdgeEnabled = true
 
 
 

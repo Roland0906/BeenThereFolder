@@ -48,8 +48,8 @@
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
 
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="gone"
 

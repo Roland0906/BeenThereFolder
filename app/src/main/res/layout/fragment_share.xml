@@ -41,18 +41,18 @@
             app:layout_constraintRight_toRightOf="@id/preview"
             app:layout_constraintTop_toTopOf="@id/preview" />
 
-        <TextView
-            android:id="@+id/header_title"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/main_theme_color"
-            android:gravity="center"
-            android:text="@string/hello_share_fragment"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/header_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:background="@drawable/main_theme_color"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/hello_share_fragment"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 <!--        android:background="#AE5745"-->
 
@@ -63,7 +63,8 @@
             android:requiresFadingEdge="vertical"
             android:fadingEdgeLength="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_title">
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -235,6 +236,7 @@
                         android:id="@+id/input_phrases"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:background="@drawable/edit_border"
                         android:inputType="textMultiLine"
                         android:gravity="top" />
