@@ -31,7 +31,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:background="@drawable/gradient_border_2"
+            android:background="@drawable/main_theme_color"
             android:gravity="center"
             android:lines="2"
             android:text="@string/header_text_advise"
