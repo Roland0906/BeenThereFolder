@@ -94,6 +94,13 @@ class ChatViewModel : ViewModel() {
     }
 
 
+
+    fun endLiveTalk(topic: String) {
+        val docLiveTalk = db.collection("live_talks").document()
+
+    }
+
+
     fun addData(id: String, message: String, sentBy: String, timestamp: String) {
 
         val document = collection.document()

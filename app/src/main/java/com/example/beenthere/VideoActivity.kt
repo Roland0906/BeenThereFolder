@@ -26,6 +26,7 @@ class VideoActivity : AppCompatActivity() {
     private var mRtcEngine: RtcEngine? = null
     private var channelName: String? = null
     private var userRole = 0
+    private var topic: String? = ""
 
     private lateinit var chatViewModel: ChatViewModel
 
@@ -36,6 +37,7 @@ class VideoActivity : AppCompatActivity() {
 
         channelName = intent.getStringExtra("ChannelName")
         userRole = intent.getIntExtra("UserRole", -1)
+        topic = intent.getStringExtra("Topic")
         initAgoraEngineAndJoinChannel()
 
 
@@ -60,6 +62,15 @@ class VideoActivity : AppCompatActivity() {
             userId = binding.inputUser.text.toString() //
         }
 
+        binding.btnCfm.setOnClickListener {
+            binding.inputUser.visibility = View.GONE
+            binding.nameUser.text = userId
+            binding.btnCfm.visibility = View.GONE
+            binding.btnSend.visibility = View.VISIBLE
+        }
+
+
+
         chatViewModel.setFireStoreListener()
 
         binding.btnSend.setOnClickListener {
@@ -74,6 +85,8 @@ class VideoActivity : AppCompatActivity() {
             binding.editMessage.setText("")
 
         }
+
+
 
 
 
@@ -184,6 +197,7 @@ class VideoActivity : AppCompatActivity() {
 
     fun onEndCallClicked(view: View) {
         finish()
+        topic?.let { chatViewModel.endLiveTalk(it) } // what if joiner ends call?
     }
 
 

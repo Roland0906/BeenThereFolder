@@ -166,12 +166,13 @@ class CategoryFragment : Fragment() {
     }
 
     private fun onSubmit(topic: String) {
-//        val channelName = "rol"
-//        userRole = 1
-//        val intent = Intent(requireActivity(), VideoActivity::class.java)
-//        intent.putExtra("ChannelName", channelName)
-//        intent.putExtra("UserRole", userRole)
-//        startActivity(intent)
+        val channelName = "rol"
+        userRole = 1
+        val intent = Intent(requireActivity(), VideoActivity::class.java)
+        intent.putExtra("ChannelName", channelName)
+        intent.putExtra("UserRole", userRole)
+        intent.putExtra("Topic", topic)
+        startActivity(intent)
         viewModel.launchLiveTalk(topic)
     }
 

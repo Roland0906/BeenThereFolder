@@ -54,12 +54,17 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     init {
         _messageList.value = mutableListOf()
         setFirebaseListener()
-//        liveTalkListener = liveTalkDoc.addSnapshotListener { snapShot, e ->
-//            val events = snapShot?.documents?.map { it.toObject<LiveTalkEvent>() }
-//            _liveTalkEvents.value = (events ?: emptyList<LiveTalkEvent>()) as List<LiveTalkEvent>
-//        }
+
         eventListener()
+//        resetLiveTalk()
     }
+
+//    private fun resetLiveTalk() {
+//        viewModelScope.launch {
+//            _liveTalkEvents.emit(emptyList())
+//        }
+//    }
+
 
     fun allExp(): Flow<List<Experience>> = repository.getExp()
 
@@ -268,10 +273,11 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                     ) {
                         for (document in snapShot) {
                             val event = document.toObject<LiveTalkEvent>()
+                            if (event.isGoingOn) {
                             Log.i("HomeVM live talk event", event.toString())
 
                             tempList.add(event)
-                        }
+                        }}
                         _liveTalkEvents.value = tempList
                     }
                 }

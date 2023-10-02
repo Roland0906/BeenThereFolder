@@ -70,8 +70,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnToMeaning.setOnClickListener {
-            viewModel.clearDB()
-//            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LIFE_MEANING.name))
+//            viewModel.clearDB()
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LIFE_MEANING.name))
         }
 
         binding.btnToCommunication.setOnClickListener {
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
 
         // live streaming close for now
         val eventAdapter = EventAdapter(EventAdapter.OnClickListener {
-//            onSubmit()
+            onSubmit()
         })
 
         binding.recyclerEvent.adapter = eventAdapter
