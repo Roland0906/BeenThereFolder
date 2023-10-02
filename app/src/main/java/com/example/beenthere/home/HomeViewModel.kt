@@ -273,7 +273,7 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                     ) {
                         for (document in snapShot) {
                             val event = document.toObject<LiveTalkEvent>()
-                            if (event.isGoingOn) {
+                            if (event.goingOn) {
                             Log.i("HomeVM live talk event", event.toString())
 
                             tempList.add(event)

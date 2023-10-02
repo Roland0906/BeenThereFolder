@@ -18,6 +18,7 @@ import com.example.beenthere.NavigationDirections
 import com.example.beenthere.VideoActivity
 import com.example.beenthere.data.Experience
 import com.example.beenthere.data.FilteredLists
+import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.databinding.FragmentCategoryBinding
 
 import com.example.beenthere.ext.getVmFactory
@@ -32,6 +33,8 @@ class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
 
     private val viewModel by viewModels<CategoryVM> { getVmFactory() }
+
+    private var userId: String? = ""
 
 
 
@@ -165,15 +168,30 @@ class CategoryFragment : Fragment() {
         return httpUrl
     }
 
+    private val userList =
+        listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson")
+
     private fun onSubmit(topic: String) {
+
+        userId = userList.random()
+
         val channelName = "rol"
         userRole = 1
         val intent = Intent(requireActivity(), VideoActivity::class.java)
         intent.putExtra("ChannelName", channelName)
         intent.putExtra("UserRole", userRole)
         intent.putExtra("Topic", topic)
+        val event = LiveTalkEvent(eventId = "", userId = userId!!, goingOn = true, topic = topic)
+        val eventId = viewModel.launchLiveTalk(event)
+        intent.putExtra("EventId", eventId)
+
         startActivity(intent)
-        viewModel.launchLiveTalk(topic)
+
+
+
+
+
+        Log.i("Category Frag", eventId)
     }
 
 

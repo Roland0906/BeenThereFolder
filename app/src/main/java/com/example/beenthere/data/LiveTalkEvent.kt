@@ -8,14 +8,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LiveTalkEvent(
 
-    @PrimaryKey(autoGenerate = true)
-    @Json(name = "event_id") var eventId: Long = 0,
+    @PrimaryKey(autoGenerate = false)
+    @Json(name = "event_id") var eventId: String = "",
 
     @Json(name = "user_id") var userId: String = "",
 
     var topic: String = "",
 
-    @Json(name = "is_going_on") var isGoingOn: Boolean = false,
+    @Json(name = "going_on") var goingOn: Boolean = false,
 
     var avatar: String? = ""
 

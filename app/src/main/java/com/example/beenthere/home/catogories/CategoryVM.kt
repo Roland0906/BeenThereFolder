@@ -36,24 +36,26 @@ class CategoryVM (private val repository: BeenThereRepository,
         _navigateToDetail.value = null
     }
 
-    private val userList =
-        listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson")
 
 
-    fun launchLiveTalk(topic: String) {
+
+    fun launchLiveTalk(event: LiveTalkEvent): String {
 
         val docLive = db.collection("live_talks").document()
 
-        val event = LiveTalkEvent(userId = userList.random(), topic = topic, isGoingOn = true)
+        event.eventId = docLive.id
 
         docLive.set(event)
             .addOnSuccessListener {
-                Log.i("HomeVM live talk", "Launch success")
+
+                Log.i("Category VM talk", "Launch success $event")
                 showMessage("You're giving a live talk!")
             }
             .addOnFailureListener {
                 showMessage("Launch live talk fail")
             }
+
+        return docLive.id
     }
 
     val toastMessageLiveData = MutableLiveData<String?>()

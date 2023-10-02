@@ -26,7 +26,7 @@ class VideoActivity : AppCompatActivity() {
     private var mRtcEngine: RtcEngine? = null
     private var channelName: String? = null
     private var userRole = 0
-    private var topic: String? = ""
+    private var eventId: String? = ""
 
     private lateinit var chatViewModel: ChatViewModel
 
@@ -37,7 +37,9 @@ class VideoActivity : AppCompatActivity() {
 
         channelName = intent.getStringExtra("ChannelName")
         userRole = intent.getIntExtra("UserRole", -1)
-        topic = intent.getStringExtra("Topic")
+        eventId = intent.getStringExtra("EventId")
+        Log.i("VideoActivity", eventId.toString())
+
         initAgoraEngineAndJoinChannel()
 
 
@@ -197,7 +199,8 @@ class VideoActivity : AppCompatActivity() {
 
     fun onEndCallClicked(view: View) {
         finish()
-        topic?.let { chatViewModel.endLiveTalk(it) } // what if joiner ends call?
+        chatViewModel.endLiveTalk(eventId)
+        eventId?.let { Log.i("VideoActivity", it) }
     }
 
 

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.data.Message
 import com.example.beenthere.utils.UserManager.userId
 import com.google.firebase.firestore.ListenerRegistration
@@ -95,9 +96,28 @@ class ChatViewModel : ViewModel() {
 
 
 
-    fun endLiveTalk(topic: String) {
-        val docLiveTalk = db.collection("live_talks").document()
+    fun endLiveTalk(eventId: String?) {
+        Log.i("Chat VM", "End live called")
+        val docLiveTalk = db.collection("live_talks")
+        val query = docLiveTalk.whereEqualTo("eventId", eventId)
 
+        query.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val data = hashMapOf("goingOn" to false)
+
+                    docLiveTalk.document(document.id).update(data as Map<String, Any>)
+                        .addOnSuccessListener {
+                            Log.i("Chat VM", "Update success")
+                        }
+                        .addOnFailureListener {
+                            Log.i("Chat VM", it.message.toString())
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Log.i("Chat VM", it.message.toString())
+            }
     }
 
 
