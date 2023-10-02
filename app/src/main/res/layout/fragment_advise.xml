@@ -110,6 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="40dp"
+                app:hintEnabled="false"
                 android:layout_marginEnd="60dp">
 
                 <EditText
@@ -118,7 +119,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/edit_border"
                     android:gravity="top"
-                    android:hint="@string/leave_a_comment"
+                    android:hint="@string/share_your_thoughts"
                     android:inputType="textMultiLine"
                     android:textColorHint="#949494" />
 

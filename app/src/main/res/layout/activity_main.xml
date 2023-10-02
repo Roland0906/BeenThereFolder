@@ -49,7 +49,7 @@
                 android:letterSpacing="0.15"
 
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone"
 
@@ -114,6 +114,7 @@
             android:layout_height="55dp"
             android:background="@drawable/main_theme_color"
             app:labelVisibilityMode="unlabeled"
+            app:itemIconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

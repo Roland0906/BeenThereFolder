@@ -45,6 +45,10 @@ interface BeenThereDatabaseDao {
 
     @Query("DELETE from experience_table")
     fun clearExp() // removed suspend 'cause it's quick
+
+
+    @Query("DELETE from situation_table")
+    fun clearSituation()
 //
 //    /**
 //     * When updating a row with a value already set in a column,

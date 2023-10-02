@@ -221,7 +221,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     fun clearDB() {
         viewModelScope.launch {
-            repository.clearExpInRoom()
+//            repository.clearExpInRoom()
+            repository.clearSituationInRoom()
         }
     }
 

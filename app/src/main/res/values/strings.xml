@@ -97,5 +97,7 @@
     <string name="example_text_advise">It\'s been a tough time for me to stay home and communicate with my family…</string>
     <string name="header_text_advise">Been there?\nYour experience could help!</string>
     <string name="quote_1">It took untold generations to get you where you are</string>
+    <string name="share_your_thoughts">Share your thoughts</string>
+    <string name="profile">Profile</string>
 
 </resources>

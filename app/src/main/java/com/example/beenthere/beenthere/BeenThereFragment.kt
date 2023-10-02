@@ -70,5 +70,10 @@ class BeenThereFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.removeFirebaseListeners()
+    }
+
 
 }

@@ -30,6 +30,7 @@ interface BeenThereRepository {
     // db
     suspend fun insertExp(experience: Experience)
 
+
     suspend fun upsertSituation(situation: Situation)
 
     suspend fun updateExp(experience: Experience)
@@ -43,6 +44,8 @@ interface BeenThereRepository {
     fun getSituations(): Flow<List<Situation>>
 
     suspend fun clearExpInRoom()
+
+    suspend fun clearSituationInRoom()
 
 
 

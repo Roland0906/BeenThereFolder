@@ -13,16 +13,25 @@ import kotlinx.parcelize.Parcelize
 data class Situation(
 
     @PrimaryKey(autoGenerate = true)
-    @Json(name = "situation_id") var situationId: Long = 0L,
+    @Json(name = "situation_id") var situationId: Long = -1,
+//    @Json(name = "situation_id") var situationId: Long = 0L,
 
     @ColumnInfo(name = "user_id")
     @Json(name = "user_id") var userId: String = "",
 
     @ColumnInfo(name = "description")
-    val description: String,
+    var description: String? = "",
 
     @ColumnInfo(name = "is_processed")
     @Json(name = "is_processed") var isProcessed: Boolean = false
 
-    ) : Parcelable
+    ) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+
+        other as Situation
+
+        return this.userId == other.userId && this.description == other.description
+
+    }
+}
 

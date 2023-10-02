@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/icon_house"
         android:iconTint="@color/white"
         android:title="" />
 
@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/beenThereFragment"
-        android:icon="@drawable/icon_island"
+        android:icon="@drawable/icon_island_reshaped"
         android:iconTint="@color/white"
         android:title=""/>
 
@@ -27,7 +27,7 @@
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/icon_profile"
+        android:icon="@drawable/icon_profile_2"
         android:iconTint="@color/white"
         android:title=""/>
 

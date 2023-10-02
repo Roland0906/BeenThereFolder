@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = binding.bottomNav
         val color = Color.parseColor("#AE5745")
         val homeColor = Color.parseColor("#E0806C")
+        val profileColor = Color.parseColor("#eacda3")
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             when (navController.currentDestination?.id) {
 
@@ -104,9 +105,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.profileFragment -> {
-                    viewModel.isHome.value = false
-                    binding.toolbar.visibility = View.GONE
-
+                    viewModel.isHome.value = true
+                    binding.imageToolbarLogo.visibility = View.GONE
+                    binding.toolbar.setBackgroundColor(profileColor)
+                    binding.textToolbarTitle.visibility = View.GONE
                     bottomNav.setBackgroundResource(R.drawable.gradient_border_2)
                 }
 

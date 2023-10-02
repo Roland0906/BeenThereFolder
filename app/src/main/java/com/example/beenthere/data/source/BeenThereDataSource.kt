@@ -71,5 +71,11 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         }
     }
 
+    override suspend fun clearSituationInRoom() {
+        withContext(Dispatchers.IO) {
+            dao.clearSituation()
+        }
+    }
+
 
 }
