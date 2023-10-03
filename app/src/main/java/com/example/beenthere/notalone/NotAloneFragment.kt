@@ -1,12 +1,18 @@
 package com.example.beenthere.notalone
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.animation.doOnEnd
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -24,6 +30,16 @@ class NotAloneFragment : Fragment() {
 
     private val viewModel by viewModels<NotAloneViewModel> { getVmFactory() }
 
+    private lateinit var typingText: TextView
+    private val textToType = "Tell us\nwhat\nhappened"
+
+    private lateinit var cursorView: View
+
+        private var cursorVisible = false
+//    private var cursorPosition = 0
+
+    private lateinit var handler: Handler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,32 +56,12 @@ class NotAloneFragment : Fragment() {
 //        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.environWhite.setOnClickListener {
-            binding.description.visibility = View.GONE
-            binding.environWhite.visibility = View.GONE
-            binding.environGray.visibility = View.GONE
-            binding.environDark.visibility = View.GONE
 
-            binding.topFrame.setBackgroundResource(R.drawable.environ_white_big)
-        }
 
-        binding.environGray.setOnClickListener {
-            binding.description.visibility = View.GONE
-            binding.environWhite.visibility = View.GONE
-            binding.environGray.visibility = View.GONE
-            binding.environDark.visibility = View.GONE
+        typingText = binding.text
+        cursorView = binding.cursorView
 
-            binding.topFrame.setBackgroundResource(R.drawable.envrion_gray_big)
-        }
-
-        binding.environDark.setOnClickListener {
-            binding.description.visibility = View.GONE
-            binding.environWhite.visibility = View.GONE
-            binding.environGray.visibility = View.GONE
-            binding.environDark.visibility = View.GONE
-
-            binding.topFrame.setBackgroundResource(R.drawable.envrion_dark_big)
-        }
+        animateTextTyping(0)
 
         val userList = listOf("DongGert", "Elyes", "JsonString", "TimDer")
 
@@ -97,13 +93,45 @@ class NotAloneFragment : Fragment() {
 
 
 
-
-
-
-
-
-
         return binding.root
+    }
+
+    private fun animateTextTyping(index: Int) {
+        if (index < textToType.length) {
+            val currentText = textToType.substring(0, index + 1)
+            typingText.text = currentText
+            val delay = 100L
+            Handler().postDelayed({
+                animateTextTyping(index + 1)
+            }, delay)
+        } else {
+            startBlinkingCursor()
+        }
+    }
+
+
+
+    private fun startBlinkingCursor() {
+        val blinkInterval = 500L
+
+        handler = Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                cursorVisible = !cursorVisible
+                cursorView.visibility = if (cursorVisible) View.VISIBLE else View.INVISIBLE
+                handler.postDelayed(this, blinkInterval)
+            }
+        }, blinkInterval)
+
+        handler.postDelayed({
+            stopBlinkingCursor()
+        }, 30000L)
+    }
+
+    private fun stopBlinkingCursor() {
+        handler.removeCallbacksAndMessages(null)
+        cursorVisible = false
+        cursorView.visibility = View.INVISIBLE
     }
 
 

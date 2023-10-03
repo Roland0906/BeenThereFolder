@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
-        <item name="android:statusBarColor">#CD6C2C</item>
+        <item name="android:statusBarColor">#eacda3</item>
     </style>
 
 

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.beenthere.data.Message
 import com.example.beenthere.databinding.ActivityVideoBinding
 import com.example.beenthere.utils.APP_ID
-import com.example.beenthere.utils.UserManager.userId
+import com.example.beenthere.utils.UserManager.userName
 import com.example.beenthere.utils.token
 import io.agora.rtc.Constants
 import io.agora.rtc.IRtcEngineEventHandler
@@ -61,12 +61,12 @@ class VideoActivity : AppCompatActivity() {
 
 
         binding.inputUser.doAfterTextChanged {
-            userId = binding.inputUser.text.toString() //
+            userName = binding.inputUser.text.toString() //
         }
 
         binding.btnCfm.setOnClickListener {
             binding.inputUser.visibility = View.GONE
-            binding.nameUser.text = userId
+            binding.nameUser.text = userName
             binding.btnCfm.visibility = View.GONE
             binding.btnSend.visibility = View.VISIBLE
         }
@@ -78,7 +78,7 @@ class VideoActivity : AppCompatActivity() {
         binding.btnSend.setOnClickListener {
 
             chatViewModel.addData(
-                userId,
+                userName,
                 narration,
                 Message.SENT_BY_ME,
                 chatViewModel.getCurrentTimestamp()

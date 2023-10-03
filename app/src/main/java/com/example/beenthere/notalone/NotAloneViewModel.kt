@@ -17,18 +17,19 @@ class NotAloneViewModel(private val repository: BeenThereRepository) : ViewModel
 
     fun addData(situation: Situation) {
 
+        // to FireStore
+        val document = db.collection("situations").document()
+        situation.situationId = document.id
+
         // to Room
         viewModelScope.launch(Dispatchers.IO) {
             Log.i("Insert to Room", "success")
             repository.upsertSituation(situation)
         }
 
-        // to FireStore
-        val document = db.collection("situations").document()
-
         document.set(situation)
             .addOnSuccessListener {
-                showMessage("We hear you! Check BeenThere Page as someone might have the same experience")
+                showMessage("Check the middle page as someone might have been there")
                 Log.i("Insert to Firebase", "success")
             }
             .addOnFailureListener {

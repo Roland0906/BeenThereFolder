@@ -12,8 +12,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Situation(
 
-    @PrimaryKey(autoGenerate = true)
-    @Json(name = "situation_id") var situationId: Long = -1,
+    @PrimaryKey(autoGenerate = false)
+    @Json(name = "situation_id") var situationId: String = "",
 //    @Json(name = "situation_id") var situationId: Long = 0L,
 
     @ColumnInfo(name = "user_id")

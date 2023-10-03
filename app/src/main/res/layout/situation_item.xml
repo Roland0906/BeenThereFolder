@@ -24,7 +24,7 @@
             android:layout_height="90dp"
             android:orientation="horizontal"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/gradient_border"
+            android:background="@drawable/gradient_border_2"
             >
 
             <View

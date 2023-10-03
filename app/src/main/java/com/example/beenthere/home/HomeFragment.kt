@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.beenthere.NavigationDirections
+import com.example.beenthere.R
 import com.example.beenthere.VideoActivity
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
@@ -104,6 +105,11 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.liveTalkEvents.collect { liveTalkEvents ->
+                if (liveTalkEvents.isNotEmpty()) {
+                    binding.textToJoin.setText(R.string.join_the_ongoing_live_talks)
+                } else {
+                    binding.textToJoin.setText(R.string.check_later_if_someone_is_giving_a_live_talk)
+                }
                 eventAdapter.submitList(liveTalkEvents)
             }
         }

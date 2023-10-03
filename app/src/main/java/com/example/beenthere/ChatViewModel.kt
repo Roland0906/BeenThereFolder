@@ -4,9 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.data.Message
-import com.example.beenthere.utils.UserManager.userId
+import com.example.beenthere.utils.UserManager.userName
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -69,7 +68,7 @@ class ChatViewModel : ViewModel() {
                             val message = document.toObject<Message>()
                             if (!message.isProcessed) {
                                 Log.i("Experience", message.toString())
-                                val sentByWho = if (message.id == userId) {
+                                val sentByWho = if (message.id == userName) {
                                     Message.SENT_BY_ME
                                 } else {
                                     Message.SENT_BY_OTHERS
