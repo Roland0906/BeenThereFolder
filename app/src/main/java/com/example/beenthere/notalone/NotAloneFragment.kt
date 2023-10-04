@@ -1,26 +1,23 @@
 package com.example.beenthere.notalone
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.text.Layout
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.animation.doOnEnd
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.Situation
 import com.example.beenthere.databinding.FragmentNotAloneBinding
-import com.example.beenthere.databinding.FragmentShareBinding
 import com.example.beenthere.ext.getVmFactory
 
 
@@ -31,7 +28,7 @@ class NotAloneFragment : Fragment() {
     private val viewModel by viewModels<NotAloneViewModel> { getVmFactory() }
 
     private lateinit var typingText: TextView
-    private val textToType = "Tell us\nwhat\nhappened"
+    private val textToType = "Tell us what happened"
 
     private lateinit var cursorView: View
 
@@ -59,7 +56,6 @@ class NotAloneFragment : Fragment() {
 
 
         typingText = binding.text
-        cursorView = binding.cursorView
 
         animateTextTyping(0)
 
@@ -68,9 +64,22 @@ class NotAloneFragment : Fragment() {
         var userId = ""
         var description = ""
 
+        binding.inputSituation.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard()
+
+                return@setOnKeyListener true
+            }
+
+            false
+        }
+
+
         binding.inputSituation.doAfterTextChanged {
             description = binding.inputSituation.text.toString()
         }
+
+
 
 
 
@@ -96,6 +105,11 @@ class NotAloneFragment : Fragment() {
         return binding.root
     }
 
+    private fun hideKeyboard() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputSituation.windowToken, 0)
+    }
+
     private fun animateTextTyping(index: Int) {
         if (index < textToType.length) {
             val currentText = textToType.substring(0, index + 1)
@@ -104,35 +118,33 @@ class NotAloneFragment : Fragment() {
             Handler().postDelayed({
                 animateTextTyping(index + 1)
             }, delay)
-        } else {
-            startBlinkingCursor()
         }
     }
 
 
 
-    private fun startBlinkingCursor() {
-        val blinkInterval = 500L
-
-        handler = Handler()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                cursorVisible = !cursorVisible
-                cursorView.visibility = if (cursorVisible) View.VISIBLE else View.INVISIBLE
-                handler.postDelayed(this, blinkInterval)
-            }
-        }, blinkInterval)
-
-        handler.postDelayed({
-            stopBlinkingCursor()
-        }, 30000L)
-    }
-
-    private fun stopBlinkingCursor() {
-        handler.removeCallbacksAndMessages(null)
-        cursorVisible = false
-        cursorView.visibility = View.INVISIBLE
-    }
+//    private fun startBlinkingCursor() {
+//        val blinkInterval = 500L
+//
+//        handler = Handler()
+//        handler.postDelayed(object : Runnable {
+//            override fun run() {
+//                cursorVisible = !cursorVisible
+//                cursorView.visibility = if (cursorVisible) View.VISIBLE else View.INVISIBLE
+//                handler.postDelayed(this, blinkInterval)
+//            }
+//        }, blinkInterval)
+//
+//        handler.postDelayed({
+//            stopBlinkingCursor()
+//        }, 3000L)
+//    }
+//
+//    private fun stopBlinkingCursor() {
+//        handler.removeCallbacksAndMessages(null)
+//        cursorVisible = false
+//        cursorView.visibility = View.INVISIBLE
+//    }
 
 
 }

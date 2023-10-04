@@ -31,16 +31,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_frame"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="520dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/pic_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/not_alone_pic_1"
+                android:background="@drawable/not_alone_pic_4"
                 android:scaleType="centerCrop"
-
                 app:layout_constraintTop_toTopOf="parent"
 
                 />
@@ -49,26 +48,27 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="end"
-                android:lines="3"
+                android:layout_marginBottom="65dp"
+                android:lines="1"
                 android:text="@string/tell_us_what_happened"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/pic_1"
-                app:layout_constraintEnd_toEndOf="@id/pic_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+
                 />
 
-            <View
-                android:id="@+id/cursorView"
-                android:layout_width="2dp"
-                android:layout_height="36dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/text"
-                app:layout_constraintEnd_toEndOf="@id/text"
-                android:background="#FFFFFF" />
+<!--            <View-->
+<!--                android:id="@+id/cursorView"-->
+<!--                android:layout_width="2dp"-->
+<!--                android:layout_height="36dp"-->
+<!--                android:visibility="invisible"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/text"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/text"-->
+<!--                android:background="#FFFFFF" />-->
 
 
 
@@ -156,11 +156,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_frame"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="24dp"
-
+            android:layout_height="110dp"
+            android:layout_margin="55dp"
             app:layout_constraintTop_toBottomOf="@id/top_frame"
-
+            app:layout_constraintBottom_toBottomOf="@id/top_frame"
+            app:hintEnabled="false"
             >
 
             <EditText
@@ -169,6 +169,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_border"
                 android:gravity="top"
+                android:hint=""
                 android:textColorHint="#949494" />
 
         </com.google.android.material.textfield.TextInputLayout>

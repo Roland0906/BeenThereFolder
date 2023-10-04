@@ -69,7 +69,7 @@
     <string name="work">Work</string>
     <string name="relationship">Relationship</string>
     <string name="i_ve_been_there">I\'ve been there</string>
-    <string name="tell_us_what_happened">Tell us\nwhat\nhappened</string>
+    <string name="tell_us_what_happened">Tell us what happened</string>
     <string name="share_your_experience">Share your experience</string>
     <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
     <string name="someone_might_have_been_there">Someone might have been there</string>
@@ -104,5 +104,8 @@
     <string name="what">What</string>
     <string name="your_situation">Your situation</string>
     <string name="happened">Happened</string>
+    <string name="what_s_on_your_mind">What\'s on your mind?</string>
+    <string name="you_re_not_alone">You\'re not alone</string>
+
 
 </resources>

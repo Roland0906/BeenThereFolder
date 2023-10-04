@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fadingEdgeLength="80dp"
-            android:layout_marginHorizontal="40dp"
+            android:layout_marginHorizontal="25dp"
             android:layout_marginVertical="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_name"
@@ -151,14 +151,14 @@
                     android:layout_height="wrap_content"
                     android:elevation="4dp"
                     android:text="@{viewModel.exp.phrases}"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textSize="16sp"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Everything you do matters" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_forum"
-                    android:layout_width="330dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fadingEdgeLength="80dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
     private fun setUpToolbar() {
 
         val bottomNav = binding.bottomNav
-        val color = Color.parseColor("#AE5745")
-        val homeColor = Color.parseColor("#E0806C")
+        val color = Color.parseColor("#ae563f")
+        val homeColor = Color.parseColor("#CD6C2C")
         val profileColor = Color.parseColor("#eacda3")
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             when (navController.currentDestination?.id) {
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     binding.textToolbarTitle.text = ""
                     binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundResource(R.drawable.main_theme_bottom)
+                    bottomNav.setBackgroundColor(homeColor)
 //                    window.statusBarColor = Color.parseColor()
                 }
 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     binding.textToolbarTitle.visibility = View.VISIBLE
                     binding.textToolbarTitle.text = getText(R.string.hello_share_fragment)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundResource(R.drawable.main_theme_bottom)
+                    bottomNav.setBackgroundColor(homeColor)
                 }
 
                 R.id.profileFragment -> {
@@ -112,16 +112,16 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbar.setBackgroundColor(profileColor)
                     binding.textToolbarTitle.visibility = View.GONE
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundResource(R.drawable.gradient_border_2)
+                    bottomNav.setBackgroundColor(color)
                 }
 
                 R.id.notAloneFragment -> {
                     viewModel.isHome.value = true
                     binding.imageToolbarLogo.visibility = View.VISIBLE
                     binding.textToolbarTitle.visibility = View.GONE
-                    binding.toolbar.setBackgroundResource(R.drawable.gradient_border_not_alone)
+                    binding.toolbar.setBackgroundResource(R.drawable.gradient_border_2_toolbar)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundResource(R.drawable.gradient_border_not_alone_bottom)
+                    bottomNav.setBackgroundColor(color)
 
                 }
 
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                     binding.textToolbarTitle.text = ""
                     binding.toolbar.setBackgroundResource(R.drawable.gradient_border_2_toolbar)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundResource(R.drawable.gradient_border_2)
+                    bottomNav.setBackgroundColor(color)
                 }
 
                 else -> {
@@ -139,7 +139,6 @@ class MainActivity : AppCompatActivity() {
                     viewModel.isHome.value = false
                     binding.textToolbarTitle.text = ""
                     bottomNav.visibility = View.GONE
-                    bottomNav.setBackgroundResource(R.drawable.main_theme_bottom)
                 }
 
             }

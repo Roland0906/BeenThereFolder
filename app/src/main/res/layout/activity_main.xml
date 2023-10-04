@@ -33,6 +33,7 @@
             android:background="@drawable/main_theme_color"
             android:visibility="@{viewModel.isHome ? View.VISIBLE : View.GONE}"
             android:elevation="4dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -113,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-            android:background="@drawable/main_theme_color"
+            android:background="#CD6C2C"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
