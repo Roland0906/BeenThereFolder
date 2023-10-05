@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="UserManager"
-            type="com.example.beenthere.utils.UserManager" />
+            name="viewModel"
+            type="com.example.beenthere.profile.ProfileViewModel" />
 
 
     </data>
@@ -88,10 +88,10 @@
             android:layout_height="110dp"
             app:shapeAppearanceOverlay="@style/circular"
             android:elevation="4dp"
+            app:imageUrl="@{viewModel.avatar}"
             app:strokeColor="@color/white"
             app:strokeWidth="3dp"
             android:padding="1.5dp"
-            app:imageUrl="@{UserManager.tempAvatar}"
             android:scaleType="centerCrop"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@id/middle_frame"
@@ -119,8 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:elevation="4dp"
-            android:text="@string/name"
             android:textSize="20sp"
+            android:text="@{viewModel.name}"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
@@ -136,9 +136,24 @@
             android:id="@+id/btn_log_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/middle_frame"
+            app:layout_constraintEnd_toStartOf="@id/btn_log_out"
             app:layout_constraintTop_toTopOf="@id/name"
             android:text="@string/log_in"
+            android:layout_marginEnd="4dp"
+            android:padding="8dp"
+            android:background="@drawable/log_in_btn"
+            android:elevation="4dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/btn_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/middle_frame"
+            app:layout_constraintTop_toTopOf="@id/name"
+            android:text="@string/log_out"
             android:padding="8dp"
             android:background="@drawable/log_in_btn"
             android:elevation="4dp"

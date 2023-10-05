@@ -1,7 +1,11 @@
 package com.example.beenthere.utils
 
+import android.net.Uri
+
+
 object UserManager {
 
+    var userID = ""
     var userName = ""
     var userAvatar = ""
 

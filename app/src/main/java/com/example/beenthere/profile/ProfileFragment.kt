@@ -2,6 +2,7 @@ package com.example.beenthere.profile
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,11 +17,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
+import androidx.fragment.app.viewModels
 import com.example.beenthere.R
 import com.example.beenthere.data.User
 import com.example.beenthere.databinding.FragmentProfileBinding
-import com.example.beenthere.utils.UserManager.tempAvatar
+import com.example.beenthere.ext.getVmFactory
 import com.example.beenthere.utils.UserManager.userAvatar
+import com.example.beenthere.utils.UserManager.userID
 import com.example.beenthere.utils.UserManager.userName
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -50,6 +53,7 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    private val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +70,7 @@ class ProfileFragment : Fragment() {
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
@@ -78,7 +82,6 @@ class ProfileFragment : Fragment() {
             startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST)
         }
 
-        userName = "Roland"
 //        binding.avatarFrame.setImageURI(tempAvatar.toUri())
 
 
@@ -95,10 +98,51 @@ class ProfileFragment : Fragment() {
             googleSignIn()
         }
 
+        binding.btnLogOut.setOnClickListener {
+            googleLogOut()
+        }
 
+
+        checkLogInStatus()
+
+
+        viewModel.getUser(getUserInfo())
 
 
         return binding.root
+    }
+
+    private fun getUserInfo(): User {
+        val sharedPreferences =
+            requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+
+        return User(
+            sharedPreferences.getString("userId", null).toString(),
+            sharedPreferences.getString("userName", null).toString(),
+            sharedPreferences.getString("userAvatar", null).toString()
+        )
+    }
+
+    private fun checkLogInStatus() {
+        if (auth.currentUser != null) {
+            binding.btnLogOut.visibility = View.VISIBLE
+            binding.btnLogIn.visibility = View.GONE
+        } else {
+            binding.btnLogOut.visibility = View.GONE
+            binding.btnLogIn.visibility = View.VISIBLE
+        }
+    }
+
+    private fun googleLogOut() {
+        // log out firebase
+        auth.signOut()
+
+        // log out google sign in client
+        googleSignInClient.signOut().addOnCompleteListener {
+            Toast.makeText(this.context, "Logged out", Toast.LENGTH_SHORT).show()
+        }
+        clearUserId()
+
     }
 
     private fun googleSignIn() {
@@ -106,37 +150,50 @@ class ProfileFragment : Fragment() {
         launcher.launch(signInClient)
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
-        result ->
+                result ->
 
-        if (result.resultCode == Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            manageResults(task)
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                manageResults(task)
+            }
         }
-    }
 
     private fun manageResults(task: Task<GoogleSignInAccount>) {
-        val account : GoogleSignInAccount? = task.result
+        val account: GoogleSignInAccount? = task.result
 
         if (account != null) {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             auth.signInWithCredential(credential).addOnCompleteListener {
-                if ( task.isSuccessful) {
+                if (task.isSuccessful) {
 
                     val firebaseUser = auth.currentUser
                     val uid = firebaseUser?.uid
 
+
                     if (uid != null) {
+
+                        // to sharedPref
+                        storeUserInfo(uid, account.displayName.toString(), account.photoUrl.toString())
+
+                        // to UserManager
+                        userID = uid
+                        userName = account.displayName.toString()
+                        userAvatar = account.photoUrl.toString()
 
                     }
 
                     Toast.makeText(this.context, "Log in successfully", Toast.LENGTH_SHORT).show()
 
+                    checkLogInStatus()
+
                     // load user info
 
                 } else {
-                    Toast.makeText(this.context, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, task.exception.toString(), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         } else {
@@ -158,8 +215,8 @@ class ProfileFragment : Fragment() {
                             val downloadUrl = uri.toString()
                             val user = User(
                                 userId = userDocRef.id,
-                                userName = userName,
-                                userAvatar = downloadUrl
+//                                userName = userName,
+//                                userAvatar = downloadUrl
                             )
                             userDocRef.set(user)
 //                            userDocRef.set("profilePhotoUrl", downloadUrl)
@@ -183,6 +240,26 @@ class ProfileFragment : Fragment() {
             userAvatar = selectedImageUri.toString()
             binding.avatarFrame.setImageURI(selectedImageUri)
         }
+    }
+
+    private fun storeUserInfo(uid: String, name: String, avatar: String) {
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("userId", uid)
+        editor.putString("userName", name)
+        editor.putString("userAvatar", avatar)
+        editor.apply()
+    }
+
+
+    // Clear the user ID when the user logs out
+    private fun clearUserId() {
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("userId")
+        editor.remove("userName")
+        editor.remove("userAvatar")
+        editor.apply()
     }
 
 

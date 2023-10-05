@@ -10,6 +10,7 @@ import com.example.beenthere.home.HomeViewModel
 import com.example.beenthere.home.catogories.CategoryVM
 import com.example.beenthere.notalone.NotAloneViewModel
 import com.example.beenthere.notalone.SuggestionViewModel
+import com.example.beenthere.profile.ProfileViewModel
 import com.example.beenthere.share.ShareViewModel
 
 
@@ -46,6 +47,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(SuggestionViewModel::class.java) ->
                     SuggestionViewModel(beenThereRepository)
+
+                isAssignableFrom(ProfileViewModel::class.java) ->
+                    ProfileViewModel(beenThereRepository)
 //
 //                isAssignableFrom(CheckoutSuccessViewModel::class.java) ->
 //                    CheckoutSuccessViewModel(beenThereRepository)
