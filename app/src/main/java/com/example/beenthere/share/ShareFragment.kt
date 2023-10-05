@@ -17,6 +17,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.util.Pair
 import android.view.Gravity
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -24,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -282,8 +284,44 @@ class ShareFragment : Fragment() {
         }
 
 
+
+        binding.inputSituation.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard()
+
+                return@setOnKeyListener true
+            }
+
+            false
+        }
+
+        binding.inputPhrases.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard2()
+
+                return@setOnKeyListener true
+            }
+
+            false
+        }
+
+
         return binding.root
     }
+
+    private fun hideKeyboard() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputSituation.windowToken, 0)
+
+    }
+
+    private fun hideKeyboard2() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputPhrases.windowToken, 0)
+
+    }
+
+
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

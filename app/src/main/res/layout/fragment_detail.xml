@@ -21,22 +21,11 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/icon_to_love"
-            android:backgroundTint="#D3D3D3"
+            android:background="@drawable/icon_unloved"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_frame"
             app:layout_constraintTop_toBottomOf="@id/top_bottom" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loved"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/icon_loved"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_frame"
-            app:layout_constraintTop_toBottomOf="@id/top_bottom" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go_back"

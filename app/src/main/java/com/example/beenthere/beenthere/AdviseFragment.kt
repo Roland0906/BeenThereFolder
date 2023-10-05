@@ -1,12 +1,15 @@
 package com.example.beenthere.beenthere
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +30,7 @@ class AdviseFragment : Fragment() {
             ).situation
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -70,7 +74,17 @@ class AdviseFragment : Fragment() {
             Log.i("Advise Frag submit", "submitted list")
         }
 
-        val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson", "YenL")
+        val userList = listOf(
+            "PollyYana",
+            "Jammy",
+            "Jayson",
+            "Terry",
+            "Elephant",
+            "Timothy",
+            "Bryant",
+            "Jackson",
+            "YenL"
+        )
 
 
         var comment = ""
@@ -90,9 +104,21 @@ class AdviseFragment : Fragment() {
         binding.recyclerAdvise.isVerticalFadingEdgeEnabled = true
 
 
+        binding.inputComment.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard()
+                return@setOnKeyListener true
+            }
+            false
+        }
 
 
         return binding.root
+    }
+
+    private fun hideKeyboard() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputComment.windowToken, 0)
     }
 
 

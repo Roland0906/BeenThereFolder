@@ -29,7 +29,6 @@ class NotAloneViewModel(private val repository: BeenThereRepository) : ViewModel
 
         document.set(situation)
             .addOnSuccessListener {
-                showMessage("Check the middle page as someone might have been there")
                 Log.i("Insert to Firebase", "success")
             }
             .addOnFailureListener {

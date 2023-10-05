@@ -40,6 +40,8 @@ class DetailVM(
         _messageList.value = mutableListOf()
     }
 
+    var isLiked: Boolean = false
+
 //    private fun addCommentToList(id: String, message: String, timestamp: String) {
 //        val currentList = _messageList.value ?: mutableListOf()
 //        currentList.add(Message(id = id, message = message, timestamp = timestamp))

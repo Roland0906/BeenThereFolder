@@ -1,5 +1,6 @@
 package com.example.beenthere.notalone
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -9,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -29,13 +29,6 @@ class NotAloneFragment : Fragment() {
 
     private lateinit var typingText: TextView
     private val textToType = "Tell us what happened"
-
-    private lateinit var cursorView: View
-
-        private var cursorVisible = false
-//    private var cursorPosition = 0
-
-    private lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +83,9 @@ class NotAloneFragment : Fragment() {
             } else {
                 userId = userList.random()
                 val situation = Situation(userId = userId, description = description)
-                viewModel.addData(situation)
+//                viewModel.addData(situation)
                 binding.inputSituation.setText("")
+                showReminderDialog()
 //                it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
             }
         }
@@ -102,8 +96,20 @@ class NotAloneFragment : Fragment() {
 
 
 
+
+
+
         return binding.root
     }
+
+    private fun showReminderDialog() {
+
+        val builder = AlertDialog.Builder(this.context)
+            .setTitle(R.string.check_the_page_on_the_left)
+            .setPositiveButton("OK", null)
+            .show()
+    }
+
 
     private fun hideKeyboard() {
         val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -120,31 +126,6 @@ class NotAloneFragment : Fragment() {
             }, delay)
         }
     }
-
-
-
-//    private fun startBlinkingCursor() {
-//        val blinkInterval = 500L
-//
-//        handler = Handler()
-//        handler.postDelayed(object : Runnable {
-//            override fun run() {
-//                cursorVisible = !cursorVisible
-//                cursorView.visibility = if (cursorVisible) View.VISIBLE else View.INVISIBLE
-//                handler.postDelayed(this, blinkInterval)
-//            }
-//        }, blinkInterval)
-//
-//        handler.postDelayed({
-//            stopBlinkingCursor()
-//        }, 3000L)
-//    }
-//
-//    private fun stopBlinkingCursor() {
-//        handler.removeCallbacksAndMessages(null)
-//        cursorVisible = false
-//        cursorView.visibility = View.INVISIBLE
-//    }
 
 
 }

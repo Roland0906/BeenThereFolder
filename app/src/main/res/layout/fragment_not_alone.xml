@@ -14,19 +14,22 @@
         android:background="#FaF0E6"
         tools:context=".notalone.NotAloneFragment">
 
+<!--        <TextView-->
+<!--            android:id="@+id/dialog_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:text="@string/check_the_page_on_the_left_to_see_if_someone_has_been_there"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16sp"-->
+<!--            android:elevation="4dp"-->
+<!--            android:textAlignment="center"-->
+<!--            />-->
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/header_title"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="70dp"-->
-        <!--            android:background="@drawable/main_theme_color"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/someone_might_have_been_there"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="18sp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_frame"
@@ -41,7 +44,6 @@
                 android:background="@drawable/not_alone_pic_4"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
-
                 />
 
             <TextView
@@ -61,94 +63,6 @@
 
                 />
 
-<!--            <View-->
-<!--                android:id="@+id/cursorView"-->
-<!--                android:layout_width="2dp"-->
-<!--                android:layout_height="36dp"-->
-<!--                android:visibility="invisible"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/text"-->
-<!--                app:layout_constraintEnd_toEndOf="@id/text"-->
-<!--                android:background="#FFFFFF" />-->
-
-
-
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/first_text"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="90dp"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textSize="40sp"-->
-            <!--                android:background="#EEC5A9"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="@string/tell_us"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/second_text"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="90dp"-->
-            <!--                android:background="#eaac8b"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textSize="40sp"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="@string/what"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/first_text"-->
-            <!--                />-->
-
-            <!--            <TextView-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="90dp"-->
-            <!--                android:background="#b56576"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:textSize="40sp"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="@string/happened"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/second_text"-->
-            <!--                />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/description"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="24dp"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="@string/pick_an_environment"-->
-            <!--                android:textSize="20sp"-->
-            <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/environ_white"-->
-            <!--                android:layout_width="80dp"-->
-            <!--                android:layout_height="80dp"-->
-            <!--                android:background="@drawable/environ_white"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/environ_gray"-->
-            <!--                app:layout_constraintHorizontal_chainStyle="spread"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/description" />-->
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/environ_gray"-->
-            <!--                android:layout_width="80dp"-->
-            <!--                android:layout_height="80dp"-->
-            <!--                android:background="@drawable/envrion_gray"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/environ_dark"-->
-            <!--                app:layout_constraintStart_toEndOf="@id/environ_white"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/environ_white" />-->
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/environ_dark"-->
-            <!--                android:layout_width="80dp"-->
-            <!--                android:layout_height="80dp"-->
-            <!--                android:background="@drawable/envrion_dark"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toEndOf="@id/environ_gray"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/environ_white" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_border"
                 android:gravity="top"
-                android:hint=""
+                android:hint="@string/someone_might_have_been_there"
                 android:textColorHint="#949494" />
 
         </com.google.android.material.textfield.TextInputLayout>

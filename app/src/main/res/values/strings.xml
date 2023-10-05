@@ -72,7 +72,7 @@
     <string name="tell_us_what_happened">Tell us what happened</string>
     <string name="share_your_experience">Share your experience</string>
     <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
-    <string name="someone_might_have_been_there">Someone might have been there</string>
+    <string name="someone_might_have_been_there">someone might have been there</string>
     <string name="pick_an_environment">Pick an environment</string>
     <string name="profile_text1">You\'ve shared \n30 experiences</string>
     <string name="name">Roland</string>
@@ -106,6 +106,9 @@
     <string name="happened">Happened</string>
     <string name="what_s_on_your_mind">What\'s on your mind?</string>
     <string name="you_re_not_alone">You\'re not alone</string>
+    <string name="you_can_take_photo">You can also take a photo</string>
+    <string name="input_here">Input here</string>
+    <string name="check_the_page_on_the_left">Check the page on the left</string>
 
 
 </resources>
