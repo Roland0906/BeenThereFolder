@@ -1,5 +1,6 @@
 package com.example.beenthere.profile
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Build
@@ -11,13 +12,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
+import com.example.beenthere.R
 import com.example.beenthere.data.User
 import com.example.beenthere.databinding.FragmentProfileBinding
 import com.example.beenthere.utils.UserManager.tempAvatar
 import com.example.beenthere.utils.UserManager.userAvatar
 import com.example.beenthere.utils.UserManager.userName
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -27,7 +38,6 @@ class ProfileFragment : Fragment() {
     private val db = Firebase.firestore
     private val userDocRef = db.collection("users").document()
 
-    private var userRole = 0
     private lateinit var binding: FragmentProfileBinding
     private val PICK_IMAGE_REQUEST = 1
     private val storageRef = FirebaseStorage.getInstance().getReference("profile_photos")
@@ -35,6 +45,10 @@ class ProfileFragment : Fragment() {
     //    private val fileName = "$userId.jpg"
     private val fileName = "Robb.jpg"
     private val imageRef = storageRef.child(fileName)
+
+    // log in
+    private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +82,66 @@ class ProfileFragment : Fragment() {
 //        binding.avatarFrame.setImageURI(tempAvatar.toUri())
 
 
+        auth = FirebaseAuth.getInstance()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(requireContext().getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
+        binding.btnLogIn.setOnClickListener {
+            googleSignIn()
+        }
+
+
+
+
         return binding.root
+    }
+
+    private fun googleSignIn() {
+        val signInClient = googleSignInClient.signInIntent
+        launcher.launch(signInClient)
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+
+        result ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            manageResults(task)
+        }
+    }
+
+    private fun manageResults(task: Task<GoogleSignInAccount>) {
+        val account : GoogleSignInAccount? = task.result
+
+        if (account != null) {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            auth.signInWithCredential(credential).addOnCompleteListener {
+                if ( task.isSuccessful) {
+
+                    val firebaseUser = auth.currentUser
+                    val uid = firebaseUser?.uid
+
+                    if (uid != null) {
+
+                    }
+
+                    Toast.makeText(this.context, "Log in successfully", Toast.LENGTH_SHORT).show()
+
+                    // load user info
+
+                } else {
+                    Toast.makeText(this.context, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            Toast.makeText(this.context, task.exception.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
 

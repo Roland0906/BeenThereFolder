@@ -90,20 +90,20 @@ class MainActivity : AppCompatActivity() {
                     binding.imageToolbarLogo.visibility = View.VISIBLE
                     viewModel.isHome.value = true
                     binding.textToolbarTitle.text = ""
-                    binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
+                    binding.toolbar.setBackgroundResource(R.drawable.gradient_border_2_toolbar)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundColor(homeColor)
+                    bottomNav.setBackgroundColor(color)
 //                    window.statusBarColor = Color.parseColor()
                 }
 
                 R.id.shareFragment -> {
                     viewModel.isHome.value = true
-                    binding.toolbar.setBackgroundResource(R.drawable.main_theme_color)
+                    binding.toolbar.setBackgroundResource(R.drawable.gradient_border_2_toolbar)
                     binding.imageToolbarLogo.visibility = View.GONE
                     binding.textToolbarTitle.visibility = View.VISIBLE
                     binding.textToolbarTitle.text = getText(R.string.hello_share_fragment)
                     bottomNav.visibility = View.VISIBLE
-                    bottomNav.setBackgroundColor(homeColor)
+                    bottomNav.setBackgroundColor(color)
                 }
 
                 R.id.profileFragment -> {

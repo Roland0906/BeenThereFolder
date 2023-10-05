@@ -87,8 +87,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginTop="24dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@id/topic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_carouse"
             />
@@ -101,24 +100,24 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/text_to_talk"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_to_talk"
-            app:layout_constraintBottom_toBottomOf="@id/text_to_talk"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/text_to_talk"
+            app:layout_constraintEnd_toStartOf="@id/btn_launch"
+            app:layout_constraintTop_toBottomOf="@id/text_to_talk"
             tools:text="Life Meaning"
             />
 
         <ImageView
             android:id="@+id/btn_launch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/icon_streaming"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/icon_talk"
             android:backgroundTint="#3F3A3A"
             android:elevation="4dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@id/text_to_talk"
-            app:layout_constraintTop_toBottomOf="@id/text_to_talk"
-            app:layout_constraintEnd_toEndOf="@id/topic"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/topic"
+            app:layout_constraintTop_toTopOf="@id/topic"
+            app:layout_constraintEnd_toEndOf="@id/text_to_talk"
 
             />
 

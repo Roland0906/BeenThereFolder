@@ -133,6 +133,24 @@
             />
 
         <TextView
+            android:id="@+id/btn_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/middle_frame"
+            app:layout_constraintTop_toTopOf="@id/name"
+            android:text="@string/log_in"
+            android:padding="8dp"
+            android:background="@drawable/log_in_btn"
+            android:elevation="4dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+
+
+
+
+        <TextView
             android:id="@+id/quote"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,7 +159,7 @@
             android:text="@string/quote_1"
             android:textColor="#F7E7CE"
             android:elevation="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:paddingBottom="6dp"
             app:layout_constraintTop_toBottomOf="@id/name"
             android:textStyle="bold"
