@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -70,28 +69,28 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.btnToMeaning.setOnClickListener {
+        binding.meaningFrame.setOnClickListener {
 //            viewModel.clearDB()
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LIFE_MEANING.name))
         }
 
-        binding.btnToCommunication.setOnClickListener {
+        binding.communicationFrame.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.COMMUNICATION.name))
         }
 
-        binding.btnToDiscipline.setOnClickListener {
+        binding.disciplineFrame.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.DISCIPLINE.name))
         }
 
-        binding.btnToLearning.setOnClickListener {
+        binding.learningFrame.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LEARNING.name))
         }
 
-        binding.btnToWork.setOnClickListener {
+        binding.workFrame.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.WORK.name))
         }
 
-        binding.btnToRelationship.setOnClickListener {
+        binding.relationshipFrame.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.RELATIONSHIP.name))
         }
 

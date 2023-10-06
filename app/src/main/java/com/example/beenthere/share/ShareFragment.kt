@@ -72,7 +72,6 @@ class ShareFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -82,7 +81,6 @@ class ShareFragment : Fragment() {
 
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         binding = FragmentShareBinding.inflate(inflater, container, false)
-
 
 
         binding.viewModel = viewModel

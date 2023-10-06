@@ -111,6 +111,10 @@
     <string name="check_the_page_on_the_left">Check the page on the left</string>
     <string name="log_in">Log in</string>
     <string name="log_out">Log out</string>
+    <string name="home">Home</string>
+    <string name="share">Share</string>
+    <string name="beenthere">BeenThere</string>
+    <string name="enter">Enter</string>
 
 
 </resources>

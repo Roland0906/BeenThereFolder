@@ -4,17 +4,19 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/icon_house_selector"
-        android:title="" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/shareFragment"
         android:icon="@drawable/icon_been_there"
-        android:title=""/>
+
+        android:title="@string/share"/>
 
     <item
         android:id="@+id/beenThereFragment"
         android:icon="@drawable/icon_island_reshaped"
-        android:title=""/>
+
+        android:title="@string/beenthere"/>
 
     <item
         android:id="@+id/notAloneFragment"
@@ -24,7 +26,7 @@
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/icon_profile_2"
-        android:title=""/>
+        android:title="@string/profile"/>
 
 
 </menu>

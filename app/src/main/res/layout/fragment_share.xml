@@ -86,15 +86,15 @@
 
                 <EditText
                     android:id="@+id/edit_input_book"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/coupon_background"
                     android:elevation="4dp"
-                    android:hint="@string/books_search_hint"
                     android:letterSpacing="0.15"
+                    android:textAlignment="center"
+                    android:hint="@string/books_search_hint"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="16sp"
@@ -170,7 +170,7 @@
                     android:id="@+id/text_describe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/share_description"
                     android:textSize="15sp"
@@ -183,7 +183,7 @@
                     android:id="@+id/text_situation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/text_encounter"
                     android:textSize="16sp"
@@ -195,6 +195,7 @@
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     app:hintEnabled="false"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="@id/edit_phrases"
                     app:layout_constraintStart_toStartOf="@id/text_situation"
                     app:layout_constraintTop_toBottomOf="@id/text_situation"
@@ -217,7 +218,7 @@
                     android:id="@+id/text_phrases"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/text_phrase"
                     android:textSize="16sp"
@@ -230,6 +231,7 @@
                     android:layout_height="100dp"
                     android:layout_marginEnd="8dp"
                     app:hintEnabled="false"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@id/select_image_button"
                     app:layout_constraintStart_toStartOf="@id/text_situation"
                     app:layout_constraintTop_toBottomOf="@id/text_phrases"
@@ -281,7 +283,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/home_button_background"
+                    android:background="@drawable/button_background"
                     android:paddingHorizontal="3dp"
                     android:text="@string/btn_share"
                     android:textColor="@color/white"
@@ -289,14 +291,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_phrases" />
-
-                <!--        <include-->
-                <!--            layout="@layout/settings_style"-->
-                <!--            android:id="@+id/settings_button"-->
-                <!--            android:layout_width="wrap_content"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            app:layout_constraintRight_toRightOf="parent"-->
-                <!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

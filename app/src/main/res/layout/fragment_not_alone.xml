@@ -14,28 +14,13 @@
         android:background="#FaF0E6"
         tools:context=".notalone.NotAloneFragment">
 
-<!--        <TextView-->
-<!--            android:id="@+id/dialog_text"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:text="@string/check_the_page_on_the_left_to_see_if_someone_has_been_there"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp"-->
-<!--            android:elevation="4dp"-->
-<!--            android:textAlignment="center"-->
-<!--            />-->
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_frame"
             android:layout_width="match_parent"
-            android:layout_height="520dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w, 1.1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/pic_1"
@@ -59,8 +44,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
-
                 />
 
 
