@@ -72,7 +72,7 @@
     <string name="tell_us_what_happened">Tell us what happened</string>
     <string name="share_your_experience">Share your experience</string>
     <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
-    <string name="someone_might_have_been_there">someone might have been there</string>
+    <string name="someone_might_have_been_there">Someone might have been there</string>
     <string name="pick_an_environment">Pick an environment</string>
     <string name="profile_text1">You\'ve shared \n30 experiences</string>
     <string name="name">Roland</string>
@@ -115,6 +115,9 @@
     <string name="share">Share</string>
     <string name="beenthere">BeenThere</string>
     <string name="enter">Enter</string>
+    <string name="someone_might_have_nbeen_there">Someone might have\nBeen There</string>
+    <string name="made_by_roland">Made by Roland</string>
+    <string name="someone_might_have">Someone might have</string>
 
 
 </resources>
