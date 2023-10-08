@@ -4,21 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.beenthere.notalone.NotAloneViewModel" />
 
     </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="12dp"
+        >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FaF0E6"
+        android:paddingBottom="16dp"
         tools:context=".notalone.NotAloneFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="w, 1.1:1"
+            app:layout_constraintDimensionRatio="w, 1.01:1"
             app:layout_constraintTop_toTopOf="parent"
             >
 
@@ -87,4 +96,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>

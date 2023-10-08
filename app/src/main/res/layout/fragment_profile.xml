@@ -100,18 +100,18 @@
 
 
 
-        <ImageView
-            android:id="@+id/edit_photo"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="@id/avatar_frame"
-            app:layout_constraintEnd_toEndOf="@id/avatar_frame"
-            android:elevation="4dp"
-            android:background="@drawable/icon_edit_photo"
-            android:backgroundTint="@color/browser_actions_bg_grey"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/edit_photo"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/avatar_frame"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/avatar_frame"-->
+<!--            android:elevation="8dp"-->
+<!--            android:background="@drawable/icon_edit_photo"-->
+<!--            android:backgroundTint="@color/browser_actions_bg_grey"-->
+<!--            />-->
 
         <TextView
             android:id="@+id/name"
@@ -120,7 +120,7 @@
             android:layout_marginBottom="16dp"
             android:elevation="4dp"
             android:textSize="20sp"
-            android:text="@{viewModel.name}"
+            android:text="@{viewModel.name != null ? viewModel.name : ``}"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="16dp"

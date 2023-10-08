@@ -1,6 +1,7 @@
 package com.example.beenthere.beenthere
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.beenthere.ItemMarginDecoration
 import com.example.beenthere.NavigationDirections
 import com.example.beenthere.databinding.FragmentBeenThereBinding
 import com.example.beenthere.ext.getVmFactory
@@ -44,6 +47,8 @@ class BeenThereFragment : Fragment() {
         })
 
         binding.recyclerSituation.adapter = adapter
+        val itemDecoration = ItemMarginDecoration(requireContext(), 16)
+        binding.recyclerSituation.addItemDecoration(itemDecoration)
 
         lifecycleScope.launch {
             viewModel.allSituations().collect {
@@ -61,9 +66,10 @@ class BeenThereFragment : Fragment() {
             }
         )
 
-
-
-
+        binding.btnAdd.setOnClickListener {
+            Log.i("BeenThere frag", "add btn onClicked")
+            it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
+        }
 
 
 

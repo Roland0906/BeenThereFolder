@@ -68,7 +68,6 @@ class BeenThereViewModel(private val repository: BeenThereRepository) : ViewMode
 
                                         Log.i("Roland", "compare to $situation")
 
-
                                         if (!it.contains(situation)) {
                                             repository.upsertSituation(situation)
                                         }

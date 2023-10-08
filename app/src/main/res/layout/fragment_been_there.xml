@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F9F6EE"
+        android:background="#FFFFFF"
         tools:context=".beenthere.BeenThereFragment">
 
 
@@ -22,15 +22,19 @@
             android:id="@+id/header_title_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:elevation="4dp"
             android:lines="2"
             android:text="@string/text_been_there_1"
+            android:textAlignment="textEnd"
+            android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/text_exp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
 
         <TextView
@@ -39,10 +43,11 @@
             android:layout_height="wrap_content"
             android:elevation="4dp"
             android:text="@string/experience"
-            android:textColor="#AE563F"
-            android:textSize="26sp"
+            android:textColor="#ae563f"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/header_title_1"
+            app:layout_constraintBottom_toTopOf="@id/last_text"
+            app:layout_constraintEnd_toEndOf="@id/header_title_1"
             app:layout_constraintTop_toBottomOf="@id/header_title_1" />
 
         <TextView
@@ -51,27 +56,27 @@
             android:layout_height="wrap_content"
             android:elevation="4dp"
             android:text="@string/text_been_there_2"
+            android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/header_title_1"
-            app:layout_constraintTop_toBottomOf="@id/text_exp" />
+            app:layout_constraintEnd_toEndOf="@id/header_title_1"
+            app:layout_constraintTop_toBottomOf="@id/text_exp"
+
+            />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/pic_frame"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toStartOf="@id/header_title_1"
-            app:layout_constraintTop_toBottomOf="@id/last_text"
-            >
-
+            app:layout_constraintDimensionRatio="w, 1.2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/pic"
-                android:layout_width="150dp"
-                android:layout_height="244dp"
-                android:background="@drawable/lonely_standing"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:background="@drawable/pic_walk_alone"
 
                 />
 
@@ -80,16 +85,37 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_situation"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="50dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/pic_frame" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pic_frame" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            >
+
+            <ImageView
+                android:id="@+id/btn_add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#77574e"
+                android:padding="8dp"
+                android:elevation="4dp"
+                android:src="@drawable/icon_add" />
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

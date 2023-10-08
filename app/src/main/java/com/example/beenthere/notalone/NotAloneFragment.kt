@@ -15,6 +15,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.Situation
 import com.example.beenthere.databinding.FragmentNotAloneBinding
@@ -75,7 +77,6 @@ class NotAloneFragment : Fragment() {
 
 
 
-
         binding.btnSearch.setOnClickListener {
 
             if (description == "") {
@@ -83,7 +84,7 @@ class NotAloneFragment : Fragment() {
             } else {
                 userId = userList.random()
                 val situation = Situation(userId = userId, description = description)
-//                viewModel.addData(situation)
+                viewModel.addData(situation)
                 binding.inputSituation.setText("")
                 showReminderDialog()
 //                it.findNavController().navigate(NavigationDirections.navigateToSuggestionDialog())
