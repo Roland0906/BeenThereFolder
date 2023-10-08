@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
         // open ai close for now
         lifecycleScope.launch {
             viewModel.allExp().collect {
-//                viewModel.analyzer(it)
+                viewModel.analyzer(it)
             }
         }
 
@@ -106,8 +106,6 @@ class HomeFragment : Fragment() {
             viewModel.liveTalkEvents.collect { liveTalkEvents ->
                 if (liveTalkEvents.isNotEmpty()) {
                     binding.textToJoin.setText(R.string.join_the_ongoing_live_talks)
-                } else {
-                    binding.textToJoin.setText(R.string.check_later_if_someone_is_giving_a_live_talk)
                 }
                 eventAdapter.submitList(liveTalkEvents)
             }

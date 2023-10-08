@@ -58,11 +58,19 @@
 
     <action
         android:id="@+id/navigate_to_category_fragment"
-        app:destination="@id/categoryFragment" />
+        app:destination="@id/categoryFragment"
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_left"
+        app:popEnterAnim="@anim/slide_in_from_left"
+        app:popExitAnim="@anim/slide_out_to_right" />
 
     <action
         android:id="@+id/navigate_to_detail_fragment"
-        app:destination="@id/detailFragment" />
+        app:destination="@id/detailFragment"
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_left"
+        app:popEnterAnim="@anim/slide_in_from_left"
+        app:popExitAnim="@anim/slide_out_to_right" />
 
     <dialog
         android:id="@+id/suggestionDialog"
@@ -88,7 +96,11 @@
 
     <action
         android:id="@+id/navigate_to_advise_fragment"
-        app:destination="@id/adviseFragment" />
+        app:destination="@id/adviseFragment"
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_left"
+        app:popEnterAnim="@anim/slide_in_from_left"
+        app:popExitAnim="@anim/slide_out_to_right" />
 
 
 </navigation>

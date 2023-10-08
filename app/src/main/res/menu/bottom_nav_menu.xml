@@ -18,10 +18,6 @@
 
         android:title="@string/beenthere"/>
 
-    <item
-        android:id="@+id/notAloneFragment"
-        android:icon="@drawable/icon_help"
-        android:title=""/>
 
     <item
         android:id="@+id/profileFragment"

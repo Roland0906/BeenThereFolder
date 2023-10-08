@@ -19,11 +19,6 @@
         android:iconTint="@color/white"
         android:title="@string/beenthere"/>
 
-    <item
-        android:id="@+id/notAloneFragment"
-        android:icon="@drawable/icon_help"
-        android:iconTint="@color/white"
-        android:title=""/>
 
     <item
         android:id="@+id/profileFragment"

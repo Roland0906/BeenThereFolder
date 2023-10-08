@@ -117,14 +117,7 @@ class CategoryFragment : Fragment() {
             }
         }
 
-        binding.topic.text = when (args) {
-            CATEGORY.LIFE_MEANING.name -> "Life Meaning"
-            CATEGORY.COMMUNICATION.name -> "Communication"
-            CATEGORY.DISCIPLINE.name -> "Discipline"
-            CATEGORY.LEARNING.name -> "Learning"
-            CATEGORY.WORK.name -> "Work"
-            else -> "Relationship"
-        }
+
 
         viewModel.navigateToDetail.observe(
             viewLifecycleOwner,

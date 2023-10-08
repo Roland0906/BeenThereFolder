@@ -384,8 +384,8 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/join_the_ongoing_live_talks"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textSize="14sp"
+
                 app:layout_constraintEnd_toEndOf="@id/relationship_frame"
                 app:layout_constraintStart_toStartOf="@id/work_frame"
                 app:layout_constraintTop_toBottomOf="@id/work_frame" />

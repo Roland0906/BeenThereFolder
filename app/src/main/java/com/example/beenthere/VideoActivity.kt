@@ -60,19 +60,6 @@ class VideoActivity : AppCompatActivity() {
 
 
 
-        binding.inputUser.doAfterTextChanged {
-            userName = binding.inputUser.text.toString() //
-        }
-
-        binding.btnCfm.setOnClickListener {
-            binding.inputUser.visibility = View.GONE
-            binding.nameUser.text = userName
-            binding.btnCfm.visibility = View.GONE
-            binding.btnSend.visibility = View.VISIBLE
-        }
-
-
-
         chatViewModel.setFireStoreListener()
 
         binding.btnSend.setOnClickListener {
