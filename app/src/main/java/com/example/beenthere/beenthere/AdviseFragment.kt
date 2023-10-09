@@ -1,22 +1,29 @@
 package com.example.beenthere.beenthere
 
+
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentAdviseBinding
 import com.example.beenthere.ext.getVmFactory
 import com.example.beenthere.home.catogories.detail.ForumAdapter
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
 class AdviseFragment : Fragment() {
@@ -111,6 +118,11 @@ class AdviseFragment : Fragment() {
             }
             false
         }
+
+
+
+
+
 
 
         return binding.root

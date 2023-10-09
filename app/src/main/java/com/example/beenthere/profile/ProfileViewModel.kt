@@ -27,12 +27,21 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
 
 
     init {
-        _name.value = UserManager.userName
+        _name.value =
+            if (UserManager.userName == "null" || UserManager.userName == "") {
+            ""
+        } else {
+            UserManager.userName
+            }
         _avatar.value = UserManager.userAvatar
     }
 
     fun getUser(user: User) {
-        _name.value = user.userName
+        _name.value = if (UserManager.userName == "null" || UserManager.userName == "") {
+            ""
+        } else {
+            UserManager.userName
+        }
         _avatar.value = user.userAvatar.toString()
     }
 

@@ -175,13 +175,24 @@ class ProfileFragment : Fragment() {
 
                     if (uid != null) {
 
-                        // to sharedPref
-                        storeUserInfo(uid, account.displayName.toString(), account.photoUrl.toString())
+                        try {
+                            // to sharedPref
+                            storeUserInfo(
+                                uid,
+                                account.displayName.toString(),
+                                account.photoUrl.toString()
+                            )
 
-                        // to UserManager
-                        userID = uid
-                        userName = account.displayName.toString()
-                        userAvatar = account.photoUrl.toString()
+                            // to UserManager
+                            userID = uid
+                            userName = account.displayName.toString()
+                            userAvatar = account.photoUrl.toString()
+
+                            Log.i("Profile", "Log in info ${account.displayName} + ${account.photoUrl}")
+
+                        } catch (e: Exception) {
+                            Log.i("Profile", "try catch fail")
+                        }
 
                     }
 
