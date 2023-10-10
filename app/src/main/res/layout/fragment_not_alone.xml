@@ -35,7 +35,7 @@
                 android:id="@+id/pic_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/not_alone_pic_4"
+                android:background="@drawable/pic_not_alone"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 />

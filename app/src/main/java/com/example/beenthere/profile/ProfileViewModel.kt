@@ -45,13 +45,13 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
         _avatar.value = user.userAvatar.toString()
     }
 
-//    fun getUserName(name: String) {
-//        _name.value = name
-//    }
-//
-//    fun getUserAvatar(avatar: String) {
-//        _avatar.value = avatar
-//    }
+    fun getUserName(name: String) {
+        _name.value = name
+    }
+
+    fun getUserAvatar(avatar: String) {
+        _avatar.value = avatar
+    }
 
     // Store the user ID when the user logs in
 

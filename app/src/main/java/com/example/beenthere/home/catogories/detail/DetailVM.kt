@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.LikedExp
 import com.example.beenthere.data.Message
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.utils.UserManager
@@ -36,11 +37,23 @@ class DetailVM(
     val messageList: LiveData<MutableList<Message>>
         get() = _messageList
 
+
+    private val _isLiked = MutableLiveData<Boolean>()
+
+    val isLiked: LiveData<Boolean>
+        get() = _isLiked
+
     init {
         _messageList.value = mutableListOf()
+        _isLiked.value = false
     }
 
-    var isLiked: Boolean = false
+//    var isLiked: Boolean = false
+
+//    fun clickLike() {
+//        _isLiked.value = !_isLiked.value!!
+//    }
+
 
 //    private fun addCommentToList(id: String, message: String, timestamp: String) {
 //        val currentList = _messageList.value ?: mutableListOf()
@@ -91,6 +104,44 @@ class DetailVM(
                 }
             }
         }
+    }
+
+
+
+
+    fun saveExp() {
+
+        if (UserManager.userID != "") {
+
+            val likeExpCollection =
+                db.collection("users").document(UserManager.userID).collection("favorite")
+
+            val likeExpDoc =
+                likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}")
+
+            val likedExp = LikedExp(
+                likeExpDoc.id, UserManager.userID, args
+            )
+
+            Log.i("DetailVM", likedExp.toString())
+
+            likeExpDoc.set(likedExp)
+                .addOnSuccessListener {
+                    showMessage("It's saved in your profile page")
+                    Log.i("DetailVM to firebase success", likedExp.toString())
+                }
+                .addOnFailureListener {
+                    Log.i("DetailVM to firebase fail", it.message.toString())
+                }
+        }
+    }
+
+    fun deleteExp() {
+
+        val likeExpDoc = db.collection("users").document(UserManager.userID).collection("favorite").document("${args.userId} + ${args.title} + ${args.situation}")
+
+        likeExpDoc.delete()
+
     }
 
     fun addComment(id: String, message: String) {

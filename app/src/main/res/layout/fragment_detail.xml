@@ -26,6 +26,17 @@
             app:layout_constraintStart_toEndOf="@id/image_frame"
             app:layout_constraintTop_toBottomOf="@id/top_bottom" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loved"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:background="@drawable/icon_loved"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_frame"
+            app:layout_constraintTop_toBottomOf="@id/top_bottom" />
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go_back"
@@ -90,7 +101,7 @@
             android:id="@+id/top_bottom"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@drawable/bookshelf"
+            android:background="@drawable/pic_bookshelf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

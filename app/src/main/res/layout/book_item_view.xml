@@ -26,7 +26,7 @@
             app:imageUrl="@{exp.image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/background_bookshelf" />
+            tools:src="@drawable/pic_bookshelf" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frame_text"

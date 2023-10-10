@@ -141,7 +141,10 @@ class ProfileFragment : Fragment() {
         googleSignInClient.signOut().addOnCompleteListener {
             Toast.makeText(this.context, "Logged out", Toast.LENGTH_SHORT).show()
         }
+        viewModel.getUserName("")
+        viewModel.getUserAvatar("")
         clearUserId()
+
 
     }
 
@@ -187,6 +190,8 @@ class ProfileFragment : Fragment() {
                             userID = uid
                             userName = account.displayName.toString()
                             userAvatar = account.photoUrl.toString()
+                            viewModel.getUserName(account.displayName.toString())
+                            viewModel.getUserAvatar(account.photoUrl.toString())
 
                             Log.i("Profile", "Log in info ${account.displayName} + ${account.photoUrl}")
 

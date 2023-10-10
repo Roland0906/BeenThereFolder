@@ -77,7 +77,7 @@
                     android:layout_width="0dp"
                     android:layout_height="270dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/book_search"
+                    android:src="@drawable/pic_book_search"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

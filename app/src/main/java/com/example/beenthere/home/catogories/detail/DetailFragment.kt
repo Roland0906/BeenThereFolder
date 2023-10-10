@@ -12,9 +12,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentDetailBinding
 
 import com.example.beenthere.ext.getVmFactory
@@ -93,9 +91,30 @@ class DetailFragment : Fragment() {
         }
 
         binding.toLove.setOnClickListener {
-            viewModel.isLiked = !viewModel.isLiked
-            updateButtonBackground()
+//            viewModel.clickLike()
+            it.visibility = View.GONE
+            binding.loved.visibility = View.VISIBLE
+            viewModel.saveExp()
+//            updateButtonBackground()
         }
+
+        binding.loved.setOnClickListener {
+            it.visibility = View.GONE
+            binding.toLove.visibility = View.VISIBLE
+            viewModel.deleteExp()
+        }
+
+
+//        viewModel.isLiked.observe(viewLifecycleOwner) {
+//            viewModel.updateLikeExp(UserManager.userID)
+//            binding.toLove.setBackgroundResource(
+//                if (it == true) {
+//                    R.drawable.icon_loved
+//                } else {
+//                    R.drawable.icon_unloved
+//                }
+//            )
+//        }
 
 
         binding.inputComment.setOnKeyListener { _, keyCode, keyEvent ->
@@ -116,17 +135,15 @@ class DetailFragment : Fragment() {
         imm.hideSoftInputFromWindow(binding.inputComment.windowToken, 0)
     }
 
-    private fun updateButtonBackground() {
-        binding.toLove.setBackgroundResource(
-            if (viewModel.isLiked) {
-                R.drawable.icon_loved
-            } else {
-                R.drawable.icon_unloved
-            }
-        )
-    }
-
-
+//    private fun updateButtonBackground() {
+//        binding.toLove.setBackgroundResource(
+//            if (viewModel.isLiked.value == true) {
+//                R.drawable.icon_loved
+//            } else {
+//                R.drawable.icon_unloved
+//            }
+//        )
+//    }
 
 
 }

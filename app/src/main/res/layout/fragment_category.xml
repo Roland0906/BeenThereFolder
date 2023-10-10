@@ -30,7 +30,7 @@
             android:id="@+id/top_bottom"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@drawable/img_1"
+            android:background="@drawable/pic_category"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
