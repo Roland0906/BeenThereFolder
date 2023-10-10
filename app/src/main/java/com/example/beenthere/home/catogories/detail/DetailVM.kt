@@ -109,12 +109,14 @@ class DetailVM(
 
 
 
-    fun saveExp() {
+    fun saveExp(userId : String) {
 
-        if (UserManager.userID != "") {
+//        if (UserManager.userID != "") {
 
             val likeExpCollection =
-                db.collection("users").document(UserManager.userID).collection("favorite")
+                db.collection("users").document(userId).collection("favorite")
+
+//            Log.i("Detail VM user id", UserManager.userID)
 
             val likeExpDoc =
                 likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}")
@@ -133,7 +135,7 @@ class DetailVM(
                 .addOnFailureListener {
                     Log.i("DetailVM to firebase fail", it.message.toString())
                 }
-        }
+//        }
     }
 
     fun deleteExp() {

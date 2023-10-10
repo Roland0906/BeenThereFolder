@@ -14,7 +14,7 @@ data class LikedExp(
     @Json(name = "user_id") var userId: String = "",
 
     @ColumnInfo(name = "experience")
-    @Json(name = "experience") var experience: Experience,
+    @Json(name = "experience") var experience: Experience = Experience(),
 
     @ColumnInfo(name = "is_Liked")
     @Json(name = "is_Liked") var isLiked: Boolean = false

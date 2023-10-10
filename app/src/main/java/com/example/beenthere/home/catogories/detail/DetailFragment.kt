@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.beenthere.data.User
 import com.example.beenthere.databinding.FragmentDetailBinding
 
 import com.example.beenthere.ext.getVmFactory
@@ -90,11 +91,13 @@ class DetailFragment : Fragment() {
             }
         }
 
+        val user = getUserInfo()
+
         binding.toLove.setOnClickListener {
 //            viewModel.clickLike()
             it.visibility = View.GONE
             binding.loved.visibility = View.VISIBLE
-            viewModel.saveExp()
+            viewModel.saveExp(user.userId)
 //            updateButtonBackground()
         }
 
@@ -144,6 +147,17 @@ class DetailFragment : Fragment() {
 //            }
 //        )
 //    }
+
+    private fun getUserInfo(): User {
+        val sharedPreferences =
+            requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+
+        return User(
+            sharedPreferences.getString("userId", null).toString(),
+            sharedPreferences.getString("userName", null).toString(),
+            sharedPreferences.getString("userAvatar", null).toString()
+        )
+    }
 
 
 }

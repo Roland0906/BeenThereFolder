@@ -18,10 +18,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.beenthere.R
 import com.example.beenthere.data.User
 import com.example.beenthere.databinding.FragmentProfileBinding
 import com.example.beenthere.ext.getVmFactory
+import com.example.beenthere.home.catogories.CategoryAdapter
 import com.example.beenthere.utils.UserManager.userAvatar
 import com.example.beenthere.utils.UserManager.userID
 import com.example.beenthere.utils.UserManager.userName
@@ -35,6 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -105,8 +108,26 @@ class ProfileFragment : Fragment() {
 
         checkLogInStatus()
 
+        val adapter = CategoryAdapter(CategoryAdapter.OnClickListener {
+            viewModel.navigateToDetail(it)
+        })
+
+        binding.recyclerLikeExp.adapter = adapter
 
         viewModel.getUser(getUserInfo())
+
+        lifecycleScope.launch {
+            viewModel.likedExp.collect { likedExp ->
+
+                val expList = likedExp.map { it.experience }
+
+                adapter.submitList(expList)
+
+            }
+        }
+
+        viewModel.setExpListener(getUserInfo().userId)
+
 
 
         return binding.root
@@ -193,7 +214,10 @@ class ProfileFragment : Fragment() {
                             viewModel.getUserName(account.displayName.toString())
                             viewModel.getUserAvatar(account.photoUrl.toString())
 
-                            Log.i("Profile", "Log in info ${account.displayName} + ${account.photoUrl}")
+                            Log.i(
+                                "Profile",
+                                "Log in info ${account.displayName} + ${account.photoUrl}"
+                            )
 
                         } catch (e: Exception) {
                             Log.i("Profile", "try catch fail")
@@ -259,7 +283,8 @@ class ProfileFragment : Fragment() {
     }
 
     private fun storeUserInfo(uid: String, name: String, avatar: String) {
-        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("userId", uid)
         editor.putString("userName", name)
@@ -270,7 +295,8 @@ class ProfileFragment : Fragment() {
 
     // Clear the user ID when the user logs out
     private fun clearUserId() {
-        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.remove("userId")
         editor.remove("userName")
