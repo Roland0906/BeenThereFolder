@@ -120,7 +120,6 @@
             android:layout_marginBottom="16dp"
             android:elevation="4dp"
             android:textSize="20sp"
-            android:visibility="gone"
             android:text="@{viewModel.name}"
             android:textColor="@color/white"
             android:textStyle="bold"
