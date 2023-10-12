@@ -33,7 +33,6 @@ class DetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -92,19 +91,27 @@ class DetailFragment : Fragment() {
         }
 
         val user = getUserInfo()
+        viewModel.checkIfExpIsLiked(user.userId)
+//        viewModel.setLikedExpListener(user.userId)
 
         binding.toLove.setOnClickListener {
 //            viewModel.clickLike()
-            it.visibility = View.GONE
-            binding.loved.visibility = View.VISIBLE
             viewModel.saveExp(user.userId)
 //            updateButtonBackground()
         }
 
         binding.loved.setOnClickListener {
-            it.visibility = View.GONE
-            binding.toLove.visibility = View.VISIBLE
-            viewModel.deleteExp()
+            viewModel.deleteExp(user.userId)
+        }
+
+        viewModel.isLiked.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.toLove.visibility = View.GONE
+                binding.loved.visibility = View.VISIBLE
+            } else {
+                binding.toLove.visibility = View.VISIBLE
+                binding.loved.visibility = View.GONE
+            }
         }
 
 

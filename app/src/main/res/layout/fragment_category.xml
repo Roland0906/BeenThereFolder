@@ -38,7 +38,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-
             android:gravity="end"
             android:lines="3"
             android:text="@string/title_category"
@@ -82,7 +81,7 @@
             android:layout_height="30dp"
             android:elevation="4dp"
             android:gravity="center"
-            android:lines="5"
+            android:lines="1"
             android:text="@string/launch_a_live_talk"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -92,20 +91,6 @@
             app:layout_constraintTop_toBottomOf="@id/recycler_carouse"
             />
 
-<!--        <TextView-->
-<!--            android:id="@+id/topic"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#C1694F"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            app:layout_constraintHorizontal_chainStyle="packed"-->
-<!--            app:layout_constraintStart_toStartOf="@id/text_to_talk"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/btn_launch"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/text_to_talk"-->
-<!--            tools:text="Life Meaning"-->
-<!--            />-->
 
         <ImageView
             android:id="@+id/btn_launch"

@@ -46,16 +46,14 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
             }
         _avatar.value = UserManager.userAvatar
 
-
-
     }
 
     fun getUser(user: User) {
-        _name.value = if (UserManager.userName == "null" || UserManager.userName == "") {
-            ""
-        } else {
-            UserManager.userName
-        }
+        _name.value = user.userName
+//            if (UserManager.userName == "null" || UserManager.userName == "") {
+//        } else {
+//            UserManager.userName
+//        }
         _avatar.value = user.userAvatar.toString()
 
     }
@@ -102,7 +100,7 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
             val favoriteDoc =
                 db.collection("users").document(userId).collection("favorite")
 
-            var expList: MutableList<LikedExp> = mutableListOf()
+
 
             expListener = favoriteDoc.addSnapshotListener { snapShot, e ->
                 if (e != null) {
@@ -114,6 +112,7 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
                         if (snapShot.first().get("experience") != null && snapShot.first()
                                 .get("experience") != ""
                         ) {
+                            var expList: MutableList<LikedExp> = mutableListOf()
                             for (document in snapShot) {
                                 val exp = document.toObject<LikedExp>()
 

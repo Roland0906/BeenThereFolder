@@ -48,6 +48,7 @@ class DetailVM(
         _isLiked.value = false
     }
 
+
 //    var isLiked: Boolean = false
 
 //    fun clickLike() {
@@ -65,27 +66,30 @@ class DetailVM(
     private var snapshotListener: ListenerRegistration? = null
     fun setFireStoreListener() {
 
-        snapshotListener = collection.orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener { snapShot, e ->
-            if (e != null) {
+        snapshotListener = collection.orderBy("timestamp", Query.Direction.ASCENDING)
+            .addSnapshotListener { snapShot, e ->
+                if (e != null) {
 
-                return@addSnapshotListener
+                    return@addSnapshotListener
 
-            } else {
-                if (snapShot != null && snapShot.size() != 0) {
-                    if (snapShot.first().get("message") != null && snapShot.first()
-                            .get("message") != ""
-                    ) {
-                        val currentMessages = emptyList<Message>().toMutableList()
-                        for (document in snapShot) {
-                            val message = document.toObject<Message>()
+                } else {
+                    if (snapShot != null && snapShot.size() != 0) {
+                        if (snapShot.first().get("message") != null && snapShot.first()
+                                .get("message") != ""
+                        ) {
+                            val currentMessages = emptyList<Message>().toMutableList()
+                            for (document in snapShot) {
+                                val message = document.toObject<Message>()
 //                            if (!message.isProcessed) {
-                            if (message.expId == args.userId + args.title + args.situation) {
-                            Log.i("DetailVM comment listened", message.toString())
-                            currentMessages.add(Message(
-                                id = message.id,
-                                message = message.message,
-                                timestamp = message.timestamp
-                            ))
+                                if (message.expId == args.userId + args.title + args.situation) {
+                                    Log.i("DetailVM comment listened", message.toString())
+                                    currentMessages.add(
+                                        Message(
+                                            id = message.id,
+                                            message = message.message,
+                                            timestamp = message.timestamp
+                                        )
+                                    )
 //                                val docRef = collection.document(document.id)
 //                                val updatedData = message.copy(isProcessed = true)
 //
@@ -98,52 +102,82 @@ class DetailVM(
 //                                    }
 //                            }
 
-                        }}
-                        _messageList.value = currentMessages
+                                }
+                            }
+                            _messageList.value = currentMessages
+                        }
                     }
                 }
             }
-        }
+    }
+
+//    private var likedExpListener: ListenerRegistration? = null
+
+
+    fun checkIfExpIsLiked(userId: String) {
+
+        val likeExpCollection =
+            db.collection("users").document(userId).collection("favorite")
+
+        likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}").get()
+            .addOnCompleteListener { task ->
+                _isLiked.value = task.isSuccessful
+            }
+            .addOnFailureListener {
+                Log.i("Detail VM get likedExp fail", it.message.toString())
+            }
+
+
     }
 
 
+    fun saveExp(userId: String) {
 
-
-    fun saveExp(userId : String) {
+        _isLiked.value = true
 
 //        if (UserManager.userID != "") {
 
-            val likeExpCollection =
-                db.collection("users").document(userId).collection("favorite")
+        val likeExpCollection =
+            db.collection("users").document(userId).collection("favorite")
 
 //            Log.i("Detail VM user id", UserManager.userID)
 
-            val likeExpDoc =
-                likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}")
+        val likeExpDoc =
+            likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}")
 
-            val likedExp = LikedExp(
-                likeExpDoc.id, UserManager.userID, args
-            )
+        val likedExp = LikedExp(
+            likeExpDoc.id, UserManager.userID, args
+        )
 
-            Log.i("DetailVM", likedExp.toString())
+        Log.i("DetailVM", likedExp.toString())
 
-            likeExpDoc.set(likedExp)
-                .addOnSuccessListener {
-                    showMessage("It's saved in your profile page")
-                    Log.i("DetailVM to firebase success", likedExp.toString())
-                }
-                .addOnFailureListener {
-                    Log.i("DetailVM to firebase fail", it.message.toString())
-                }
+        likeExpDoc.set(likedExp)
+            .addOnSuccessListener {
+                showMessage("It's saved in your profile page")
+                Log.i("DetailVM to firebase success", likedExp.toString())
+            }
+            .addOnFailureListener {
+                Log.i("DetailVM to firebase fail", it.message.toString())
+            }
+
+
 //        }
     }
 
-    fun deleteExp() {
+    fun deleteExp(userId: String) {
 
-        val likeExpDoc = db.collection("users").document(UserManager.userID).collection("favorite").document("${args.userId} + ${args.title} + ${args.situation}")
+        _isLiked.value = false
 
-        likeExpDoc.delete()
+        try {
 
+            val likeExpDoc =
+                db.collection("users").document(userId).collection("favorite")
+                    .document("${args.userId} + ${args.title} + ${args.situation}")
+
+            likeExpDoc.delete()
+        } catch (e: Exception) {
+            Log.i("Detail VM delete exp", e.message.toString())
+        }
     }
 
     fun addComment(id: String, message: String) {
@@ -158,6 +192,7 @@ class DetailVM(
             isProcessed = false,
             expId = args.userId + args.title + args.situation
         )
+
         Log.i("DetailVM", mensaje.toString())
 
         // to FireStore

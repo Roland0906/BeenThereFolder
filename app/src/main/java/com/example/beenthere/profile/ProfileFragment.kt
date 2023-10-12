@@ -18,7 +18,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.User
 import com.example.beenthere.databinding.FragmentProfileBinding
@@ -128,6 +131,15 @@ class ProfileFragment : Fragment() {
 
         viewModel.setExpListener(getUserInfo().userId)
 
+        viewModel.navigateToDetail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
+                    viewModel.onDetailNavigated()
+                }
+            }
+        )
 
 
         return binding.root
@@ -165,7 +177,7 @@ class ProfileFragment : Fragment() {
         viewModel.getUserName("")
         viewModel.getUserAvatar("")
         clearUserId()
-
+        binding.name.visibility = View.GONE
 
     }
 
@@ -192,6 +204,7 @@ class ProfileFragment : Fragment() {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             auth.signInWithCredential(credential).addOnCompleteListener {
                 if (task.isSuccessful) {
+                    binding.name.visibility = View.VISIBLE
 
                     val firebaseUser = auth.currentUser
                     val uid = firebaseUser?.uid

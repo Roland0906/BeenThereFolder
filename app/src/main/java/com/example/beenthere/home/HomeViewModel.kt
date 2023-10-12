@@ -257,7 +257,7 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private var liveTalkListener: ListenerRegistration? = null
     private fun eventListener() {
 
-        var tempList: MutableList<LiveTalkEvent> = mutableListOf()
+
 
         val liveTalkDoc = db.collection("live_talks")
 
@@ -271,6 +271,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                     if (snapShot.first().get("topic") != null && snapShot.first()
                             .get("topic") != ""
                     ) {
+
+                        val tempList: MutableList<LiveTalkEvent> = mutableListOf()
                         for (document in snapShot) {
                             val event = document.toObject<LiveTalkEvent>()
                             if (event.goingOn) {

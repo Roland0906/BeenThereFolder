@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:elevation="4dp"
             android:text="@string/experience"
-            android:textColor="#ae563f"
+            android:textColor="#F49379"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/last_text"
@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintDimensionRatio="w, 1.2:1"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="-40dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView

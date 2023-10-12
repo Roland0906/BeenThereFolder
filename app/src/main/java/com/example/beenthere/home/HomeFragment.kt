@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
 //        }
 
 
-
         // open ai close for now
         lifecycleScope.launch {
             viewModel.allExp().collect {
@@ -94,7 +93,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.RELATIONSHIP.name))
         }
 
-
         // live streaming close for now
         val eventAdapter = EventAdapter(EventAdapter.OnClickListener {
             onSubmit()
@@ -105,7 +103,11 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.liveTalkEvents.collect { liveTalkEvents ->
                 if (liveTalkEvents.isNotEmpty()) {
-                    binding.textToJoin.setText(R.string.join_the_ongoing_live_talks)
+                    binding.textToJoin.visibility = View.VISIBLE
+                    binding.recyclerEvent.visibility = View.VISIBLE
+                } else {
+                    binding.textToJoin.visibility = View.GONE
+                    binding.recyclerEvent.visibility = View.GONE
                 }
                 eventAdapter.submitList(liveTalkEvents)
             }

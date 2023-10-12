@@ -74,10 +74,10 @@
     <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
     <string name="someone_might_have_been_there">Someone might have been there</string>
     <string name="pick_an_environment">Pick an environment</string>
-    <string name="profile_text1">You\'ve shared \n30 experiences</string>
+    <string name="profile_text1">You\'ve shared\n30 experiences</string>
     <string name="name">Roland</string>
-    <string name="profile_text_2">You\'ve read \n24 experiences</string>
-    <string name="profile_text3">50 people\nare helped\nby your share</string>
+    <string name="profile_text_2">You\'ve read\n24 experiences</string>
+    <string name="profile_text3">50 people\nlike your share</string>
     <string name="profile_text_liker">People who like your shares</string>
     <string name="profile_text_liker_description">Invite them to exchange your experiences</string>
     <string name="profile_text_to_talk">Someone is\ntalking about\nLife Meaning!</string>
@@ -119,6 +119,7 @@
     <string name="made_by_roland">Made by Roland</string>
     <string name="someone_might_have">Someone might have</string>
     <string name="live">\tLive</string>
+    <string name="your_favorite_experiences">Your favorite experiences</string>
 
 
 </resources>

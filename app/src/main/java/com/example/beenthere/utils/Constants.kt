@@ -23,6 +23,6 @@ class Constants {
 }
 
 val APP_ID = "a93d424dea9b44ad8723c6a39bc6ae94"
-val token = "007eJxTYNhqcIAr4Oc3p2WlfqtXm3Nn6cnuX5JX9N/2WrRHY8Hze34KDImWxikmRiYpqYmWSSYmiSkW5kbGyWaJxpZJQDLV0qS0Tzm1IZCRgTs7i5WRAQJBfGaGovwcBgYANOgesA=="
+val token = "007eJxTYJAMnmR8oUhiYiP3Ix8LFocZRVHeV7pOmU7S3u4gpjZ3kZ0CQ6KlcYqJkUlKaqJlkolJYoqFuZFxslmisWUSkEy1NOFNV01tCGRkaJbYzczIAIEgPjNDUX4OAwMANIYbgA=="
 
 

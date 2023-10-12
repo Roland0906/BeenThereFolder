@@ -42,7 +42,6 @@ class VideoActivity : AppCompatActivity() {
 
         initAgoraEngineAndJoinChannel()
 
-
         chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java]
 
         chatViewModel.messageList.observe(this) { messages ->
@@ -59,7 +58,6 @@ class VideoActivity : AppCompatActivity() {
         }
 
 
-
         chatViewModel.setFireStoreListener()
 
         binding.btnSend.setOnClickListener {
@@ -74,16 +72,6 @@ class VideoActivity : AppCompatActivity() {
             binding.editMessage.setText("")
 
         }
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -137,7 +125,6 @@ class VideoActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setupLocalVideo() {
         val container = findViewById<View>(R.id.local_video_view_container) as FrameLayout
         val surfaceView = RtcEngine.CreateRendererView(baseContext)
@@ -189,8 +176,6 @@ class VideoActivity : AppCompatActivity() {
         chatViewModel.endLiveTalk(eventId)
         eventId?.let { Log.i("VideoActivity", it) }
     }
-
-
 
 
 }
