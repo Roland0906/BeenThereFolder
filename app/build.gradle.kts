@@ -84,6 +84,18 @@ android {
 
 dependencies {
 
+    // google log-in
+
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+
+
+
+    //
+
+
 //    implementation("com.google.cloud:gapic-google-cloud-ai-generativelanguage-v1beta2-java:0.0.0-SNAPSHOT")
 //    implementation("io.grpc:grpc-okhttp:1.53.0")
 
@@ -104,6 +116,10 @@ dependencies {
 
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("androidx.camera:camera-core:1.2.3")
+    implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
+
+//    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -159,6 +175,8 @@ dependencies {
     // newly added
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    implementation("com.github.agorabuilder:native-full-sdk:3.5.0.3")
 
 }
 

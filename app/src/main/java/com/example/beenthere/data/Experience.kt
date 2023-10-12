@@ -43,7 +43,11 @@ data class Experience(
     @Json(name = "is_processed") var isProcessed: Boolean = false,
 
     @ColumnInfo(name = "category")
-    var category: String? = ""
+    var category: String? = "",
+
+//    @ColumnInfo(name = "thread")
+//    var thread: List<Message>?
+
 
 ) : Parcelable {
     override fun equals(other: Any?): Boolean {

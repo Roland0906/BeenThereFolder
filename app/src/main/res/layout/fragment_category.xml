@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.beenthere.home.catogories.CategoryVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.catogories.CategoryFragment">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_go_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="28dp"
+            android:background="@drawable/ic_detail_close"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/top_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/pic_category"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="end"
+            android:lines="3"
+            android:text="@string/title_category"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/top_bottom"
+            />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/see_how_others_went_through_similar_problems"
+            android:layout_marginTop="24dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:layout_marginHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/top_bottom"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_carouse"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="30dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            />
+
+        <TextView
+            android:id="@+id/text_to_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/launch_a_live_talk"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_carouse"
+            />
+
+
+        <ImageView
+            android:id="@+id/btn_launch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="4dp"
+            android:padding="8dp"
+            android:background="@drawable/button_background"
+            android:textAlignment="center"
+            android:src="@drawable/icon_live"
+            app:tint="@color/white"
+            app:layout_constraintStart_toStartOf="@id/text_to_talk"
+            app:layout_constraintTop_toBottomOf="@id/text_to_talk"
+            app:layout_constraintEnd_toEndOf="@id/text_to_talk"
+            />
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycler_carouse"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="195dp"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/description" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

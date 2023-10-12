@@ -17,6 +17,7 @@ import com.example.beenthere.home.catogories.detail.DetailVM
 class DetailViewModelFactory(
     private val beenThereRepository: BeenThereRepository,
     private val experience: Experience
+
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>) =

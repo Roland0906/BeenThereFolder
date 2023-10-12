@@ -1,9 +1,7 @@
 package com.example.beenthere.home
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,42 +11,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
-import com.example.beenthere.MainActivity
 import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
-import com.example.beenthere.adapter.BookSearchResultAdapter
+import com.example.beenthere.VideoActivity
 import com.example.beenthere.databinding.FragmentHomeBinding
 import com.example.beenthere.ext.getVmFactory
-import com.example.beenthere.utils.Constants
-import com.gdsc.bbsbec.gbooks.model.BookSearchResultData
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.util.Locale
 
 
 class HomeFragment : Fragment() {
 
+
+    private var userRole = 0
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,24 +60,89 @@ class HomeFragment : Fragment() {
 //            viewModel.analyzer()
 //        }
 
+
+        // open ai close for now
         lifecycleScope.launch {
             viewModel.allExp().collect {
                 viewModel.analyzer(it)
             }
         }
 
-        binding.btnSearch.setOnClickListener {
-            findNavController().navigate(NavigationDirections.navigateToMeaningFragment())
+        binding.meaningFrame.setOnClickListener {
+//            viewModel.clearDB()
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LIFE_MEANING.name))
+        }
+
+        binding.communicationFrame.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.COMMUNICATION.name))
+        }
+
+        binding.disciplineFrame.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.DISCIPLINE.name))
+        }
+
+        binding.learningFrame.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.LEARNING.name))
+        }
+
+        binding.workFrame.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.WORK.name))
+        }
+
+        binding.relationshipFrame.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCategoryFragment(CATEGORY.RELATIONSHIP.name))
+        }
+
+        // live streaming close for now
+        val eventAdapter = EventAdapter(EventAdapter.OnClickListener {
+            onSubmit()
+        })
+
+        binding.recyclerEvent.adapter = eventAdapter
+
+        lifecycleScope.launch {
+            viewModel.liveTalkEvents.collect { liveTalkEvents ->
+                if (liveTalkEvents.isNotEmpty()) {
+                    binding.textToJoin.visibility = View.VISIBLE
+                    binding.recyclerEvent.visibility = View.VISIBLE
+                } else {
+                    binding.textToJoin.visibility = View.GONE
+                    binding.recyclerEvent.visibility = View.GONE
+                }
+                eventAdapter.submitList(liveTalkEvents)
+            }
         }
 
         Log.i("HomeFragment", viewModel.categories.toString())
 
+        viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+
+        requestPermission()
 
         return binding.root
     }
 
     override fun onStop() {
         super.onStop()
-        viewModel.removeFirebaseListener()
+        viewModel.removeFirebaseListeners()
     }
+
+    private fun onSubmit() {
+        val channelName = "rol"
+        userRole = 0
+        val intent = Intent(requireActivity(), VideoActivity::class.java)
+        intent.putExtra("ChannelName", channelName)
+        intent.putExtra("UserRole", userRole)
+        startActivity(intent)
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.BLUETOOTH_CONNECT), 22)
+    }
+
+
 }

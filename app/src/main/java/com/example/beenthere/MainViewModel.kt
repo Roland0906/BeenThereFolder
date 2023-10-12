@@ -29,6 +29,9 @@ class MainViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
+    val isHome = MutableLiveData<Boolean>()
+
+
 //    fun getBooks(title: String, apiKey: String) {
 //        viewModelScope.launch {
 //            val response: Response<Books> = repository.getBooks(title, apiKey)

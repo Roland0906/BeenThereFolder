@@ -13,6 +13,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.beenthere.MainViewModel" />
@@ -28,9 +30,11 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-
+            android:layout_height="70dp"
+            android:background="@drawable/gradient_border_2_toolbar"
             android:elevation="4dp"
+            android:visibility="@{viewModel.isHome ? View.VISIBLE : View.GONE}"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,8 +50,8 @@
                 android:fontFamily="@font/noto_sans"
                 android:letterSpacing="0.15"
 
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone"
 
@@ -55,15 +59,42 @@
 
             <ImageView
                 android:id="@+id/image_toolbar_logo"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/img_1"
-
-                tools:visibility="gone" />
+                android:layout_marginTop="12dp"
+                android:background="@drawable/logo_transparent_background"
+                android:backgroundTint="@color/white" />
 
 
         </androidx.appcompat.widget.Toolbar>
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/btn_to_talk"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/icon_streaming"-->
+        <!--            android:backgroundTint="#FFFFFF"-->
+        <!--            android:elevation="4dp"-->
+        <!--            android:layout_marginStart="50dp"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            android:layout_marginTop="210dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+
+        <!--            />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/btn_to_audience"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/icon_streaming"-->
+        <!--            android:backgroundTint="#FFFFFF"-->
+        <!--            android:elevation="4dp"-->
+        <!--            android:layout_margin="12dp"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            />-->
+
 
         <fragment
             android:id="@+id/nav_host_fragment"
@@ -79,11 +110,14 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="@color/white"
-            app:labelVisibilityMode="unlabeled"
-            android:layout_marginBottom="4dp"
+            android:layout_height="90dp"
+            android:paddingTop="4dp"
+            android:background="#ae563f"
+            android:paddingBottom="28dp"
+            app:itemTextColor="@color/white"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,13 +125,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        <com.google.android.material.navigation.NavigationView-->
-    <!--            android:id="@+id/drawerNavView"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:layout_gravity="start"-->
-    <!--            android:fitsSystemWindows="true"-->
-    <!--            app:menu="@menu/navdrawer_menu" />-->
-
-    <!--    </androidx.drawerlayout.widget.DrawerLayout>-->
 </layout>

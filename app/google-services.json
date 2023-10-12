@@ -12,7 +12,20 @@
           "package_name": "com.example.beenthere"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "735732592356-la80r5k3c7q111cuj5k1n4t30lhs8uff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beenthere",
+            "certificate_hash": "99758787bec9433dfb694d6a894a9f22f3a5b7d8"
+          }
+        },
+        {
+          "client_id": "735732592356-svme4u2144scd97s4t0af72dogvhcin5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBcZJxre_xELrsjuzxtNEX8z_DpudjpLKE"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735732592356-svme4u2144scd97s4t0af72dogvhcin5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

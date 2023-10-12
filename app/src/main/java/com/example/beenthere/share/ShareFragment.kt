@@ -17,6 +17,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.util.Pair
 import android.view.Gravity
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -24,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -52,8 +54,6 @@ class ShareFragment : Fragment() {
 
     private lateinit var binding: FragmentShareBinding
 
-    val db = Firebase.firestore
-
     private val viewModel by viewModels<ShareViewModel> { getVmFactory() }
 
     private var preview: ImageView? = null
@@ -72,7 +72,6 @@ class ShareFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -147,6 +146,7 @@ class ShareFragment : Fragment() {
 
         binding.selectImageButton.setOnClickListener { view: View ->
             // Menu for selecting either: a) take new photo b) select from existing
+
             val popup = PopupMenu(requireContext(), view, Gravity.END)
             popup.setOnMenuItemClickListener { menuItem: MenuItem ->
                 val itemId = menuItem.itemId
@@ -214,12 +214,12 @@ class ShareFragment : Fragment() {
             author = binding.authorNameResult.text.toString()
         }
 
-        binding.editSituation.doAfterTextChanged {
-            situation = binding.editSituation.text.toString()
+        binding.inputSituation.doAfterTextChanged {
+            situation = binding.inputSituation.text.toString()
         }
 
-        binding.editPhrases.doAfterTextChanged {
-            phrases = binding.editPhrases.text.toString()
+        binding.inputPhrases.doAfterTextChanged {
+            phrases = binding.inputPhrases.text.toString()
         }
 
 
@@ -242,8 +242,8 @@ class ShareFragment : Fragment() {
                 viewModel.getImage("")
                 binding.bookTitleResult.text = ""
                 binding.authorNameResult.text = ""
-                binding.editSituation.setText("")
-                binding.editPhrases.setText("")
+                binding.inputSituation.setText("")
+                binding.inputPhrases.setText("")
             }
         }
 
@@ -281,8 +281,44 @@ class ShareFragment : Fragment() {
         }
 
 
+
+        binding.inputSituation.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard()
+
+                return@setOnKeyListener true
+            }
+
+            false
+        }
+
+        binding.inputPhrases.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                hideKeyboard2()
+
+                return@setOnKeyListener true
+            }
+
+            false
+        }
+
+
         return binding.root
     }
+
+    private fun hideKeyboard() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputSituation.windowToken, 0)
+
+    }
+
+    private fun hideKeyboard2() {
+        val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.inputPhrases.windowToken, 0)
+
+    }
+
+
 
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -379,7 +415,12 @@ class ShareFragment : Fragment() {
                     )
                 }
 
-            preview!!.setImageBitmap(resizedBitmap)
+//            try {
+                preview!!.setImageBitmap(resizedBitmap)
+//            } catch (e: Exception) {
+//                Log.i("preview", e.message.toString())
+//            }
+
             if (imageProcessor != null) {
                 graphicOverlay!!.setImageSourceInfo(
                     resizedBitmap.width,
@@ -406,8 +447,9 @@ class ShareFragment : Fragment() {
                         }
                     }
                     recognizedText = strBuilder.toString()
-                    binding.editPhrases.setText(recognizedText)
+                    binding.inputPhrases.setText(recognizedText)
                 }
+
 
                 imageProcessor!!.processBitmap(resizedBitmap, graphicOverlay)
             } else {
@@ -502,13 +544,15 @@ class ShareFragment : Fragment() {
     public override fun onPause() {
         super.onPause()
         imageProcessor?.run { this.stop() }
-        imageUri = null
+//        imageUri = null
+//        binding.inputPhrases.setText("")
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         imageProcessor?.run { this.stop() }
-        imageUri = null
+//        `imageUri = null
+//        binding.inputPhrases.setText("")`
     }
 
 }

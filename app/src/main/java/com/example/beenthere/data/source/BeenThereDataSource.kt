@@ -1,6 +1,7 @@
 package com.example.beenthere.data.source
 
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import com.example.beenthere.model.Books
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +33,12 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         }
     }
 
+    override suspend fun upsertSituation(situation: Situation) {
+        withContext(Dispatchers.IO) {
+            dao.upsert(situation)
+        }
+    }
+
     override suspend fun updateExp(experience: Experience) {
         withContext(Dispatchers.IO) {
             dao.update(experience)
@@ -48,8 +55,12 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
         return dao.getAllExp()
     }
 
+    override fun getSituations(): Flow<List<Situation>> {
+        return dao.getSituations()
+    }
+
 //    override fun getExp(): LiveData<List<Experience>> {
-//        return dao.getAllExps()
+//        return dao.getAllExp()
 //    }
 
 
@@ -57,6 +68,12 @@ class BeenThereDataSource(private val dao: BeenThereDatabaseDao) : BeenThereRepo
     override suspend fun clearExpInRoom() {
         withContext(Dispatchers.IO) {
             dao.clearExp()
+        }
+    }
+
+    override suspend fun clearSituationInRoom() {
+        withContext(Dispatchers.IO) {
+            dao.clearSituation()
         }
     }
 

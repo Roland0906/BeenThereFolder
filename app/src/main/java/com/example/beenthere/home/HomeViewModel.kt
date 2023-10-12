@@ -6,23 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.data.openai.ApiClient
 import com.example.beenthere.data.source.BeenThereRepository
 import com.example.beenthere.model.openai.CompletionRequest
 import com.example.beenthere.model.openai.CompletionResponse
 import com.example.beenthere.model.openai.Message
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -44,16 +43,28 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
 
     private val db = Firebase.firestore
-    private val collection = db.collection("experiences")
+    private val collectionExp = db.collection("experiences")
 
     private val _messageList = MutableLiveData<MutableList<Message>>()
     val messageList: LiveData<MutableList<Message>>
         get() = _messageList
 
+
+
     init {
         _messageList.value = mutableListOf()
         setFirebaseListener()
+
+        eventListener()
+//        resetLiveTalk()
     }
+
+//    private fun resetLiveTalk() {
+//        viewModelScope.launch {
+//            _liveTalkEvents.emit(emptyList())
+//        }
+//    }
+
 
     fun allExp(): Flow<List<Experience>> = repository.getExp()
 
@@ -68,11 +79,25 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                         when (result.toUpperCase()) {
 
                             CATEGORY.WORK.toString() -> repository.updateExp(it.copy(category = CATEGORY.WORK.toString()))
-                            CATEGORY.LIFE_MEANING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LIFE_MEANING.toString()))
-                            CATEGORY.COMMUNICATION.toString() -> repository.updateExp(it.copy(category = CATEGORY.COMMUNICATION.toString()))
+                            CATEGORY.LIFE_MEANING.toString() -> repository.updateExp(
+                                it.copy(
+                                    category = CATEGORY.LIFE_MEANING.toString()
+                                )
+                            )
+
+                            CATEGORY.COMMUNICATION.toString() -> repository.updateExp(
+                                it.copy(
+                                    category = CATEGORY.COMMUNICATION.toString()
+                                )
+                            )
+
                             CATEGORY.DISCIPLINE.toString() -> repository.updateExp(it.copy(category = CATEGORY.DISCIPLINE.toString()))
                             CATEGORY.LEARNING.toString() -> repository.updateExp(it.copy(category = CATEGORY.LEARNING.toString()))
-                            CATEGORY.RELATIONSHIP.toString() -> repository.updateExp(it.copy(category = CATEGORY.RELATIONSHIP.toString()))
+                            CATEGORY.RELATIONSHIP.toString() -> repository.updateExp(
+                                it.copy(
+                                    category = CATEGORY.RELATIONSHIP.toString()
+                                )
+                            )
                         }
                     }
                 }
@@ -88,7 +113,7 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     private fun setFirebaseListener() {
 
 //        collection.addSnapshotListener { snapShot, e ->
-        snapshotListener = collection.addSnapshotListener { snapShot, e ->
+        snapshotListener = collectionExp.addSnapshotListener { snapShot, e ->
             if (e != null) {
 
                 return@addSnapshotListener
@@ -125,8 +150,9 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
         }
     }
 
-    fun removeFirebaseListener() {
+    fun removeFirebaseListeners() {
         snapshotListener?.remove()
+        liveTalkListener?.remove()
     }
 
 
@@ -146,6 +172,7 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     val categories =
         CATEGORY.entries // Log(toString()) : [MEANING, COMMUNICATION, DISCIPLINE, LEARNING, WORK, RELATIONSHIP]
+
 
     private val checkCategoryString =
         "Which one of the 6 types $categories does the following description belong to:"
@@ -199,7 +226,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     fun clearDB() {
         viewModelScope.launch {
-            repository.clearExpInRoom()
+//            repository.clearExpInRoom()
+            repository.clearSituationInRoom()
         }
     }
 
@@ -212,4 +240,58 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
     }
 
 
+
+
+
+    val toastMessageLiveData = MutableLiveData<String?>()
+
+    private fun showMessage(message: String?) {
+        toastMessageLiveData.value = message
+    }
+
+    private val _liveTalkEvents = MutableStateFlow<List<LiveTalkEvent>>(emptyList())
+
+    // Expose the Flow as a StateFlow for read-only access
+    val liveTalkEvents: StateFlow<List<LiveTalkEvent>> = _liveTalkEvents.asStateFlow()
+
+    private var liveTalkListener: ListenerRegistration? = null
+    private fun eventListener() {
+
+
+
+        val liveTalkDoc = db.collection("live_talks")
+
+        liveTalkListener = liveTalkDoc.addSnapshotListener { snapShot, e ->
+            if (e != null) {
+
+                return@addSnapshotListener
+
+            } else {
+                if (snapShot != null && snapShot.size() != 0) {
+                    if (snapShot.first().get("topic") != null && snapShot.first()
+                            .get("topic") != ""
+                    ) {
+
+                        val tempList: MutableList<LiveTalkEvent> = mutableListOf()
+                        for (document in snapShot) {
+                            val event = document.toObject<LiveTalkEvent>()
+                            if (event.goingOn) {
+                            Log.i("HomeVM live talk event", event.toString())
+
+                            tempList.add(event)
+                        }}
+                        _liveTalkEvents.value = tempList
+                    }
+                }
+            }
+        }
+    }
+
+
 }
+
+
+
+
+
+

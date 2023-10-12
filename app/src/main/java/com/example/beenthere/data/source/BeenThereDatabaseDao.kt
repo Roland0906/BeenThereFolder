@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import com.example.beenthere.data.Book
 import com.example.beenthere.data.Experience
+import com.example.beenthere.data.Situation
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -23,11 +25,18 @@ interface BeenThereDatabaseDao {
     @Query("SELECT * FROM experience_table")
     fun getAllExp(): Flow<List<Experience>>
 
+    @Query("SELECT * FROM situation_table")
+    fun getSituations(): Flow<List<Situation>>
+
     @Insert
     fun insert(experience: Experience)
 
     @Update
     fun update(experience: Experience)
+
+    @Upsert
+    fun upsert(situation: Situation)
+
 
     @Insert
     fun insert(experiences: List<Experience>)
@@ -36,6 +45,10 @@ interface BeenThereDatabaseDao {
 
     @Query("DELETE from experience_table")
     fun clearExp() // removed suspend 'cause it's quick
+
+
+    @Query("DELETE from situation_table")
+    fun clearSituation()
 //
 //    /**
 //     * When updating a row with a value already set in a column,

@@ -3,28 +3,26 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_nav_home_selector"
-        android:title="" />
-
-    <item
-        android:id="@+id/notAloneFragment"
-        android:icon="@drawable/ic_nav_profile"
-        android:title=""/>
+        android:icon="@drawable/icon_house_selector"
+        android:title="@string/home" />
 
     <item
         android:id="@+id/shareFragment"
-        android:icon="@drawable/ic_nav_home_selector"
-        android:title=""/>
+        android:icon="@drawable/icon_been_there"
+
+        android:title="@string/share"/>
 
     <item
         android:id="@+id/beenThereFragment"
-        android:icon="@drawable/ic_nav_profile_selector"
-        android:title=""/>
+        android:icon="@drawable/icon_island_reshaped"
+
+        android:title="@string/beenthere"/>
+
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_nav_profile_selector"
-        android:title=""/>
+        android:icon="@drawable/icon_profile_2"
+        android:title="@string/profile"/>
 
 
 </menu>

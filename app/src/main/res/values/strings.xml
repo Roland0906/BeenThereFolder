@@ -9,14 +9,13 @@
     <string name="enter_book_name">Enter Book name</string>
     <string name="books_search_hint">book name</string>
     <string name="search_book">Search</string>
-    <string name="share_description">Describe your situation and how this book helped you</string>
+    <string name="share_description">Describe your situation &amp; how this book helped you</string>
     <string name="text_encounter">What did you encounter?</string>
-    <string name="text_phrase">What part or phrases helped you?</string>
-    <string name="btn_share">Share to help others</string>
+    <string name="text_phrase">Which parts or phrases helped you?</string>
+    <string name="btn_share">Share</string>
 
 
     <string name="error">Please input the info</string>
-
 
     <!--    FireStore-->
     <string name="user_id">user_id</string>
@@ -55,12 +54,72 @@
     <string name="select_image" translatable="false">Select image</string>
 
     <string name="menu_item_settings" translatable="false">Settings</string>
-    <string name="close_recognizer">select text</string>
+    <string name="close_recognizer">select\ntext</string>
 
     <string name="no_book_found">The book may not have been written</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_category">People who have been there</string>
+    <string name="title_category">You\'re not alone\n\'cause we have\n been there</string>
     <string name="life_meaning">Life Meaning</string>
+    <string name="explore_by_problem">EXPLORE BY PROBLEM</string>
+    <string name="explore_explain">Explore these general issues to find books recommended by people who\'ve been there</string>
+    <string name="communication">Communication</string>
+    <string name="discipline">Discipline</string>
+    <string name="learning">Learning</string>
+    <string name="work">Work</string>
+    <string name="relationship">Relationship</string>
+    <string name="i_ve_been_there">I\'ve been there</string>
+    <string name="tell_us_what_happened">Tell us what happened</string>
+    <string name="share_your_experience">Share your experience</string>
+    <string name="see_how_others_went_through_similar_problems">Click to see how others \nwent through similar problems</string>
+    <string name="someone_might_have_been_there">Someone might have been there</string>
+    <string name="pick_an_environment">Pick an environment</string>
+    <string name="profile_text1">You\'ve shared\n30 experiences</string>
+    <string name="name">Roland</string>
+    <string name="profile_text_2">You\'ve read\n24 experiences</string>
+    <string name="profile_text3">50 people\nlike your share</string>
+    <string name="profile_text_liker">People who like your shares</string>
+    <string name="profile_text_liker_description">Invite them to exchange your experiences</string>
+    <string name="profile_text_to_talk">Someone is\ntalking about\nLife Meaning!</string>
+    <string name="tell_us_your_situation">Tell us your situation</string>
+    <string name="text_not_alone_1">Look for suggestion</string>
+    <string name="text_been_there_1">Been there?\nShare your</string>
+    <string name="text_been_there_2">with them</string>
+    <string name="experience">Experience</string>
+    <string name="text_dialog_1">Check these suggestions\nthat might suit your situation</string>
+    <string name="launch_a_live_talk">Launch a live talk</string>
+    <string name="send">Send</string>
+    <string name="put_your_name">your name</string>
+    <string name="someone_is_giving_a_live_talk">Someone is giving a live talk</string>
+    <string name="join_the_ongoing_live_talks">Join the ongoing live talks!</string>
+    <string name="text_forum">Thank you for sharing! I\'ve never thought that way!</string>
+    <string name="leave_a_comment">Leave a comment</string>
+    <string name="example_text_advise">It\'s been a tough time for me to stay home and communicate with my family…</string>
+    <string name="header_text_advise">Been there?\nYour experience could help!</string>
+    <string name="quote_1">It took untold generations to get you where you are</string>
+    <string name="share_your_thoughts">Share your thoughts</string>
+    <string name="profile">Profile</string>
+    <string name="check_later_if_someone_is_giving_a_live_talk">Check later if someone is giving a\nLive Talk</string>
+    <string name="tell_us">Tell us</string>
+    <string name="what">What</string>
+    <string name="your_situation">Your situation</string>
+    <string name="happened">Happened</string>
+    <string name="what_s_on_your_mind">What\'s on your mind?</string>
+    <string name="you_re_not_alone">You\'re not alone</string>
+    <string name="you_can_take_photo">You can also take a photo</string>
+    <string name="input_here">Input here</string>
+    <string name="check_the_page_on_the_left">Check the page on the left</string>
+    <string name="log_in">Log in</string>
+    <string name="log_out">Log out</string>
+    <string name="home">Home</string>
+    <string name="share">Share</string>
+    <string name="beenthere">BeenThere</string>
+    <string name="enter">Enter</string>
+    <string name="someone_might_have_nbeen_there">Someone might have\nBeen There</string>
+    <string name="made_by_roland">Made by Roland</string>
+    <string name="someone_might_have">Someone might have</string>
+    <string name="live">\tLive</string>
+    <string name="your_favorite_experiences">Your favorite experiences</string>
+
 
 </resources>
