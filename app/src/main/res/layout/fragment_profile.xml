@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.beenthere.profile.ProfileViewModel" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profile.ProfileFragment">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@drawable/gradient_border_2_toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/gradient_border_2_toolbar">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_border_2_toolbar"
+                    android:elevation="8dp" />
+
+
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.cardview.widget.CardView>
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/avatar_frame"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/event_circle_2"-->
+<!--            android:elevation="4dp"-->
+<!--            android:padding="2.2dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/middle_frame"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/avatar"-->
+<!--                android:layout_width="110dp"-->
+<!--                android:layout_height="110dp"-->
+<!--                android:alpha="0.9"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/avatar_7"-->
+<!--                android:elevation="4dp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatar_frame"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            app:shapeAppearanceOverlay="@style/circular"
+            android:elevation="4dp"
+            app:imageUrl="@{viewModel.avatar}"
+            app:strokeColor="@color/white"
+            app:strokeWidth="3dp"
+            android:padding="1.5dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@id/middle_frame"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/edit_photo"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/avatar_frame"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/avatar_frame"-->
+<!--            android:elevation="8dp"-->
+<!--            android:background="@drawable/icon_edit_photo"-->
+<!--            android:backgroundTint="@color/browser_actions_bg_grey"-->
+<!--            />-->
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:elevation="4dp"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/underline"
+            app:layout_constraintStart_toEndOf="@id/avatar_frame"
+            app:layout_constraintTop_toTopOf="@id/avatar_frame"
+
+            />
+
+<!--        android:text="@{viewModel.name != null ? viewModel.name : ``}"-->
+
+        <TextView
+            android:id="@+id/btn_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/btn_log_out"
+            app:layout_constraintTop_toTopOf="@id/btn_log_out"
+            android:text="@string/log_in"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:background="@drawable/log_in_btn"
+            android:elevation="4dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/btn_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/log_out"
+            android:padding="8dp"
+            android:background="@drawable/log_in_btn"
+            android:elevation="4dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+
+
+
+
+
+        <TextView
+            android:id="@+id/quote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="75dp"
+            tools:text="@string/quote_1"
+            android:text="@string/quote_1"
+            android:textColor="#F7E7CE"
+            android:elevation="4dp"
+            android:layout_marginTop="4dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/avatar_frame"
+            app:layout_constraintEnd_toEndOf="@id/middle_frame"
+            android:ellipsize="end"
+            />
+
+
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/middle_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="160dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/data_frame"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="160dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    />
+
+                <TextView
+                    android:id="@+id/profile_text_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_text1"
+                    android:lines="2"
+                    android:layout_marginStart="24dp"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_help"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/icon_help"
+                    app:layout_constraintTop_toTopOf="@id/icon_help" />
+
+                <ImageView
+                    android:id="@+id/icon_help"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/icon_been_there"
+                    android:backgroundTint="#D17B65"
+                    android:elevation="16dp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintBottom_toTopOf="@id/icon_read"
+                    app:layout_constraintEnd_toStartOf="@id/profile_text_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/profile_text_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_text_2"
+                    android:lines="2"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_read"
+                    app:layout_constraintStart_toStartOf="@id/profile_text_1"
+                    app:layout_constraintTop_toTopOf="@id/icon_read" />
+
+                <ImageView
+                    android:id="@+id/icon_read"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_read"
+                    android:backgroundTint="#D17B65"
+                    android:elevation="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/icon_like"
+                    app:layout_constraintStart_toStartOf="@id/icon_help"
+                    app:layout_constraintTop_toBottomOf="@id/icon_help" />
+
+                <TextView
+                    android:id="@+id/profile_text_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="2"
+                    android:text="@string/profile_text3"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_like"
+                    app:layout_constraintStart_toStartOf="@id/profile_text_1"
+                    app:layout_constraintTop_toTopOf="@id/icon_like" />
+
+                <ImageView
+                    android:id="@+id/icon_like"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_like"
+                    android:backgroundTint="#D17B65"
+                    android:elevation="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/icon_read"
+                    app:layout_constraintTop_toBottomOf="@id/icon_read"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/liker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@string/your_favorite_experiences"
+            android:textColor="#3F3A3A"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/middle_frame" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/liker_description"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="#7f7f7f"-->
+        <!--            android:textSize="15sp"-->
+        <!--            android:text="@string/profile_text_liker_description"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/liker"-->
+        <!--            android:gravity="center"-->
+        <!--            />-->
+
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/liker_frame"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:background="@drawable/gradient_border_2"-->
+<!--            app:cardCornerRadius="50dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/liker">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/gradient_border_2"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:layout_marginVertical="16dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:background="@drawable/avatar" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:background="@drawable/avatar_3_female" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:layout_marginEnd="12dp"-->
+<!--                    android:background="@drawable/avatar_5" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@drawable/avatar_4_female" />-->
+
+
+<!--            </LinearLayout>-->
+
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_like_exp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/liker"
+            android:layout_margin="16dp"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
