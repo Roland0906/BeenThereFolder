@@ -5,6 +5,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="card">
+        <item name="cornerSize">20%</item>
+    </style>
+
 
 
     <style name="bottomRounded">

@@ -178,12 +178,13 @@ class ProfileFragment : Fragment() {
         viewModel.getUserAvatar("")
         clearUserId()
         binding.name.visibility = View.GONE
-
+        checkLogInStatus()
     }
 
     private fun googleSignIn() {
         val signInClient = googleSignInClient.signInIntent
         launcher.launch(signInClient)
+        checkLogInStatus()
     }
 
     private val launcher =

@@ -329,7 +329,8 @@
                 app:cardCornerRadius="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/work_frame"
-                app:layout_constraintTop_toTopOf="@id/work_frame">
+                app:layout_constraintTop_toTopOf="@id/work_frame"
+                >
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
