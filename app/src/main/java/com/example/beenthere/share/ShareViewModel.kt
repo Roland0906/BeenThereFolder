@@ -52,16 +52,27 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
     private val _text = MutableLiveData<String>()
     val text: LiveData<String>
         get() = _text
+
     fun getRecognizedText(text: String) {
         _text.value = text
     }
 
+    var upperText = false
+    var lowerText = false
 
     fun getImage(image: String) {
         _bookImage.value = image
     }
 
-    fun addData(userId: String, title: String, author: String, situation: String, phrases: String, image: String, isProcessed: Boolean) {
+    fun addData(
+        userId: String,
+        title: String,
+        author: String,
+        situation: String,
+        phrases: String,
+        image: String,
+        isProcessed: Boolean
+    ) {
 
         // to Room
         val exp = Experience(userId, title, author, situation, phrases, image, isProcessed)

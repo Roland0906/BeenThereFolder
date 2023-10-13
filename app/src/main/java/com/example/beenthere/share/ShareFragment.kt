@@ -75,7 +75,8 @@ class ShareFragment : Fragment() {
     private var imageProcessor: VisionImageProcessor? = null
 
     private var recognizedText = ""
-//    private var recognizedBook = ""
+
+    //    private var recognizedBook = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -116,6 +117,7 @@ class ShareFragment : Fragment() {
 
                 // test, change to OCR
                 startChooseImageIntentForResult()
+                viewModel.upperText = true
 
             } else {
                 Toast.makeText(requireContext(), "Please connect to internet", Toast.LENGTH_SHORT)
@@ -169,22 +171,8 @@ class ShareFragment : Fragment() {
         }
 
 
-//        val cameraPermission = Manifest.permission.CAMERA
-//        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-//
-//        val cameraPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), cameraPermission) == PackageManager.PERMISSION_GRANTED
-//        val storagePermissionGranted = ContextCompat.checkSelfPermission(requireContext(), storagePermission) == PackageManager.PERMISSION_GRANTED
-
         binding.selectImageButton.setOnClickListener { view: View ->
             // Menu for selecting either: a) take new photo b) select from existing
-
-//            val popup = PopupMenu(requireContext(), view, Gravity.END)
-//            popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-//                val itemId = menuItem.itemId
-//                if (itemId == R.id.select_images_from_local) {
-//                    startChooseImageIntentForResult()
-//                    return@setOnMenuItemClickListener true
-//                } else if (itemId == R.id.take_photo_using_camera) {
 
             if (!cameraPermissionGranted || !storagePermissionGranted) {
                 val permissionsToRequest = mutableListOf<String>()
@@ -209,6 +197,7 @@ class ShareFragment : Fragment() {
 //            val inflater = popup.menuInflater
 //            inflater.inflate(R.menu.camera_button_menu, popup.menu)
 //            popup.show()
+            viewModel.lowerText = true
         }
 
         preview = binding.preview
@@ -290,10 +279,16 @@ class ShareFragment : Fragment() {
         }
 
         viewModel.text.observe(viewLifecycleOwner) { text ->
-            binding.editInputBook.setText(text)
-            binding.inputPhrases.setText(text)
-        }
+            if (viewModel.upperText) {
+                binding.editInputBook.setText(text)
+                viewModel.upperText = false
+            }
+            if (viewModel.lowerText) {
+                binding.inputPhrases.setText(text)
+                viewModel.lowerText = false
+            }
 
+        }
 
 
         val rootView = binding.root
@@ -510,15 +505,15 @@ class ShareFragment : Fragment() {
 
                     Log.i("Share frag", "book title = $recognizedText")
 
-                    viewModel.getBooks(recognizedText, BuildConfig.BOOK_API_KEY)
-                    binding.bookImageResult.visibility = View.VISIBLE
-                    binding.bookTitleResult.visibility = View.VISIBLE
-                    binding.authorNameResult.visibility = View.VISIBLE
-
+                    if (viewModel.upperText) {
+                        viewModel.getBooks(recognizedText, BuildConfig.BOOK_API_KEY)
+                        binding.bookImageResult.visibility = View.VISIBLE
+                        binding.bookTitleResult.visibility = View.VISIBLE
+                        binding.authorNameResult.visibility = View.VISIBLE
+                    }
                     viewModel.getRecognizedText(recognizedText)
 
                 }
-
 
                 imageProcessor!!.processBitmap(resizedBitmap, graphicOverlay)
             } else {
