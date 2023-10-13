@@ -11,7 +11,6 @@
 
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +27,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.example.beenthere.mlkit.GraphicOverlay
             android:id="@+id/graphic_overlay"
@@ -81,12 +81,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-
                     />
 
                 <EditText
                     android:id="@+id/edit_input_book"
-                    android:layout_width="250dp"
+                    android:layout_width="300dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
@@ -97,7 +96,7 @@
                     android:hint="@string/books_search_hint"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,10 +107,9 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/icon_search"
+                    android:background="@android:drawable/ic_menu_camera"
+
                     android:text="@string/search_book"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/edit_input_book"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/edit_input_book"

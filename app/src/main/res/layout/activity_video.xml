@@ -19,9 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:elevation="8dp"
             app:cardCornerRadius="20dp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@id/remote_video_view_container"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -51,8 +51,8 @@
             android:id="@+id/recycler_chat"
             android:layout_width="220dp"
             android:layout_height="280dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:elevation="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/edit_frame"
@@ -62,8 +62,8 @@
             android:id="@+id/edit_frame"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
             android:background="#00FFFFFF"
             app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,12 +75,12 @@
                 android:id="@+id/edit_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/edit_border"
+                android:background="@drawable/edit_border_"
                 android:gravity="top"
-                android:textColor="@color/white"
                 android:hint="@string/say_something"
-                android:textColorHint="@color/white"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,18 +103,16 @@
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:background="#00FFFFFF"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="#00FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -122,19 +120,18 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    app:shapeAppearanceOverlay="@style/card"
+                    android:layout_marginStart="16dp"
+                    android:background="#00FFFFFF"
                     android:onClick="onLocalAudioMuteClicked"
                     android:scaleType="centerCrop"
-                    android:background="#00FFFFFF"
 
                     android:src="@drawable/icon_speaker"
-                    android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/icon_2"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:shapeAppearanceOverlay="@style/card" />
 
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -142,34 +139,32 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:background="#00FFFFFF"
                     android:onClick="onEndCallClicked"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/card"
-                    android:background="#00FFFFFF"
                     android:src="@drawable/icon_end_call"
-                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/icon_1"
                     app:layout_constraintStart_toEndOf="@id/icon_1"
                     app:layout_constraintTop_toTopOf="@id/icon_1"
-                    app:layout_constraintBottom_toBottomOf="@id/icon_1"
-                    />
+                    app:shapeAppearanceOverlay="@style/card" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/icon_3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#00FFFFFF"
                     android:onClick="onSwitchCameraClicked"
                     android:scaleType="centerCrop"
-                    android:layout_marginStart="16dp"
-                    android:background="#00FFFFFF"
-                    app:shapeAppearanceOverlay="@style/card"
                     android:src="@drawable/icon_change_camera"
                     app:layout_constraintBottom_toBottomOf="@id/icon_1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp"
                     app:layout_constraintStart_toEndOf="@id/icon_2"
                     app:layout_constraintTop_toTopOf="@id/icon_1"
-                    />
+                    app:shapeAppearanceOverlay="@style/card" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
