@@ -78,7 +78,12 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         val exp = Experience(userId, title, author, situation, phrases, image, isProcessed)
         viewModelScope.launch(Dispatchers.IO) {
             Log.i("Insert to ROom", "success")
-            repository.insertExp(exp)
+            try {
+                repository.insertExp(exp)
+            } catch (e: Exception) {
+                Log.i("Share VM", "repeated PK? $e")
+            }
+
         }
 
         // to FireStore
@@ -86,7 +91,7 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
 
         document.set(exp)
             .addOnSuccessListener {
-                showError("You have shared your experience")
+//                showError("You have shared your experience")
                 Log.i("Insert to Firestore", "success")
             }
             .addOnFailureListener {

@@ -84,6 +84,10 @@ android {
 
 dependencies {
 
+
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
+
     // google log-in
 
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))

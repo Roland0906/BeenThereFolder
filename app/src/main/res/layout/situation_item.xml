@@ -51,10 +51,9 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
-                    android:minWidth="295dp"
-                    android:maxWidth="295dp"
+                    android:minWidth="260dp"
+                    android:maxWidth="260dp"
                     app:strokeWidth="0dp"
-
                     android:layout_height="match_parent"
                     app:layout_constraintStart_toEndOf="@id/pic"
                     android:layout_marginStart="12dp"

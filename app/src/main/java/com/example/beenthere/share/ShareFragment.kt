@@ -1,7 +1,9 @@
 package com.example.beenthere.share
 
 import android.Manifest
+import android.animation.Animator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.ContentValues
 import android.content.Intent
@@ -16,24 +18,20 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.util.Pair
-import android.view.Gravity
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.beenthere.BuildConfig
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentShareBinding
@@ -41,16 +39,10 @@ import com.example.beenthere.ext.getVmFactory
 import com.example.beenthere.mlkit.BitmapUtils
 import com.example.beenthere.mlkit.GraphicOverlay
 import com.example.beenthere.mlkit.VisionImageProcessor
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import java.io.IOException
-import java.util.Locale
 
 
 class ShareFragment : Fragment() {
@@ -120,8 +112,7 @@ class ShareFragment : Fragment() {
                 viewModel.upperText = true
 
             } else {
-                Toast.makeText(requireContext(), "Please connect to internet", Toast.LENGTH_SHORT)
-                    .show()
+                showReminderDialog(getString(R.string.no_internet))
             }
         }
 
@@ -149,20 +140,11 @@ class ShareFragment : Fragment() {
                             item.volumeInfo?.imageLinks?.smallThumbnail.toString()
                         )
                     } catch (e: Exception) {
-                        Toast.makeText(
-                            requireContext(),
-                            e.message,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        showReminderDialog(e.message.toString())
                     }
 
                 } catch (e: Exception) {
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.no_book_found,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showReminderDialog(e.message.toString())
                 }
 
             } else {
@@ -253,8 +235,9 @@ class ShareFragment : Fragment() {
         binding.btnSend.setOnClickListener {
             userId = userList.random()
             if (title == "" && author == "" && situation == "" && phrases == "") {
-                Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
+                showReminderDialog(getString(R.string.error))
             } else {
+                playAnalyzerAnimation()
                 viewModel.addData(userId, title, author, situation, phrases, image, false)
 
                 binding.bookImageResult.visibility = View.GONE
@@ -275,7 +258,7 @@ class ShareFragment : Fragment() {
         }
 
         viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            showReminderDialog(message.toString())
         }
 
         viewModel.text.observe(viewLifecycleOwner) { text ->
@@ -344,6 +327,14 @@ class ShareFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun showReminderDialog(text: String) {
+
+        AlertDialog.Builder(this.context)
+            .setTitle(text)
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun hideKeyboard() {
@@ -467,6 +458,7 @@ class ShareFragment : Fragment() {
                     )
                 }
 
+
 //            try {
             preview!!.setImageBitmap(resizedBitmap)
 //            } catch (e: Exception) {
@@ -507,6 +499,7 @@ class ShareFragment : Fragment() {
 
                     if (viewModel.upperText) {
                         viewModel.getBooks(recognizedText, BuildConfig.BOOK_API_KEY)
+                        playBookAnimation()
                         binding.bookImageResult.visibility = View.VISIBLE
                         binding.bookTitleResult.visibility = View.VISIBLE
                         binding.authorNameResult.visibility = View.VISIBLE
@@ -526,6 +519,53 @@ class ShareFragment : Fragment() {
             Log.e(TAG, "Error retrieving saved image")
             imageUri = null
         }
+    }
+
+    private fun playBookAnimation() {
+
+        binding.cover.visibility = View.VISIBLE
+        binding.lottieBookSearch.visibility = View.VISIBLE
+        binding.lottieBookSearch.playAnimation()
+
+        binding.lottieBookSearch.addAnimatorListener(object :
+            Animator.AnimatorListener {
+
+            override fun onAnimationStart(animation: Animator) {
+                binding.lottieBookSearch.visibility = View.VISIBLE
+            }
+            override fun onAnimationEnd(animation: Animator) {
+                binding.lottieBookSearch.visibility = View.GONE
+                binding.cover.visibility = View.GONE
+            }
+            override fun onAnimationCancel(animation: Animator) {}
+
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
+    }
+
+    private fun playAnalyzerAnimation() {
+
+
+        binding.lottieAnalyzer.visibility = View.VISIBLE
+        binding.lottieAnalyzer.playAnimation()
+
+        binding.lottieAnalyzer.addAnimatorListener(object :
+            Animator.AnimatorListener {
+
+            override fun onAnimationStart(animation: Animator) {
+                binding.lottieAnalyzer.visibility = View.VISIBLE
+                binding.coverLottieAnalyzer.visibility = View.VISIBLE
+            }
+            override fun onAnimationEnd(animation: Animator) {
+                binding.lottieAnalyzer.visibility = View.GONE
+                binding.coverLottieAnalyzer.visibility = View.GONE
+                showReminderDialog(getString(R.string.share_btn_dialog))
+
+            }
+            override fun onAnimationCancel(animation: Animator) {}
+
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
     }
 
 

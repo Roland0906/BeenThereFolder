@@ -85,13 +85,14 @@
 
                 <EditText
                     android:id="@+id/edit_input_book"
-                    android:layout_width="300dp"
+                    android:layout_width="240dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/coupon_background"
                     android:elevation="4dp"
                     android:letterSpacing="0.15"
+                    android:padding="2dp"
                     android:textAlignment="center"
                     android:hint="@string/books_search_hint"
                     android:textColor="@color/white"
@@ -110,9 +111,8 @@
                     android:background="@drawable/icon_select_image"
                     app:layout_constraintBottom_toBottomOf="@id/edit_input_book"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/edit_input_book"
                     app:layout_constraintTop_toTopOf="@id/edit_input_book"
-
+                    app:layout_constraintStart_toEndOf="@id/edit_input_book"
                     />
 
 
@@ -128,6 +128,32 @@
                     app:imageUrl="@{viewModel.bookImage}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/top_bottom"
+                    />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_book_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/top_bottom"
+                    app:layout_constraintBottom_toBottomOf="@id/book_image_result"
+                    app:lottie_rawRes="@raw/book_search"
+                    />
+
+                <ImageView
+                    android:id="@+id/cover"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:elevation="4dp"
+                    android:visibility="gone"
+                    android:background="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/top_bottom"
+                    app:layout_constraintBottom_toBottomOf="@id/book_image_result"
                     />
 
                 <TextView
@@ -179,7 +205,7 @@
                     android:id="@+id/text_situation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="20dp"
                     android:text="@string/text_encounter"
                     android:textSize="16sp"
@@ -192,8 +218,9 @@
                     android:layout_height="100dp"
                     app:hintEnabled="false"
                     android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintEnd_toEndOf="@id/edit_phrases"
-                    app:layout_constraintStart_toStartOf="@id/text_situation"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_situation"
                     >
 
@@ -214,7 +241,7 @@
                     android:id="@+id/text_phrases"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/text_phrase"
                     android:textSize="16sp"
@@ -228,8 +255,9 @@
                     android:layout_marginEnd="16dp"
                     app:hintEnabled="false"
                     android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/text_situation"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_phrases"
                     >
 
@@ -249,7 +277,7 @@
                     android:id="@+id/select_image_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:elevation="4dp"
+                    android:elevation="3dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
@@ -289,6 +317,32 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/edit_phrases" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_analyzer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_situation"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_send"
+                    app:lottie_rawRes="@raw/analyzing"
+                    />
+
+                <ImageView
+                    android:id="@+id/cover_lottie_analyzer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:elevation="4dp"
+                    android:visibility="gone"
+                    android:background="#BBFFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_situation"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_send"
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
