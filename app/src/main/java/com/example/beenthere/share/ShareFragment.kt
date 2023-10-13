@@ -33,6 +33,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.beenthere.BuildConfig
 import com.example.beenthere.R
 import com.example.beenthere.databinding.FragmentShareBinding
@@ -46,6 +47,8 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.Locale
 
@@ -58,18 +61,21 @@ class ShareFragment : Fragment() {
 
     private var preview: ImageView? = null
     private var graphicOverlay: GraphicOverlay? = null
-//    private var selectedMode = OBJECT_DETECTION
+
+    //    private var selectedMode = OBJECT_DETECTION
     private var selectedSize: String? = SIZE_SCREEN
     private var isLandScape = false
     private var imageUri: Uri? = null
+
     // Max width (portrait mode)
     private var imageMaxWidth = 0
+
     // Max height (portrait mode)
     private var imageMaxHeight = 0
     private var imageProcessor: VisionImageProcessor? = null
 
     private var recognizedText = ""
-
+//    private var recognizedBook = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -88,96 +94,121 @@ class ShareFragment : Fragment() {
 //        createImageProcessor()
 //        tryReloadAndDetectInImage()
 
+        val cameraPermission = Manifest.permission.CAMERA
+        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        val cameraPermissionGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            cameraPermission
+        ) == PackageManager.PERMISSION_GRANTED
+        val storagePermissionGranted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            storagePermission
+        ) == PackageManager.PERMISSION_GRANTED
+
         var image = ""
 
         binding.btnSearch.setOnClickListener {
             if (checkInternet(requireContext())) {
-                val title = binding.editInputBook.text.toString()
-                if (title.isNotEmpty()) {
 
-                    binding.bookImageResult.visibility = View.VISIBLE
-                    binding.bookTitleResult.visibility = View.VISIBLE
-                    binding.authorNameResult.visibility = View.VISIBLE
+                // original, input
+//                val title = binding.editInputBook.text.toString()
 
-                    viewModel.getBooks(title, BuildConfig.BOOK_API_KEY)
-                    viewModel.myResponse.observe(viewLifecycleOwner) { response ->
-                        if (response.isSuccessful) {
+                // test, change to OCR
+                startChooseImageIntentForResult()
 
-                            try {
-                                val item = response.body()!!.items[0]
-
-                                binding.bookTitleResult.text = item.volumeInfo?.title
-                                binding.authorNameResult.text =
-                                    item.volumeInfo?.authors?.get(0) ?: ""
-
-                                Log.i("Book test", item.volumeInfo?.imageLinks?.smallThumbnail.toString())
-
-                                try {
-                                    image = item.volumeInfo?.imageLinks?.smallThumbnail.toString()
-                                    viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
-                                } catch (e: Exception) {
-                                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-                                }
-
-                            } catch (e: Exception) {
-                                Toast.makeText(this.context, R.string.no_book_found, Toast.LENGTH_SHORT).show()
-                            }
-
-                        } else {
-
-                        }
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Title can not be empty", Toast.LENGTH_LONG)
-                        .show()
-                }
             } else {
                 Toast.makeText(requireContext(), "Please connect to internet", Toast.LENGTH_SHORT)
                     .show()
             }
         }
 
+        viewModel.myResponse.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful) {
 
-        val cameraPermission = Manifest.permission.CAMERA
-        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+                try {
+                    val item = response.body()!!.items[0]
 
-        val cameraPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), cameraPermission) == PackageManager.PERMISSION_GRANTED
-        val storagePermissionGranted = ContextCompat.checkSelfPermission(requireContext(), storagePermission) == PackageManager.PERMISSION_GRANTED
+                    binding.bookTitleResult.text = item.volumeInfo?.title
+                    binding.authorNameResult.text =
+                        item.volumeInfo?.authors?.get(0) ?: ""
+
+                    Log.i(
+                        "Book test",
+                        item.volumeInfo?.imageLinks?.smallThumbnail.toString()
+                    )
+
+                    try {
+                        image =
+                            item.volumeInfo?.imageLinks?.smallThumbnail.toString()
+                        viewModel.getImage(item.volumeInfo?.imageLinks?.smallThumbnail.toString())
+                        Log.i(
+                            "Book test2",
+                            item.volumeInfo?.imageLinks?.smallThumbnail.toString()
+                        )
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            requireContext(),
+                            e.message,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.no_book_found,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            } else {
+                Log.i("Share Frag", "book search fail")
+            }
+        }
+
+
+//        val cameraPermission = Manifest.permission.CAMERA
+//        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+//
+//        val cameraPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), cameraPermission) == PackageManager.PERMISSION_GRANTED
+//        val storagePermissionGranted = ContextCompat.checkSelfPermission(requireContext(), storagePermission) == PackageManager.PERMISSION_GRANTED
 
         binding.selectImageButton.setOnClickListener { view: View ->
             // Menu for selecting either: a) take new photo b) select from existing
 
-            val popup = PopupMenu(requireContext(), view, Gravity.END)
-            popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-                val itemId = menuItem.itemId
-                if (itemId == R.id.select_images_from_local) {
-                    startChooseImageIntentForResult()
-                    return@setOnMenuItemClickListener true
-                } else if (itemId == R.id.take_photo_using_camera) {
+//            val popup = PopupMenu(requireContext(), view, Gravity.END)
+//            popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+//                val itemId = menuItem.itemId
+//                if (itemId == R.id.select_images_from_local) {
+//                    startChooseImageIntentForResult()
+//                    return@setOnMenuItemClickListener true
+//                } else if (itemId == R.id.take_photo_using_camera) {
 
-                    if (!cameraPermissionGranted || !storagePermissionGranted) {
-                        val permissionsToRequest = mutableListOf<String>()
-                        if (!cameraPermissionGranted) {
-                            permissionsToRequest.add(cameraPermission)
-                        }
-                        if (!storagePermissionGranted) {
-                            permissionsToRequest.add(storagePermission)
-                        }
-                        ActivityCompat.requestPermissions(
-                            requireActivity(),
-                            permissionsToRequest.toTypedArray(),
-                            3
-                        )
-                    } else {
-                        startCameraIntentForResult()
-                        return@setOnMenuItemClickListener true
-                    }
+            if (!cameraPermissionGranted || !storagePermissionGranted) {
+                val permissionsToRequest = mutableListOf<String>()
+                if (!cameraPermissionGranted) {
+                    permissionsToRequest.add(cameraPermission)
                 }
-                false
+                if (!storagePermissionGranted) {
+                    permissionsToRequest.add(storagePermission)
+                }
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    permissionsToRequest.toTypedArray(),
+                    3
+                )
+            } else {
+                startCameraIntentForResult()
+//                        return@setOnMenuItemClickListener true
             }
-            val inflater = popup.menuInflater
-            inflater.inflate(R.menu.camera_button_menu, popup.menu)
-            popup.show()
+//                }
+//                false
+//            }
+//            val inflater = popup.menuInflater
+//            inflater.inflate(R.menu.camera_button_menu, popup.menu)
+//            popup.show()
         }
 
         preview = binding.preview
@@ -194,16 +225,23 @@ class ShareFragment : Fragment() {
         }
 
 
-
         // fake user id
-        val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson")
+        val userList = listOf(
+            "PollyYana",
+            "Jammy",
+            "Jayson",
+            "Terry",
+            "Elephant",
+            "Timothy",
+            "Bryant",
+            "Jackson"
+        )
 
         var userId = ""
         var title = ""
         var author = ""
         var situation = ""
         var phrases = ""
-
 
 
         binding.bookTitleResult.doAfterTextChanged {
@@ -250,6 +288,13 @@ class ShareFragment : Fragment() {
         viewModel.toastMessageLiveData.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+
+        viewModel.text.observe(viewLifecycleOwner) { text ->
+            binding.editInputBook.setText(text)
+            binding.inputPhrases.setText(text)
+        }
+
+
 
         val rootView = binding.root
         rootView.viewTreeObserver.addOnGlobalLayoutListener(
@@ -319,7 +364,6 @@ class ShareFragment : Fragment() {
     }
 
 
-
     public override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_IMAGE_URI, imageUri)
@@ -344,7 +388,10 @@ class ShareFragment : Fragment() {
             val values = ContentValues()
             values.put(MediaStore.Images.Media.TITLE, "New Picture")
             values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera")
-            imageUri = requireContext().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            imageUri = requireContext().contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         }
@@ -359,14 +406,17 @@ class ShareFragment : Fragment() {
                     targetWidth = imageMaxWidth
                     targetHeight = imageMaxHeight
                 }
+
                 SIZE_640_480 -> {
                     targetWidth = if (isLandScape) 640 else 480
                     targetHeight = if (isLandScape) 480 else 640
                 }
+
                 SIZE_1024_768 -> {
                     targetWidth = if (isLandScape) 1024 else 768
                     targetHeight = if (isLandScape) 768 else 1024
                 }
+
                 else -> throw IllegalStateException("Unknown size")
             }
             return Pair(targetWidth, targetHeight)
@@ -374,22 +424,29 @@ class ShareFragment : Fragment() {
 
     // text recognition
     private fun createImageProcessor() {
-        imageProcessor = TextRecognitionProcessor(requireContext(), TextRecognizerOptions.Builder().build())
+        imageProcessor =
+            TextRecognitionProcessor(requireContext(), TextRecognizerOptions.Builder().build())
     }
+
 
     private fun tryReloadAndDetectInImage() {
         Log.d(TAG, "Try reload and detect image")
         try {
             if (imageUri == null) {
+                Log.i("Share Frag", "tryReload imageUrl == null")
                 return
             }
 
             if (SIZE_SCREEN == selectedSize && imageMaxWidth == 0) {
+                Log.i("Share Frag", "tryReload screen size wrong")
                 // UI layout has not finished yet, will reload once it's ready.
                 return
             }
 
-            val imageBitmap = BitmapUtils.getBitmapFromContentUri(requireContext().contentResolver, imageUri) ?: return
+            val imageBitmap =
+                BitmapUtils.getBitmapFromContentUri(requireContext().contentResolver, imageUri)
+                    ?: return
+            Log.i("Share Frag", "image bitmap = $imageBitmap")
             // Clear the overlay first
             graphicOverlay!!.clear()
 
@@ -416,7 +473,7 @@ class ShareFragment : Fragment() {
                 }
 
 //            try {
-                preview!!.setImageBitmap(resizedBitmap)
+            preview!!.setImageBitmap(resizedBitmap)
 //            } catch (e: Exception) {
 //                Log.i("preview", e.message.toString())
 //            }
@@ -447,22 +504,34 @@ class ShareFragment : Fragment() {
                         }
                     }
                     recognizedText = strBuilder.toString()
-                    binding.inputPhrases.setText(recognizedText)
+//                    recognizedBook = strBuilder.toString()
+//                    binding.inputPhrases.setText(recognizedText)
+//                    binding.editInputBook.setText(recognizedBook)
+
+                    Log.i("Share frag", "book title = $recognizedText")
+
+                    viewModel.getBooks(recognizedText, BuildConfig.BOOK_API_KEY)
+                    binding.bookImageResult.visibility = View.VISIBLE
+                    binding.bookTitleResult.visibility = View.VISIBLE
+                    binding.authorNameResult.visibility = View.VISIBLE
+
+                    viewModel.getRecognizedText(recognizedText)
+
                 }
 
 
                 imageProcessor!!.processBitmap(resizedBitmap, graphicOverlay)
             } else {
-                Log.e(TAG, "Null imageProcessor, please check adb logs for imageProcessor creation error")
+                Log.e(
+                    TAG,
+                    "Null imageProcessor, please check adb logs for imageProcessor creation error"
+                )
             }
         } catch (e: IOException) {
             Log.e(TAG, "Error retrieving saved image")
             imageUri = null
         }
     }
-
-
-
 
 
     private fun checkInternet(context: Context): Boolean {
@@ -505,7 +574,7 @@ class ShareFragment : Fragment() {
 
 
     companion object {
-//        private const val TAG = "StillImageActivity"
+        //        private const val TAG = "StillImageActivity"
         private const val TAG = "ShareFragment"
 //        private const val OBJECT_DETECTION = "Object Detection"
 
@@ -527,6 +596,7 @@ class ShareFragment : Fragment() {
             tryReloadAndDetectInImage()
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
             // In this case, imageUri is returned by the chooser, save it.
+            Log.i("Share Frag", "intent received")
             imageUri = data!!.data
             tryReloadAndDetectInImage()
         } else {
@@ -544,6 +614,7 @@ class ShareFragment : Fragment() {
     public override fun onPause() {
         super.onPause()
         imageProcessor?.run { this.stop() }
+        binding.editInputBook.setText("")
 //        imageUri = null
 //        binding.inputPhrases.setText("")
     }

@@ -49,6 +49,14 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         }
     }
 
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String>
+        get() = _text
+    fun getRecognizedText(text: String) {
+        _text.value = text
+    }
+
+
     fun getImage(image: String) {
         _bookImage.value = image
     }

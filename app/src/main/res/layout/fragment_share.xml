@@ -107,9 +107,7 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@android:drawable/ic_menu_camera"
-
-                    android:text="@string/search_book"
+                    android:background="@drawable/icon_select_image"
                     app:layout_constraintBottom_toBottomOf="@id/edit_input_book"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/edit_input_book"
