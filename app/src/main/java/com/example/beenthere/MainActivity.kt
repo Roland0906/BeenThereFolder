@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
                 binding.liveBadge.startAnimation(blinkAnim)
             }
         }
+        binding.liveBadge.setOnClickListener {
+            it.clearAnimation()
+        }
 
 
 

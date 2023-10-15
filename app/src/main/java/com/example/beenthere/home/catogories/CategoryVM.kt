@@ -2,6 +2,8 @@ package com.example.beenthere.home.catogories
 
 import android.content.Intent
 import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +13,7 @@ import com.example.beenthere.data.Experience
 import com.example.beenthere.data.LiveTalkEvent
 import com.example.beenthere.data.source.BeenThereRepository
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
 
@@ -35,6 +38,32 @@ class CategoryVM (private val repository: BeenThereRepository,
     fun onDetailNavigated() {
         _navigateToDetail.value = null
     }
+
+
+    private val commentDoc = db.collection("comments")
+
+    private val commentCount = MutableLiveData<Int>()
+
+//    private fun getComments() {
+//        commentDoc.get()
+//            .addOnSuccessListener { documents ->
+//                documents.forEach {
+//
+//                }
+//                commentCount.value = documents.size()
+//                // Now, itemCount contains the number of documents in the "live_talks" collection
+//                println("Number of items in 'live_talks': $commentCount")
+//            }
+//            .addOnFailureListener { exception ->
+//                println("Error getting documents: $exception")
+//            }
+//    }
+//
+//    init {
+//        getComments()
+//    }
+
+
 
 
 

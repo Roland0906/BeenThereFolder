@@ -118,7 +118,6 @@ class CategoryFragment : Fragment() {
         }
 
 
-
         viewModel.navigateToDetail.observe(
             viewLifecycleOwner,
             Observer {
@@ -179,8 +178,6 @@ class CategoryFragment : Fragment() {
         intent.putExtra("EventId", eventId)
 
         startActivity(intent)
-
-
 
 
 
