@@ -1,11 +1,21 @@
 package com.example.beenthere
 
+import com.example.beenthere.R
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -13,7 +23,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.beenthere.databinding.ActivityMainBinding
 import com.example.beenthere.ext.getVmFactory
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.ShapeAppearanceModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,36 +56,34 @@ class MainActivity : AppCompatActivity() {
         setUpToolbar()
 
 
-//        chatViewModel.messageList.observe(this){ messages ->
-//            val adapter = MessageAdapter()
-//            binding.recyclerChat.adapter = adapter
-//            adapter.submitList(messages)
-//        }
-//
-//        var narration = ""
-//
-//        binding.editMessage.doAfterTextChanged {
-//            narration = binding.editMessage.text.toString()
-//        }
-//
-//
-//
-//        binding.inputUser.doAfterTextChanged {
-//            userId = binding.inputUser.text.toString() //
-//        }
-//
-//        chatViewModel.setFireStoreListener()
-//
-//        binding.btnSend.setOnClickListener {
-//
-//            chatViewModel.addData(userId, narration, Message.SENT_BY_ME, chatViewModel.getCurrentTimestamp())
-////            chatViewModel.addToChat(myId, narration, Message.SENT_BY_ME, chatViewModel.getCurrentTimestamp())
-//            binding.editMessage.setText("")
-////            chatViewModel.callApi(question)
-//        }
-//
-//
-//        requestPermission()
+
+
+
+        val liveTalksCount = MutableLiveData<Int>()
+
+        val liveTalkDoc = Firebase.firestore.collection("live_talks")
+        liveTalkDoc.get()
+            .addOnSuccessListener { documents ->
+                liveTalksCount.value = documents.size()
+                // Now, itemCount contains the number of documents in the "live_talks" collection
+                println("Number of items in 'live_talks': $liveTalksCount")
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting documents: $exception")
+            }
+
+
+        liveTalksCount.observe(this) {
+            if (it > 0) {
+                val blinkAnim = AlphaAnimation(0.0f, 1.0f)
+                blinkAnim.duration = 1000
+                blinkAnim.startOffset = 500
+                blinkAnim.repeatMode = Animation.REVERSE
+                blinkAnim.repeatCount = Animation.INFINITE
+                binding.liveBadge.startAnimation(blinkAnim)
+            }
+        }
+
 
 
     }
@@ -143,6 +157,26 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    v.isCursorVisible = false
+                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                }
+                else{
+                    v.isCursorVisible = true
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
     }
 
 //    override fun onDestroy() {

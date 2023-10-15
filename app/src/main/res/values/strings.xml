@@ -123,6 +123,7 @@
     <string name="say_something">Say something</string>
 
     <string name="no_internet">No internet connection</string>
+    <string name="live_">Live</string>
 
 
 </resources>
