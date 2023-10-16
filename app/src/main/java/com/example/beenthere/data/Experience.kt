@@ -63,3 +63,20 @@ data class Experience(
     }
 }
 
+fun Experience.toExpWithCount() =
+    ExpWithCount(
+        exp = this,
+        count = 0
+    )
+
+
+data class ExpWithCount(
+
+    val exp: Experience,
+    var count: Int
+
+)
+
+
+
+

@@ -63,7 +63,7 @@ class DetailFragment : Fragment() {
             Log.i("Detail Frag submit", "submitted list")
         }
 
-        val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Timothy", "Bryant", "Jackson", "YenL")
+        val userList = listOf("PollyYana", "Jammy", "Jayson", "Terry", "Elephant", "Tom", "Bryant", "Jackson", "YenZero")
 
         var comment = ""
 

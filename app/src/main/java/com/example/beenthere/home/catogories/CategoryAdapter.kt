@@ -12,6 +12,7 @@ import com.example.beenthere.databinding.CategoryListItemBinding
 import com.example.beenthere.databinding.ItemViewCategoryExpBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import okhttp3.internal.cache.DiskLruCache.Snapshot
 
 class CategoryAdapter(private val onclickListener: OnClickListener) :
     ListAdapter<Experience, CategoryAdapter.ExpViewHolder>(DiffCallback) {
@@ -19,6 +20,25 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
     private val VIEW_TYPE_1 = 1
     private val VIEW_TYPE_2 = 2
     private val VIEW_TYPE_3 = 3
+
+//    private var commentCount = 0
+//    private var commentList = mutableListOf<Any>()
+//    val commentDoc = Firebase.firestore.collection("comments").get()
+//        .addOnSuccessListener { documents ->
+//            documents.forEach {
+//                commentList.add(it.data)
+//
+////                if(it.data["expId"].toString() == "${exp.userId} + ${exp.title} + ${exp.situation}") {
+////                    Log.i("Category adapter","comment': ${it.data}")
+////                    commentCount ++
+////                }
+//            }
+//            // Now, itemCount contains the number of documents in the "live_talks" collection
+//            Log.i("Category adapter","Comments count': $commentList")
+//        }
+//        .addOnFailureListener { exception ->
+//            Log.i("Category adapter","Error getting documents: $exception")
+//        }
 
     class OnClickListener(val clickListener: (exp: Experience) -> Unit) {
         fun onClick(exp: Experience) = clickListener(exp)
@@ -57,24 +77,8 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         private val fakeImages = listOf(R.drawable.avatar, R.drawable.avatar_2, R.drawable.avatar_3_female, R.drawable.avatar_4_female, R.drawable.avatar_5, R.drawable.avatar_6)
 
-        private var commentCount = 0
-
         fun bindType1(exp: Experience) {
-//            val commentDoc = Firebase.firestore.collection("comments")
-//            val count = commentDoc.get()
-//                .addOnSuccessListener { documents ->
-//                    documents.forEach {
-//                        if(it.data["expId"].toString() == "${exp.userId} + ${exp.title} + ${exp.situation}") {
-//                            Log.i("Category adapter","comment': ${it.data}")
-//                            commentCount ++
-//                        }
-//                    }
-//                    // Now, itemCount contains the number of documents in the "live_talks" collection
-//                    Log.i("Category adapter","Comments count': $commentCount")
-//                }
-//                .addOnFailureListener { exception ->
-//                    Log.i("Category adapter","Error getting documents: $exception")
-//                }
+
 
             binding.userFrame.setBackgroundResource(R.drawable.one_corner)
             binding.avatar.setBackgroundResource(fakeImages.random())
@@ -116,6 +120,10 @@ class CategoryAdapter(private val onclickListener: OnClickListener) :
 //        holder.bind(exp)
 //        holder.itemView.setOnClickListener {
 //            onclickListener.onClick(exp)
+//        }
+
+//        commentList.forEach {
+//
 //        }
 
         when (getItemViewType(position)) {
