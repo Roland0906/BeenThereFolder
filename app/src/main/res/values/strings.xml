@@ -124,6 +124,8 @@
 
     <string name="no_internet">No internet connection</string>
     <string name="live_">Live</string>
+    <string name="comments">Comments:\t</string>
+    <string name="_5">5</string>
 
 
 </resources>

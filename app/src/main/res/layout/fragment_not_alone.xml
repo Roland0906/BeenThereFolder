@@ -48,7 +48,7 @@
                 android:lines="1"
                 android:text="@string/tell_us_what_happened"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +75,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/edit_border"
                 android:gravity="top"
+                android:textSize="14sp"
                 android:hint="@string/someone_might_have_been_there"
                 android:textColorHint="#949494" />
 

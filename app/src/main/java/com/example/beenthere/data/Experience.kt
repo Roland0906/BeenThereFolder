@@ -45,6 +45,9 @@ data class Experience(
     @ColumnInfo(name = "category")
     var category: String? = "",
 
+
+
+
 //    @ColumnInfo(name = "thread")
 //    var thread: List<Message>?
 

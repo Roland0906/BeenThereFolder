@@ -73,13 +73,45 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
+
                 android:layout_marginHorizontal="12dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintStart_toStartOf="@id/user_frame"
                 app:layout_constraintEnd_toEndOf="@id/user_frame"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/comments_count"
                 app:layout_constraintTop_toBottomOf="@id/user_id"
                 tools:text="You should organize your tasks..." />
+
+            <TextView
+                android:id="@+id/comments_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comments"
+                app:layout_constraintTop_toBottomOf="@id/narration"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/narration"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+
+            <TextView
+                android:id="@+id/comments_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/comments_text"
+                app:layout_constraintStart_toEndOf="@id/comments_text"
+                app:layout_constraintBottom_toBottomOf="@id/comments_text"
+                tools:text="@string/_5"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
 
 
             <ImageView

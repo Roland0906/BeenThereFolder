@@ -127,7 +127,6 @@ class DetailVM(
                 Log.i("Detail VM get likedExp fail", it.message.toString())
             }
 
-
     }
 
 
