@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.beenthere.data.ExpWithCount
 import com.example.beenthere.data.Experience
 import com.example.beenthere.data.LikedExp
 import com.example.beenthere.data.LiveTalkEvent
@@ -66,12 +67,12 @@ class ProfileViewModel(private val repository: BeenThereRepository) : ViewModel(
         _avatar.value = avatar
     }
 
-    private val _navigateToDetail = MutableLiveData<Experience>()
+    private val _navigateToDetail = MutableLiveData<ExpWithCount>()
 
-    val navigateToDetail: LiveData<Experience>
+    val navigateToDetail: LiveData<ExpWithCount>
         get() = _navigateToDetail
 
-    fun navigateToDetail(experience: Experience) {
+    fun navigateToDetail(experience: ExpWithCount) {
         _navigateToDetail.value = experience
     }
 

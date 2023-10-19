@@ -63,6 +63,7 @@ data class Experience(
     }
 }
 
+
 fun Experience.toExpWithCount() =
     ExpWithCount(
         exp = this,
@@ -70,12 +71,13 @@ fun Experience.toExpWithCount() =
     )
 
 
+@Parcelize
 data class ExpWithCount(
 
     val exp: Experience,
     var count: Int
 
-)
+) : Parcelable
 
 
 

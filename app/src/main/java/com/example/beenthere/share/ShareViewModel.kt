@@ -43,9 +43,12 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
 
     fun getBooks(title: String, apiKey: String) {
         viewModelScope.launch {
-
-            val response: Response<Books> = repository.getBooks(title, apiKey)
-            myResponse.value = response
+            try {
+                val response: Response<Books> = repository.getBooks(title, apiKey)
+                myResponse.value = response
+            } catch (e: Exception) {
+                showError(e.message)
+            }
         }
     }
 

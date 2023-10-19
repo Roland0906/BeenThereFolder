@@ -569,6 +569,7 @@ class ShareFragment : Fragment() {
     }
 
 
+
     private fun checkInternet(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

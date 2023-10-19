@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.User
+import com.example.beenthere.data.toExpWithCount
 import com.example.beenthere.databinding.FragmentProfileBinding
 import com.example.beenthere.ext.getVmFactory
 import com.example.beenthere.home.catogories.CategoryAdapter
@@ -122,7 +123,7 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.likedExp.collect { likedExp ->
 
-                val expList = likedExp.map { it.experience }
+                val expList = likedExp.map { it.experience.toExpWithCount() }
 
                 adapter.submitList(expList)
 
