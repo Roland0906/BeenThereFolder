@@ -1,5 +1,6 @@
 package com.example.beenthere
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beenthere.data.Message
+import com.example.beenthere.databinding.ForumItemViewBinding
+import com.example.beenthere.databinding.LiveStreamingChatItemViewBinding
+import com.example.beenthere.home.catogories.detail.ForumAdapter
 
 
 const val SENT_BY_ME = 0
@@ -39,19 +43,27 @@ class MessageAdapter: ListAdapter<Message, MessageAdapter.MessageViewHolder>(Dif
         parent: ViewGroup,
         viewType: Int
     ): MessageViewHolder {
-        return when (viewType) {
-            SENT_BY_ME -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.user_chat, parent, false)
-                MessageViewHolder(view)
-            }
 
-            else -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.others_chat, parent, false)
-                MessageViewHolder(view)
-            }
-        }
+        return MessageViewHolder(
+            LiveStreamingChatItemViewBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                )
+            )
+        )
+//        return when (viewType) {
+//            SENT_BY_ME -> {
+//                val view = LayoutInflater.from(parent.context)
+//                    .inflate(R.layout.forum_item_view, parent, false)
+//                MessageViewHolder(view)
+//            }
+//
+//            else -> {
+//                val view = LayoutInflater.from(parent.context)
+//                    .inflate(R.layout.forum_item_view, parent, false)
+//                MessageViewHolder(view)
+//            }
+//        }
     }
 
 
@@ -70,23 +82,41 @@ class MessageAdapter: ListAdapter<Message, MessageAdapter.MessageViewHolder>(Dif
         }
     }
 
-    inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val leftChatTextView: TextView? = itemView.findViewById(R.id.left_chat_text_view)
-        private val leftChatTimestamp: TextView? = itemView.findViewById(R.id.left_chat_timestamp)
-        private val rightChatTextView: TextView? = itemView.findViewById(R.id.right_chat_text_view)
-        private val rightChatTimestamp: TextView? = itemView.findViewById(R.id.right_chat_timestamp)
+    inner class MessageViewHolder(
+        private var binding: LiveStreamingChatItemViewBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val fakeImages = listOf(
+            R.drawable.avatar,
+            R.drawable.avatar_2,
+            R.drawable.avatar_3_female,
+            R.drawable.avatar_4_female,
+            R.drawable.avatar_5,
+            R.drawable.avatar_6
+        )
+//        itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        private val leftChatTextView: TextView? = itemView.findViewById(R.id.left_chat_text_view)
+//        private val leftChatTimestamp: TextView? = itemView.findViewById(R.id.left_chat_timestamp)
+//        private val rightChatTextView: TextView? = itemView.findViewById(R.id.right_chat_text_view)
+//        private val rightChatTimestamp: TextView? = itemView.findViewById(R.id.right_chat_timestamp)
 
         fun bind(message: Message) {
-            when (message.sentBy) {
-                Message.SENT_BY_ME -> {
-                    rightChatTextView?.text = message.message
-                    rightChatTimestamp?.text = message.timestamp
-                }
-                else -> {
-                    leftChatTextView?.text = message.message
-                    leftChatTimestamp?.text = message.timestamp
-                }
-            }
+
+
+            binding.avatar.setBackgroundResource(fakeImages.random())
+            binding.message = message
+            binding.executePendingBindings()
+
+//            when (message.sentBy) {
+//                Message.SENT_BY_ME -> {
+//                    rightChatTextView?.text = message.message
+//                    rightChatTimestamp?.text = message.timestamp
+//                }
+//                else -> {
+//                    leftChatTextView?.text = message.message
+//                    leftChatTimestamp?.text = message.timestamp
+//                }
+//            }
         }
     }
 }

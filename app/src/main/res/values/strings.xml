@@ -7,7 +7,7 @@
     <string name="hello_been_there_fragment">Have you been there?</string>
     <string name="hello_profile_fragment">Profile</string>
     <string name="enter_book_name">Enter Book name</string>
-    <string name="books_search_hint">book name</string>
+    <string name="books_search_hint">The book you\'re sharing</string>
     <string name="search_book">Search</string>
     <string name="share_description">Describe your situation &amp; how this book helped you</string>
     <string name="text_encounter">What did you encounter?</string>
@@ -108,7 +108,7 @@
     <string name="you_re_not_alone">You\'re not alone</string>
     <string name="you_can_take_photo">You can also take a photo</string>
     <string name="input_here">Input here</string>
-    <string name="check_the_page_on_the_left">Check the page on the left</string>
+    <string name="share_btn_dialog">Your experience is analyzed\nand categorized accordingly!</string>
     <string name="log_in">Log in</string>
     <string name="log_out">Log out</string>
     <string name="home">Home</string>
@@ -120,6 +120,12 @@
     <string name="someone_might_have">Someone might have</string>
     <string name="live">\tLive</string>
     <string name="your_favorite_experiences">Your favorite experiences</string>
+    <string name="say_something">Say something</string>
+
+    <string name="no_internet">No internet connection</string>
+    <string name="live_">Live</string>
+    <string name="comments">Comments:\t</string>
+    <string name="_5">5</string>
 
 
 </resources>

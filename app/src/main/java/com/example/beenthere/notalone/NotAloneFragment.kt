@@ -15,8 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import com.example.beenthere.NavigationDirections
 import com.example.beenthere.R
 import com.example.beenthere.data.Situation
 import com.example.beenthere.databinding.FragmentNotAloneBinding
@@ -105,8 +103,8 @@ class NotAloneFragment : Fragment() {
 
     private fun showReminderDialog() {
 
-        val builder = AlertDialog.Builder(this.context)
-            .setTitle(R.string.check_the_page_on_the_left)
+        AlertDialog.Builder(this.context)
+            .setTitle(R.string.share_btn_dialog)
             .setPositiveButton("OK", null)
             .show()
     }

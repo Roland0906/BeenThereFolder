@@ -17,6 +17,8 @@ class EventAdapter(private val onclickListener: OnClickListener) :
     private val VIEW_TYPE_2 = 2
     private val VIEW_TYPE_3 = 3
 
+    private val fakeImages = listOf(R.drawable.avatar, R.drawable.avatar_2, R.drawable.avatar_3_female, R.drawable.avatar_4_female, R.drawable.avatar_5, R.drawable.avatar_6)
+    private var currentIndex = 0
     class OnClickListener(val clickListener: (event: LiveTalkEvent) -> Unit) {
         fun onClick(event: LiveTalkEvent) = clickListener(event)
     }
@@ -52,24 +54,30 @@ class EventAdapter(private val onclickListener: OnClickListener) :
         EventViewItemBinding
     ):
         RecyclerView.ViewHolder(binding.root) {
-        private val fakeImages = listOf(R.drawable.avatar, R.drawable.avatar_2, R.drawable.avatar_3_female, R.drawable.avatar_4_female, R.drawable.avatar_5, R.drawable.avatar_6)
-        fun bindType1(event: LiveTalkEvent) {
+//        private val fakeImages = listOf(R.drawable.avatar, R.drawable.avatar_2, R.drawable.avatar_3_female, R.drawable.avatar_4_female, R.drawable.avatar_5, R.drawable.avatar_6)
+        fun bindType1(event: LiveTalkEvent
+                      , imageResId: Int
+        ) {
 //            binding.frame.setBackgroundResource(R.drawable.one_corner)
-            binding.avatar.setBackgroundResource(fakeImages.random())
+            binding.avatar.setBackgroundResource(imageResId)
             binding.event = event
             binding.executePendingBindings()
         }
 
-        fun bindType2(event: LiveTalkEvent) {
+        fun bindType2(event: LiveTalkEvent
+                      , imageResId: Int
+        ) {
 //            binding.frame.setBackgroundResource(R.drawable.one_corner_2)
-            binding.avatar.setBackgroundResource(fakeImages.random())
+            binding.avatar.setBackgroundResource(imageResId)
             binding.event = event
             binding.executePendingBindings()
         }
 
-        fun bindType3(event: LiveTalkEvent) {
+        fun bindType3(event: LiveTalkEvent
+                      , imageResId: Int
+        ) {
 //            binding.frame.setBackgroundResource(R.drawable.one_corner_3)
-            binding.avatar.setBackgroundResource(fakeImages.random())
+            binding.avatar.setBackgroundResource(imageResId)
             binding.event = event
             binding.executePendingBindings()
         }
@@ -83,22 +91,24 @@ class EventAdapter(private val onclickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: ExpViewHolder, position: Int) {
         val event = getItem(position)
+        val imageResId = fakeImages[currentIndex]
+        currentIndex = (currentIndex + 1) % fakeImages.size
 
         when (getItemViewType(position)) {
             VIEW_TYPE_1 ->  {
-                holder.bindType1(event)
+                holder.bindType1(event, imageResId)
                 holder.itemView.setOnClickListener {
                     onclickListener.onClick(event)
                 }
             }
             VIEW_TYPE_2 -> {
-                holder.bindType2(event)
+                holder.bindType2(event, imageResId)
                 holder.itemView.setOnClickListener {
                     onclickListener.onClick(event)
                 }
             }
             VIEW_TYPE_3 -> {
-                holder.bindType3(event)
+                holder.bindType3(event, imageResId)
                 holder.itemView.setOnClickListener {
                     onclickListener.onClick(event)
                 }

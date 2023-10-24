@@ -3,6 +3,7 @@ package com.example.beenthere.notalone
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -30,7 +32,8 @@ class SuggestionDialog : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNotAloneBinding
 
     private val viewModel by viewModels<NotAloneViewModel> { getVmFactory() }
-
+    private lateinit var typingText: TextView
+    private val textToType = "Tell us what happened"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,10 @@ class SuggestionDialog : BottomSheetDialogFragment() {
             false
         }
 
+        typingText = binding.text
+
+        animateTextTyping(0)
+
 //        val adapter = DialogAdapter()
 //
 //        binding.recyclerDialog.adapter = adapter
@@ -106,6 +113,17 @@ class SuggestionDialog : BottomSheetDialogFragment() {
     private fun hideKeyboard() {
         val imm = this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.inputSituation.windowToken, 0)
+    }
+
+    private fun animateTextTyping(index: Int) {
+        if (index < textToType.length) {
+            val currentText = textToType.substring(0, index + 1)
+            typingText.text = currentText
+            val delay = 100L
+            Handler().postDelayed({
+                animateTextTyping(index + 1)
+            }, delay)
+        }
     }
 
 

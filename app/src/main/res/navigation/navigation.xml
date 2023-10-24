@@ -50,7 +50,7 @@
 
         <argument
             android:name="experience"
-            app:argType="com.example.beenthere.data.Experience"
+            app:argType="com.example.beenthere.data.ExpWithCount"
             app:nullable="false" />
 
     </fragment>
