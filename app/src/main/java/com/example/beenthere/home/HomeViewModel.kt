@@ -111,8 +111,6 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     private var snapshotListener: ListenerRegistration? = null
     private fun setFirebaseListener() {
-
-//        collection.addSnapshotListener { snapShot, e ->
         snapshotListener = collectionExp.addSnapshotListener { snapShot, e ->
             if (e != null) {
 
@@ -127,10 +125,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
                             val experience = document.toObject<Experience>()
                             Log.i("Experience", experience.toString())
                             viewModelScope.launch {
-                                // change to groovy to use python
-                                // use open ai to convert python response to kotlin class
-                                // check if already in Room before insert?
 
+                                // check if already in Room before insert
                                 try {
                                     allExp().collect {
                                         if (!it.contains(experience)) {
@@ -149,6 +145,8 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
             }
         }
     }
+    // change to groovy to use python
+    // use open ai to convert python response to kotlin class
 
     fun removeFirebaseListeners() {
         snapshotListener?.remove()
@@ -256,8 +254,6 @@ class HomeViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
     private var liveTalkListener: ListenerRegistration? = null
     private fun eventListener() {
-
-
 
         val liveTalkDoc = db.collection("live_talks")
 

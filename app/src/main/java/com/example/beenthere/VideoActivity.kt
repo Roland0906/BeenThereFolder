@@ -173,7 +173,7 @@ class VideoActivity : AppCompatActivity() {
 
     fun onEndCallClicked(view: View) {
         finish()
-        chatViewModel.endLiveTalk(eventId)
+//        chatViewModel.endLiveTalk(eventId)
         eventId?.let { Log.i("VideoActivity", it) }
     }
 

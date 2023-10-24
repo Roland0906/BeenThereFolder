@@ -1,6 +1,8 @@
 package com.example.beenthere.data.source
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -25,11 +27,17 @@ interface BeenThereDatabaseDao {
     @Query("SELECT * FROM experience_table")
     fun getAllExp(): Flow<List<Experience>>
 
+    @Query("SELECT * FROM experience_table")
+    fun observeALlExp(): LiveData<List<Experience>>
+
     @Query("SELECT * FROM situation_table")
     fun getSituations(): Flow<List<Situation>>
 
     @Insert
     fun insert(experience: Experience)
+
+    @Delete
+    fun delete(experience: Experience)
 
     @Update
     fun update(experience: Experience)

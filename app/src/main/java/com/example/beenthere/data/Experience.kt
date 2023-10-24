@@ -45,6 +45,9 @@ data class Experience(
     @ColumnInfo(name = "category")
     var category: String? = "",
 
+
+
+
 //    @ColumnInfo(name = "thread")
 //    var thread: List<Message>?
 
@@ -59,4 +62,23 @@ data class Experience(
 //        return super.equals(other)
     }
 }
+
+
+fun Experience.toExpWithCount() =
+    ExpWithCount(
+        exp = this,
+        count = 0
+    )
+
+
+@Parcelize
+data class ExpWithCount(
+
+    val exp: Experience,
+    var count: Int
+
+) : Parcelable
+
+
+
 

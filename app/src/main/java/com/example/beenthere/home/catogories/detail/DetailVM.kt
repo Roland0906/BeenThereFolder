@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.beenthere.data.ExpWithCount
 import com.example.beenthere.data.Experience
 import com.example.beenthere.data.LikedExp
 import com.example.beenthere.data.Message
@@ -20,14 +21,14 @@ import java.util.Locale
 
 class DetailVM(
     private val repository: BeenThereRepository,
-    private val args: Experience
+    private val args: ExpWithCount
 ) : ViewModel() {
 
-    private val _exp = MutableLiveData<Experience>().apply {
+    private val _exp = MutableLiveData<ExpWithCount>().apply {
         value = args
     }
 
-    val exp: LiveData<Experience>
+    val exp: LiveData<ExpWithCount>
         get() = _exp
 
     private val db = Firebase.firestore
@@ -81,7 +82,7 @@ class DetailVM(
                             for (document in snapShot) {
                                 val message = document.toObject<Message>()
 //                            if (!message.isProcessed) {
-                                if (message.expId == args.userId + args.title + args.situation) {
+                                if (message.expId == args.exp.userId + args.exp.title + args.exp.situation) {
                                     Log.i("DetailVM comment listened", message.toString())
                                     currentMessages.add(
                                         Message(
@@ -119,14 +120,13 @@ class DetailVM(
         val likeExpCollection =
             db.collection("users").document(userId).collection("favorite")
 
-        likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}").get()
+        likeExpCollection.document("${args.exp.userId} + ${args.exp.title} + ${args.exp.situation}").get()
             .addOnCompleteListener { task ->
                 _isLiked.value = task.isSuccessful
             }
             .addOnFailureListener {
                 Log.i("Detail VM get likedExp fail", it.message.toString())
             }
-
 
     }
 
@@ -143,10 +143,10 @@ class DetailVM(
 //            Log.i("Detail VM user id", UserManager.userID)
 
         val likeExpDoc =
-            likeExpCollection.document("${args.userId} + ${args.title} + ${args.situation}")
+            likeExpCollection.document("${args.exp.userId} + ${args.exp.title} + ${args.exp.situation}")
 
         val likedExp = LikedExp(
-            likeExpDoc.id, UserManager.userID, args
+            likeExpDoc.id, UserManager.userID, args.exp
         )
 
         Log.i("DetailVM", likedExp.toString())
@@ -172,7 +172,7 @@ class DetailVM(
 
             val likeExpDoc =
                 db.collection("users").document(userId).collection("favorite")
-                    .document("${args.userId} + ${args.title} + ${args.situation}")
+                    .document("${args.exp.userId} + ${args.exp.title} + ${args.exp.situation}")
 
             likeExpDoc.delete()
         } catch (e: Exception) {
@@ -190,7 +190,7 @@ class DetailVM(
             message = message,
             timestamp = getCurrentTimestamp(),
             isProcessed = false,
-            expId = args.userId + args.title + args.situation
+            expId = args.exp.userId + args.exp.title + args.exp.situation
         )
 
         Log.i("DetailVM", mensaje.toString())
