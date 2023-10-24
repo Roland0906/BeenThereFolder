@@ -80,6 +80,17 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+
+    kapt{
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -124,9 +135,32 @@ dependencies {
 
 //    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
 
+
+
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    implementation("androidx.arch.core:core-testing:2.2.0")
+    debugImplementation("androidx.fragment:fragment-testing:1.5.5")
+
+
+    androidTestImplementation ("org.mockito:mockito-android:3.10.0")
+    // newly added for unit test
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1")
+    androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
+    androidTestImplementation ("com.google.truth:truth:1.0.1")
+
+    // Optional -- Mockito framework
+    testImplementation ("org.mockito:mockito-core:5.6.0")
+    // Optional -- mockito-kotlin
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:3.2.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation ("org.robolectric:robolectric:4.9")
+
+
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")

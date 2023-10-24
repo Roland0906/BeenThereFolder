@@ -25,7 +25,6 @@ import java.util.Calendar
 
 class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() {
 
-    private val db = Firebase.firestore
 
     private val _bookTitle = MutableLiveData<String>()
     val bookTitle: LiveData<String>
@@ -39,29 +38,42 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
     val bookImage: LiveData<String>
         get() = _bookImage
 
-    val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
+    private val _myResponse: MutableLiveData<Books> = MutableLiveData()
+    val myResponse: LiveData<Books> = _myResponse
 
     fun getBooks(title: String, apiKey: String) {
         viewModelScope.launch {
             try {
                 val response: Response<Books> = repository.getBooks(title, apiKey)
-                myResponse.value = response
+                if(response.isSuccessful && response.body() != null) {
+                    _myResponse.value = response.body()
+                } else {
+                    throw java.lang.Exception("not getting book successfully or empty books")
+                }
             } catch (e: Exception) {
                 showError(e.message)
             }
         }
     }
 
-    private val _text = MutableLiveData<String>()
-    val text: LiveData<String>
-        get() = _text
+    private val _upperText = MutableLiveData<String>()
+    private val _lowerText = MutableLiveData<String>()
+    val upperText: LiveData<String>
+        get() = _upperText
 
-    fun getRecognizedText(text: String) {
-        _text.value = text
+    val lowerText: LiveData<String>
+        get() = _lowerText
+
+    fun getRecognizedLowerText(text: String) {
+        _lowerText.value = text
     }
 
-    var upperText = false
-    var lowerText = false
+    fun getRecognizedUpperText(text: String) {
+        _upperText.value = text
+    }
+
+//    var upperText = false
+//    var lowerText = false
 
     fun getImage(image: String) {
         _bookImage.value = image
@@ -80,7 +92,7 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         // to Room
         val exp = Experience(userId, title, author, situation, phrases, image, isProcessed)
         viewModelScope.launch(Dispatchers.IO) {
-            Log.i("Insert to ROom", "success")
+            Log.i("Insert to Room", "success")
             try {
                 repository.insertExp(exp)
             } catch (e: Exception) {
@@ -90,7 +102,7 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
         }
 
         // to FireStore
-        val document = db.collection("experiences").document()
+        val document = Firebase.firestore.collection("experiences").document()
 
         document.set(exp)
             .addOnSuccessListener {
@@ -102,6 +114,7 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
             }
     }
 
+
     val toastMessageLiveData = MutableLiveData<String?>()
 
     private fun showError(message: String?) {
@@ -110,3 +123,5 @@ class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() 
 
 
 }
+
+

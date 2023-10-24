@@ -1,20 +1,19 @@
 package com.example.beenthere
 
-import com.example.beenthere.R
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -23,10 +22,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.beenthere.databinding.ActivityMainBinding
 import com.example.beenthere.ext.getVmFactory
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.example.beenthere.share.ShareFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -54,9 +51,6 @@ class MainActivity : AppCompatActivity() {
         navBottomView.setupWithNavController(navController)
 
         setUpToolbar()
-
-
-
 
 
         val liveTalksCount = MutableLiveData<Int>()
@@ -91,6 +85,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        val fragmentManager: FragmentManager = navHostFragment.childFragmentManager
+//        val fragment: Fragment? = fragmentManager.getPrimaryNavigationFragment()
+//        if (fragment is ShareFragment) {
+//            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        }
+//    }
 
     private fun setUpToolbar() {
 

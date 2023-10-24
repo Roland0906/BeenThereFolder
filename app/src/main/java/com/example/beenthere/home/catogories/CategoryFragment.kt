@@ -81,62 +81,10 @@ class CategoryFragment : Fragment() {
 //        })
 
 
-//        var meaningList: List<Experience>? = null
-//        var communicationList: List<Experience>? = null
-//        var disciplineList: List<Experience>? = null
-//        var learningList: List<Experience>? = null
-//        var workList: List<Experience>? = null
-//        var relationshipList: List<Experience>? = null
-//
-//        binding.recyclerCarouse.adapter = adapter
-//
-//        lifecycleScope.launch {
-//            viewModel.allExp().collect {
-//
-//                meaningList = it.filter { exp ->
-//                    exp.category == CATEGORY.LIFE_MEANING.name
-//                }
-//                communicationList = it.filter { exp2 ->
-//                    exp2.category == CATEGORY.COMMUNICATION.name
-//                }
-//                disciplineList = it.filter { exp3 ->
-//                    exp3.category == CATEGORY.DISCIPLINE.name
-//                }
-//                learningList = it.filter { exp4 ->
-//                    exp4.category == CATEGORY.LEARNING.name
-//                }
-//                workList = it.filter { exp5 ->
-//                    exp5.category == CATEGORY.WORK.name
-//                }
-//                relationshipList = it.filter { exp6 ->
-//                    exp6.category == CATEGORY.RELATIONSHIP.name
-//                }
-//                adapter.submitList(
-//                    when (args) {
-//                        CATEGORY.LIFE_MEANING.name -> meaningList
-//                        CATEGORY.COMMUNICATION.name -> communicationList
-//                        CATEGORY.DISCIPLINE.name -> disciplineList
-//                        CATEGORY.LEARNING.name -> learningList
-//                        CATEGORY.WORK.name -> workList
-//                        else -> relationshipList
-//                    }
-//                )
-//            }
-//        }
+        var list: List<Experience>? = null
 
-        var meaningList: List<Experience>? = null
-        var communicationList: List<Experience>? = null
-        var disciplineList: List<Experience>? = null
-        var learningList: List<Experience>? = null
-        var workList: List<Experience>? = null
-        var relationshipList: List<Experience>? = null
+        var listWithCount: List<ExpWithCount>? = null
 
-        var mList: List<ExpWithCount>? = null
-        var cList: List<ExpWithCount>? = null
-        var dList: List<ExpWithCount>? = null
-        var lList: List<ExpWithCount>? = null
-        var wList: List<ExpWithCount>? = null
-        var rList: List<ExpWithCount>? = null
 
         binding.recyclerCarouse.adapter = adapter
 
@@ -145,22 +93,24 @@ class CategoryFragment : Fragment() {
         binding.textToTalk.visibility = View.GONE
         binding.btnLaunch.visibility = View.GONE
 
+
+
+
+
         lifecycleScope.launch {
 
             viewModel.allExp().collect { it ->
 
+
                 val commentCounts: MutableMap<String, Int> = mutableMapOf()
 
                 for (exp in it) {
-                    if (exp.category != "") {
+                    if (exp.category == args) {
                         val expId = exp.userId + exp.title + exp.situation
                         val commentsQuery = commentCollection.whereEqualTo("expId", expId)
                         commentsQuery.get().addOnSuccessListener { querySnapshot ->
                             val count = querySnapshot.size()
                             commentCounts[expId] = count
-
-                            Log.i("Category query get", querySnapshot.size().toString())
-                            Log.i("Category333", "${commentCounts[expId].toString()} | $expId")
                         }.await()
                     }
 
@@ -170,94 +120,20 @@ class CategoryFragment : Fragment() {
                 binding.textToTalk.visibility = View.VISIBLE
                 binding.btnLaunch.visibility = View.VISIBLE
 
-                meaningList = it.filter { exp ->
-                    exp.category == CATEGORY.LIFE_MEANING.name
+                list = it.filter { exp ->
+                    exp.category == args
                 }
-                mList = meaningList?.map { it.toExpWithCount() }
+                listWithCount = list?.map { it.toExpWithCount() }
 
-                val meaningExpWithCounts = mList?.map { expWithCount ->
-                    Log.i("Category111", expWithCount.exp.userId)
-                    Log.i("Category112", expWithCount.count.toString())
+                val expWithCounts = listWithCount?.map { expWithCount ->
                     val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]?:13
-                    Log.i("Category222",expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation)
-                    Log.i("Catagory323", commentCount.toString())
+                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]?:0
+
                     expWithCount.copy(count = commentCount)
                 }
-                Log.i("Category444", meaningExpWithCounts.toString())
+                Log.i("Category page", expWithCounts.toString())
 
-                communicationList = it.filter { exp2 ->
-                    exp2.category == CATEGORY.COMMUNICATION.name
-                }
-                cList = communicationList?.map { it.toExpWithCount() }
-
-                val communicateExpWithCounts = cList?.map { expWithCount ->
-                    val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]
-                            ?: 0
-                    expWithCount.copy(count = commentCount)
-                }
-
-                disciplineList = it.filter { exp3 ->
-                    exp3.category == CATEGORY.DISCIPLINE.name
-                }
-
-                dList = disciplineList?.map { it.toExpWithCount() }
-
-                val disciplineExpWithCounts = dList?.map { expWithCount ->
-                    val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]
-                            ?: 0
-                    expWithCount.copy(count = commentCount)
-                }
-
-
-                learningList = it.filter { exp4 ->
-                    exp4.category == CATEGORY.LEARNING.name
-                }
-                lList = learningList?.map { it.toExpWithCount() }
-
-                val learningExpWithCounts = lList?.map { expWithCount ->
-                    val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]
-                            ?: 0
-                    expWithCount.copy(count = commentCount)
-                }
-
-                workList = it.filter { exp5 ->
-                    exp5.category == CATEGORY.WORK.name
-                }
-                wList = workList?.map { it.toExpWithCount() }
-
-                val workExpWithCounts = wList?.map { expWithCount ->
-                    val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]
-                            ?: 0
-                    expWithCount.copy(count = commentCount)
-                }
-
-                relationshipList = it.filter { exp6 ->
-                    exp6.category == CATEGORY.RELATIONSHIP.name
-                }
-                rList = relationshipList?.map { it.toExpWithCount() }
-
-                val relationExpWithCounts = rList?.map { expWithCount ->
-                    val commentCount =
-                        commentCounts[expWithCount.exp.userId + expWithCount.exp.title + expWithCount.exp.situation]
-                            ?: 0
-                    expWithCount.copy(count = commentCount)
-                }
-
-                adapter.submitList(
-                    when (args) {
-                        CATEGORY.LIFE_MEANING.name -> meaningExpWithCounts
-                        CATEGORY.COMMUNICATION.name -> communicateExpWithCounts
-                        CATEGORY.DISCIPLINE.name -> disciplineExpWithCounts
-                        CATEGORY.LEARNING.name -> learningExpWithCounts
-                        CATEGORY.WORK.name -> workExpWithCounts
-                        else -> relationExpWithCounts
-                    }
-                )
+                adapter.submitList(expWithCounts)
             }
         }
 
