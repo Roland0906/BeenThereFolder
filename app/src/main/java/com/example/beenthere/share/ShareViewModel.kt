@@ -18,12 +18,30 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
 import java.util.Calendar
 
 class ShareViewModel(private val repository: BeenThereRepository) : ViewModel() {
+
+    private val _query = MutableLiveData<String>()
+    val query: LiveData<String>
+        get() = _query
+
+    init {
+        _query.value = ""
+    }
+
+    fun setSearchQuery(query: String) {
+        _query.value = query
+    }
+
 
 
     private val _bookTitle = MutableLiveData<String>()

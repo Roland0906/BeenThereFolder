@@ -7,9 +7,6 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
-///**
-// * Created by Wayne Chen in Jul. 2019.
-// */
 @Entity(tableName = "books_table")
 @Parcelize
 data class Book(

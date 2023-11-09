@@ -215,7 +215,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_situation"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     app:hintEnabled="false"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"
@@ -251,7 +251,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_phrases"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="80dp"
                     android:layout_marginEnd="16dp"
                     app:hintEnabled="false"
                     android:layout_marginTop="8dp"

@@ -18,6 +18,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.Pair
 import android.view.KeyEvent
@@ -35,7 +36,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.beenthere.BuildConfig
 import com.example.beenthere.R
 import com.example.beenthere.data.User
@@ -47,6 +50,10 @@ import com.example.beenthere.mlkit.VisionImageProcessor
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 
@@ -127,6 +134,7 @@ class ShareFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
+
         var image = ""
 
         binding.btnSearch.setOnClickListener {
@@ -168,6 +176,7 @@ class ShareFragment : Fragment() {
 
 
         binding.selectImageButton.setOnClickListener { view: View ->
+
             // Menu for selecting either: a) take new photo b) select from existing
 
             // one line??
@@ -462,6 +471,8 @@ class ShareFragment : Fragment() {
 //                return
 //            }
 
+            // 把uri轉成bitmap
+
             val imageBitmap =
                 BitmapUtils.getBitmapFromContentUri(requireContext().contentResolver, uri)
                     ?: return
@@ -545,7 +556,6 @@ class ShareFragment : Fragment() {
 
                         REQUEST_IMAGE_CAPTURE -> {
                             Log.i("Share frag", "take photo, text = $recognizedText")
-                            doNothing()
                             viewModel.getRecognizedLowerText(recognizedText)
 
                         }
@@ -561,10 +571,6 @@ class ShareFragment : Fragment() {
             Log.e(TAG, "Error retrieving saved image")
             imageUri = null
         }
-    }
-
-    fun doNothing() {
-
     }
 
     fun playBookAnimation() {
@@ -714,3 +720,4 @@ fun TextView.update(callback: (Editable?) -> Unit) {
         callback.invoke(it)
     }
 }
+

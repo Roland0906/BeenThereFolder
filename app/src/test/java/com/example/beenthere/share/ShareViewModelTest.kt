@@ -33,9 +33,6 @@ class ShareViewModelTest {
         // Given a fresh viewModel
         val shareViewModel = ShareViewModel(repository)
 
-        // Observe the LiveData forever
-//        shareViewModel.upperText.
-
         // When getting new recognized text
         shareViewModel.getRecognizedUpperText("knows everybody's disapproval")
 
@@ -43,21 +40,5 @@ class ShareViewModelTest {
         val value = shareViewModel.upperText.getOrAwaitValueTest()
         assertEquals(value, "knows everybody's disapproval")
     }
-
-//    @Test
-//    fun getRecognizedUpperText_giveInt_returnError() {
-//        // Given a fresh viewModel
-//        val shareViewModel = ShareViewModel(repository)
-//
-//        // Observe the LiveData forever
-////        shareViewModel.upperText.
-//
-//        // When getting new recognized text
-//        shareViewModel.getRecognizedUpperText(0)
-//
-//        // Then the getText function is triggered
-//        val value = shareViewModel.upperText.getOrAwaitValueTest()
-//        assertEquals(value, "knows everybody's disapproval")
-//    }
 
 }

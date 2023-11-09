@@ -1,14 +1,18 @@
 package com.example.beenthere.share
 
 import android.net.Uri
+import android.view.View
 import com.example.beenthere.data.source.BeenThereRepository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
+import com.example.beenthere.MainActivity
 import com.example.beenthere.TestApplication
+import com.example.beenthere.home.HomeFragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import cz.msebera.android.httpclient.client.utils.URIBuilder
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 
 import org.junit.Before
@@ -32,107 +36,56 @@ class ShareFragmentTest {
         const val REQUEST_CHOOSE_IMAGE = 1001
         const val REQUEST_IMAGE_CAPTURE = 1002
         const val recognizedText = "Know everybody's disapproval, should've worshiped her sooner"
-
     }
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var db: FirebaseApp
-
     private val uri = Uri.parse("https://example.com")
+
+    private lateinit var activity: MainActivity
+
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var shareFragment: ShareFragment
 
     @Mock
     private lateinit var repository: BeenThereRepository
 
-    @InjectMocks
-    private lateinit var viewModel: ShareViewModel
-//    @InjectMocks
-    private lateinit var shareFragment: ShareFragment
+    private lateinit var shareViewModel: ShareViewModel
 
-    private lateinit var mockShareViewModel: ShareViewModel
-
-    private lateinit var mockShareFragment: ShareFragment
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
 
-        //        viewModel = ShareViewModel(repository)
-        mockShareViewModel = mock(ShareViewModel::class.java)
+        activity = Robolectric.buildActivity(MainActivity::class.java).create().start().get()
 
-                shareFragment = ShareFragment()
-        //        shareFragment = Robolectric.buildFragment(ShareFragment::class)
-        mockShareFragment = mock(ShareFragment::class.java)
-
-//        val application = ApplicationProvider.getApplicationContext<TestApplication>()
-//        application.onCreate()
-
-//        viewModel = mock<ShareViewModel>()
-//        shareFragment.viewModel = viewModel
-
-
-//        Mockito.`when`(uri.toString()).thenReturn("https://example.com")
-
-
+        homeFragment = HomeFragment()
+        shareFragment = ShareFragment()
+        activity.supportFragmentManager.beginTransaction().add(homeFragment, null).commit()
+        activity.supportFragmentManager.beginTransaction().add(shareFragment, null).commit()
+        shareViewModel = ShareViewModel(repository)
 
     }
 
 
     @Test
     fun testTryReloadAndDetectInImageFromAlbum() {
-//        shareFragment.viewModel = mockShareViewModel
+
         shareFragment.tryReloadAndDetectInImage(uri, REQUEST_CHOOSE_IMAGE)
         println(REQUEST_CHOOSE_IMAGE)
         println(uri)
-        verify(shareFragment).playBookAnimation()
+        val visibility = shareFragment.binding.bookImageResult.visibility
+        assertEquals(View.VISIBLE, visibility)
 
     }
 
     @Test
     fun testTryReloadAndDetectInImageTakePhoto() {
-//        shareFragment.viewModel = mockShareViewModel
-        mockShareFragment.tryReloadAndDetectInImage(uri, REQUEST_IMAGE_CAPTURE)
-        verify(mockShareFragment).doNothing()
+
+        shareFragment.tryReloadAndDetectInImage(uri, REQUEST_IMAGE_CAPTURE)
+        verify(shareViewModel).getRecognizedLowerText(anyString())
 
     }
-
-//    @Test
-//    fun testTryReloadAndDetectInImageFromAlbum() {
-//        // Call the method you want to test
-//        shareFragment.tryReloadAndDetectInImage(null, REQUEST_CHOOSE_IMAGE_UPPER)
-//
-//        // Check if the playBookAnimation method was invoked
-//        val wasPlayBookAnimationCalled = try {
-//            // You can use reflection to access private methods, but it's generally not recommended.
-//            val method = shareFragment.javaClass.getDeclaredMethod("playBookAnimation")
-//            method.isAccessible = true
-//            method.invoke(shareFragment)
-//            true
-//        } catch (e: NoSuchMethodException) {
-//            false
-//        }
-//
-//        assertTrue("playBookAnimation should have been called", wasPlayBookAnimationCalled)
-//    }
-
-//    @Test
-//    fun testTryReloadAndDetectInImageTakePhoto() {
-//
-//        mockShareFragment.viewModel = viewModel
-//        mockShareFragment.tryReloadAndDetectInImage(null, REQUEST_IMAGE_CAPTURE)
-//        verify(mockShareViewModel).getRecognizedLowerText(anyString())
-//
-//    }
-
-//    @Test
-//    fun `insert exp with empty field, returns error`() {
-//
-//        shareFragment.
-//        viewModel.addData("","", "", "", "", "", false)
-//
-//
-//    }
 
 
 }
