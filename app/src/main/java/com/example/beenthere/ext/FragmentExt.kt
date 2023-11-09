@@ -10,11 +10,6 @@ import com.example.beenthere.factory.AdviseViewModelFactory
 import com.example.beenthere.factory.DetailViewModelFactory
 import com.example.beenthere.factory.ViewModelFactory
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Extension functions for Fragment.
- */
 fun Fragment.getVmFactory(): ViewModelFactory {
 
     val repository = (requireContext().applicationContext as BeenThereApplication).beenThereRepository

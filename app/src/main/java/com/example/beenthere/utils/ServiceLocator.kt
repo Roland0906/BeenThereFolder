@@ -7,10 +7,6 @@ import com.example.beenthere.data.source.BeenThereDataSource
 
 import com.example.beenthere.data.source.BeenThereRepository
 
-
-/**
- * A Service Locator for the [StylishRepository].
- */
 object ServiceLocator {
 
     @Volatile

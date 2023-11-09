@@ -14,11 +14,6 @@ import com.example.beenthere.profile.ProfileViewModel
 import com.example.beenthere.share.ShareViewModel
 
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Factory for all ViewModels.
- */
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
     private val beenThereRepository: BeenThereRepository

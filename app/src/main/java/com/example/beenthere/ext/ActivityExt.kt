@@ -7,11 +7,6 @@ import android.widget.Toast
 import com.example.beenthere.BeenThereApplication
 import com.example.beenthere.factory.ViewModelFactory
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Extension functions for Activity.
- */
 fun Activity.getVmFactory(): ViewModelFactory {
     val repository = (applicationContext as BeenThereApplication).beenThereRepository
     return ViewModelFactory(repository)

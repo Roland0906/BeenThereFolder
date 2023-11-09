@@ -9,11 +9,6 @@ import com.example.beenthere.home.catogories.CategoryVM
 import com.example.beenthere.home.catogories.detail.DetailVM
 
 
-/**
- * Created by Wayne Chen in Jul. 2019.
- *
- * Factory for all ViewModels which need [Product].
- */
 @Suppress("UNCHECKED_CAST")
 class DetailViewModelFactory(
     private val beenThereRepository: BeenThereRepository,

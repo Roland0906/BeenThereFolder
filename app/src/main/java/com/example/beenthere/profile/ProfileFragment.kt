@@ -120,6 +120,17 @@ class ProfileFragment : Fragment() {
 
         viewModel.getUser(getUserInfo())
 
+        viewModel.name.observe(viewLifecycleOwner) {
+            if(it.isNotEmpty() && it != "null") {
+                binding.name.visibility = View.VISIBLE
+                binding.quote.visibility = View.VISIBLE
+            } else {
+                binding.name.visibility = View.GONE
+                binding.quote.visibility = View.GONE
+            }
+        }
+
+
         lifecycleScope.launch {
             viewModel.likedExp.collect { likedExp ->
 

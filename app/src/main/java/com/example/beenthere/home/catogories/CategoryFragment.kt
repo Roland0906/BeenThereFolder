@@ -199,8 +199,6 @@ class CategoryFragment : Fragment() {
 
         startActivity(intent)
 
-
-
         Log.i("Category Frag", eventId)
     }
 
